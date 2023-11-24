@@ -31,13 +31,18 @@ const handler = NextAuth({
 
     
   ],
+  session: {
+    strategy: 'jwt',
+    maxAge: 1 * 24 * 60 * 60, // 1 days
+  },
   callbacks: {
     async jwt({ token, user }) {
       return { ...token, ...user };
     },
     async session({ session, token, user }) {
-      session.user = token;
 
+      session.user = token;
+      session.user.email= token.id
       return session;
     },
   },
