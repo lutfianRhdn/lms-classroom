@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 enum Role {
-  ADMIN
   INSTRUCTOR
   STUDENT
 }
@@ -19,13 +18,10 @@ model User {
   id        Int      @id @default(autoincrement())
   username  String   @unique
   name      String?
-  role      Role     @default(STUDENT)
-  class_id  Int?
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
-  class     Classes? @relation(fields: [class_id], references: [id])
   user_course User_course[]
   user_quiz User_quiz[]
 
@@ -34,13 +30,13 @@ model User {
 model Course {
   id        Int      @id @default(autoincrement())
   name      String
+  code      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
   resource Resource[]
   quiz Quiz[]
   user_course User_course[]
-
 }
 
 model Resource {
@@ -66,17 +62,9 @@ model Quiz {
   user_quiz User_quiz[]
 
 }
-model Classes {
-  id        Int      @id @default(autoincrement())
-  name      String
-  users    User[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  deletedAt DateTime?
-
-}
 model User_course {
   id        Int      @id @default(autoincrement())
+  role      Role     @default(STUDENT)
   user_id   Int
   course_id Int
   createdAt DateTime @default(now())
