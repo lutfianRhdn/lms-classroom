@@ -13,34 +13,12 @@ const AdminLayout = ({
     title: string;
     subtitle: string;
 }) => {
-  const menus = [
-    {
-      title: 'Dashboard',
-      icon: faBars,
-      link: '/admin/dashboard',
-    },
-    {
-      title: 'Users',
-      icon: faUsers,
-      link: '/admin/users',
-    },
-    {
-      title: 'Class',
-      icon: faChalkboardUser,
-      link: '/admin/classes',
-    },
-    {
-      title: 'Course',
-      icon: faBookOpenReader,
-      link: '/admin/courses',
-    },
-  ];
+  
   return (
     <>
-      <section className='flex'>
-        <Sidebar menu={menus} />
+      <section className='flex h-screen py-10'>
         <div className='container mx-auto max-w-7xl mt-10 px-6 flex-grow'>
-          <Card className="w-full">
+          <Card className=" ">
             <CardHeader className="flex gap-3">
               <div className="flex flex-col">
                 <p className="text-2xl font-bold">{title || "TItle"}</p>
@@ -53,9 +31,6 @@ const AdminLayout = ({
 
             </CardBody>
           </Card>
-        </div>
-        <div className='pr-2 pt-2'>
-        <ThemeSwitch />
         </div>
 
       </section>

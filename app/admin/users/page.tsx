@@ -6,19 +6,21 @@ import fetchApi from "@/utils/fetchApi";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
+import { useEffect, useState } from "react";
 export const dynamic = 'force-dynamic';
-// urg apri chat adnan
-export default async function Users() {
-  const headers = ['name', 'username','role'];
-  async function  getData() {
-    const users = (await fetchApi('/users', 'GET'));
-    return users.data;
-  }
+export default  function Users() {
+  const headers = ['name', 'username', 'role'];
+  const [data, setData] = useState([]);
   const handleDelete = async (username:string) => {
     await fetchApi(`/users/${username}`, 'DELETE');
       window.location.reload();
   }
-  const data =await getData();
+  useEffect(() => {
+    fetchApi('/users', 'GET').then((res) => setData(res.data));
+  }, [])
+  const handleSearch = async (e: any) => {
+    setData(data.filter((user: any) => user.username.includes(e.target.value)));
+  }
   return (
     <AdminLayout title="User Management" subtitle="Manage your User Here">
       <div className="flex items-center my-5 gap-10 ">
@@ -36,7 +38,8 @@ export default async function Users() {
             ],
             innerWrapper: "bg-transparent",
           }}
-          placeholder="Type to search..."
+          onChange={handleSearch }
+                      placeholder="Type to search..."
           startContent={
             <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
