@@ -2,7 +2,7 @@
 import React,{useContext} from 'react'
 import { MenuContext } from '@/app/context/MenuContext';
 import NextLink from "next/link";
-import { SiteConfig, siteConfig } from '@/config/site';
+import { siteConfig } from '@/config/site';
 function Sidebar() {
   const { open ,toggle }= useContext(MenuContext);
   const closeSeideBarHandler = () => {
