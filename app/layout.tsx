@@ -6,8 +6,14 @@ import { Providers } from "./providers";
 import { Link } from "@nextui-org/link";
 import { Header } from "@/components/header";
 import clsx from "clsx";
+
 import Sidebar from "@/components/sidebar";
 import { MenuContextProvider } from "./context/MenuContext";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import { ThemeSwitch } from "@/components/theme-switch";
+config.autoAddCss = false;
+
 
 export const metadata: Metadata = {
 	title: {
@@ -15,10 +21,10 @@ export const metadata: Metadata = {
 		template: `%s - ${siteConfig.name}`,
 	},
 	description: siteConfig.description,
-	themeColor: [
-		{ media: "(prefers-color-scheme: light)", color: "white" },
-		{ media: "(prefers-color-scheme: dark)", color: "black" },
-	],
+	// themeColor: [
+	// 	// { media: "(prefers-color-scheme: light)", color: "white" },
+	// 	// { media: "(prefers-color-scheme: dark)", color: "black" },
+	// ],
 	icons: {
 		icon: "/favicon.ico",
 		shortcut: "/favicon-16x16.png",
@@ -41,17 +47,18 @@ export default function RootLayout({
 				)} 
 			>
 				<Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-					<MenuContextProvider>
-						<Header/>
+
+       <MenuContextProvider>
+				 <Header/>
 						<div className="relative flex">
-							<Sidebar/>
-							<div className="relative flex flex-grow flex-col h-screen ">
-								<main className="container mx-auto flex-grow">
-									{children}
-								</main>
-							</div>
-						</div>
-					</MenuContextProvider>
+            <Sidebar/>
+					<div className="relative flex flex-col h-screen">
+						<main className="dark:bg-gray-900 bg-gray-200">
+							{children}
+						</main>
+					</div>
+         </div>
+			</MenuContextProvider>
 				</Providers>
 			</body>
 		</html>

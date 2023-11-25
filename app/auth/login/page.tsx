@@ -1,28 +1,35 @@
 'use client'
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {  Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
+  const { data: session } = useSession();
 
   const handleSubmit = (e:any) => {
     e.preventDefault();
     // Add your registration logic here
 
-    console.log("Username:", username);
-    console.log("Password:", password);
     signIn("credentials", {
       username,
       password,
-    }).then((res) => console.log(res))
-      .catch((e) => console.log(e))
+      callbackUrl: `/`,
+    })
     
   };
+  useEffect(() => {
+    if (session) {
+      router.push('/');
+    }
+  },[session])
 
   return (
     <section className="flex flex-col py-10 items-center">

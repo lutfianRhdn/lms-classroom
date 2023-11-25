@@ -19,9 +19,6 @@ const Register = () => {
       username,
       password,
     })
-    console.log(registered)
-    console.log("Username:", username);
-    console.log("Password:", password);
   };
 
   return (

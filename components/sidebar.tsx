@@ -28,8 +28,6 @@ function Sidebar() {
             <span className={`${open ? 'md:block' : 'md:hidden'}`}>{item.label}</span>
           </NextLink>
         ))}
-      
-      
     </aside>
   )
 }
