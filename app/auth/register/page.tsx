@@ -25,7 +25,7 @@ const Register = () => {
   };
 
   return (
-    <section className="flex flex-col items-center">
+    <section className="flex flex-col py-10 items-center">
       <div>
         <h1 className="text-3xl font-bold">Register</h1>
       </div>
