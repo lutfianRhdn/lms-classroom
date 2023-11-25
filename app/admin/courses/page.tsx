@@ -1,28 +1,31 @@
 'use client'
 import { SearchIcon } from "@/components/icons";
+import Modal from "@/components/modal";
 import Table from "@/components/table";
 import AdminLayout from "@/layouts/AdminLayout";
 import fetchApi from "@/utils/fetchApi";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 export const dynamic = 'force-dynamic';
-// urg apri chat adnan
 export default async function Users() {
-  const headers = ['name', 'username','role'];
+  const headers = ['name', 'student count'];
+  const router = useRouter() 
   async function  getData() {
-    const users = (await fetchApi('/users', 'GET'));
-    return users.data;
+    const courses = (await fetchApi('/courses', 'GET'));
+    return courses.data;
   }
-  const handleDelete = async (username:string) => {
-    await fetchApi(`/users/${username}`, 'DELETE');
+  const handleDelete = async (id:number) => {
+    await fetchApi(`/courses/${id}`, 'DELETE');
       window.location.reload();
   }
-  const data =await getData();
-  return (
-    <AdminLayout title="User Management" subtitle="Manage your User Here">
-      <div className="flex items-center my-5 gap-10 ">
+  const data = await getData();
 
+  return (
+    <AdminLayout title="Course Management" subtitle="Manage your Course Here">
+      <div className="flex items-center my-5 gap-10 ">
         <Input
           label="Search"
           isClearable
@@ -42,10 +45,10 @@ export default async function Users() {
           }
           />
 
-        <Button color="primary" className="mr-2" as={Link} href="/admin/users/create">Create New User</Button>
+        <Button color="primary" className="mr-2" as={Link} href="/admin/courses/create">Create New Course</Button>
       </div>
 
-      <Table headers={headers} data={data} uniqueKey="username" module="admin/users" onDelete={handleDelete} />
+      <Table headers={headers} data={data} uniqueKey="id" module="admin/courses" onDelete={handleDelete} />
     </AdminLayout>
   );
 }

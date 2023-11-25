@@ -6,21 +6,28 @@ import fetchApi from "@/utils/fetchApi";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
+import { useEffect, useState } from "react";
 export const dynamic = 'force-dynamic';
-// urg apri chat adnan
-export default async function Users() {
-  const headers = ['name', 'username','role'];
+export default  function Users() {
+  const headers = ['name'];
+  const [data, setData] = useState([]);
   async function  getData() {
-    const users = (await fetchApi('/users', 'GET'));
-    return users.data;
+    const classes = (await fetchApi('/classes', 'GET'));
+    return classes.data;
   }
-  const handleDelete = async (username:string) => {
-    await fetchApi(`/users/${username}`, 'DELETE');
-      window.location.reload();
+  const handleDelete = async (name:string) => {
+    const res = await fetchApi(`/classes/${name}`, 'DELETE');
+    window.location.reload();
   }
-  const data =await getData();
+  useEffect(() => {
+    getData().then((data) => { 
+      setData(data);
+    })
+
+  }, [])
+  // const data =await getData();
   return (
-    <AdminLayout title="User Management" subtitle="Manage your User Here">
+    <AdminLayout title="Class Management" subtitle="Manage your Class Here">
       <div className="flex items-center my-5 gap-10 ">
 
         <Input
@@ -42,10 +49,10 @@ export default async function Users() {
           }
           />
 
-        <Button color="primary" className="mr-2" as={Link} href="/admin/users/create">Create New User</Button>
+        <Button color="primary" className="mr-2" as={Link} href="/admin/classes/create">Create New Class</Button>
       </div>
 
-      <Table headers={headers} data={data} uniqueKey="username" module="admin/users" onDelete={handleDelete} />
+      <Table headers={headers} data={data} uniqueKey="name" module="admin/classes" onDelete={handleDelete} />
     </AdminLayout>
   );
 }

@@ -6,7 +6,6 @@ export default async function fetchApi(
 ) {
   
   const url = process.env.NEXT_PUBLIC_API_URL + path;
-  console.log(url)
   const headers = {
     "Content-Type": "application/json",
   };

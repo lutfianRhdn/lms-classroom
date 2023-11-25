@@ -27,12 +27,12 @@ const AdminLayout = ({
     {
       title: 'Class',
       icon: faChalkboardUser,
-      link: '/admin/class',
+      link: '/admin/classes',
     },
     {
       title: 'Course',
       icon: faBookOpenReader,
-      link: '/admin/class',
+      link: '/admin/courses',
     },
   ];
   return (
@@ -48,7 +48,7 @@ const AdminLayout = ({
               </div>
             </CardHeader>
             <Divider />
-            <CardBody className="min-h-[75vh]" >
+            <CardBody className="h-[75vh]" >
               {children}
 
             </CardBody>
