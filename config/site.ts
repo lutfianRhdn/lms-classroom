@@ -1,6 +1,12 @@
 export type SiteConfig = typeof siteConfig;
-import { faHouse, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
-
+import {
+	faHouse,
+	faRightFromBracket,
+	faBars,
+	faBookOpenReader,
+	faChalkboardUser,
+	faUsers,
+} from '@fortawesome/free-solid-svg-icons'
 export const siteConfig = {
 	name: "UNIKOM LMS",
 	description: "UNIKOM LMS is an online learning media to facilitate the teaching process at Universitas Komputer Indonesia.",
@@ -31,6 +37,38 @@ export const siteConfig = {
 			label: "Home",
 			href: "/",
 			icon: faHouse,
+		},
+		{
+			label: "Logout",
+			href: "/",
+			icon: faRightFromBracket
+		},
+	],
+	navMenuItemsAdmin: [
+	{
+			label: "Home",
+			href: "/",
+			icon: faHouse,
+		},
+		{
+      label: 'Dashboard',
+      icon: faBars,
+      href: '/admin/dashboard',
+    },
+    {
+      label: 'Users',
+      icon: faUsers,
+      href: '/admin/users',
+    },
+    {
+      label: 'Class',
+      icon: faChalkboardUser,
+      href: '/admin/classes',
+    },
+    {
+      label: 'Course',
+      icon: faBookOpenReader,
+      href: '/admin/courses',
 		},
 		{
 			label: "Logout",

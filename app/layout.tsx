@@ -21,10 +21,10 @@ export const metadata: Metadata = {
 		template: `%s - ${siteConfig.name}`,
 	},
 	description: siteConfig.description,
-	// themeColor: [
-	// 	// { media: "(prefers-color-scheme: light)", color: "white" },
-	// 	// { media: "(prefers-color-scheme: dark)", color: "black" },
-	// ],
+	themeColor: [
+		// { media: "(prefers-color-scheme: light)", color: "white" },
+		// { media: "(prefers-color-scheme: dark)", color: "black" },
+	],
 	icons: {
 		icon: "/favicon.ico",
 		shortcut: "/favicon-16x16.png",
@@ -47,18 +47,17 @@ export default function RootLayout({
 				)} 
 			>
 				<Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-
        <MenuContextProvider>
 				 <Header/>
-						<div className="relative flex">
+						<div className="relative flex  ">
             <Sidebar/>
-					<div className="relative flex flex-col h-screen">
-						<main className="dark:bg-gray-900 bg-gray-200">
-							{children}
-						</main>
-					</div>
+						<div className="relative flex flex-grow flex-col ">
+								<main className="dark:bg-gray-900 bg-gray-200 ">
+								{children}
+							</main>
+						</div>
          </div>
-			</MenuContextProvider>
+				</MenuContextProvider>
 				</Providers>
 			</body>
 		</html>
