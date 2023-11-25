@@ -45,8 +45,8 @@ export default function RootLayout({
 						<Header/>
 						<div className="relative flex">
 							<Sidebar/>
-							<div className="relative flex flex-grow flex-col h-screen">
-								<main className="container mx-auto py-2 px-6 flex-grow">
+							<div className="relative flex flex-grow flex-col h-screen ">
+								<main className="container mx-auto flex-grow">
 									{children}
 								</main>
 							</div>

@@ -1,8 +1,10 @@
+import FileIcon from "@/app/assets/fileIcon";
+
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-	name: "Next.js + NextUI",
-	description: "Make beautiful websites regardless of your design experience.",
+	name: "UNIKOM LMS",
+	description: "UNIKOM LMS is an online learning media to facilitate the teaching process at Universitas Komputer Indonesia.",
 	navItems: [
 		{
 			label: "Home",
@@ -29,6 +31,7 @@ export const siteConfig = {
 		{
 			label: "Profile",
 			href: "/",
+			icon: FileIcon,
 		},
 		{
 			label: "Dashboard",
@@ -59,4 +62,18 @@ export const siteConfig = {
 			href: "/",
 		},
 	],
+	navCourseItems: [
+		{
+			label: "Module",
+			href: "/",
+		},
+		{
+			label: "Chatbot",
+			href: "/",
+		},
+		{
+			label: "People",
+			href: "/",
+		}
+	]
 };

@@ -18,8 +18,9 @@ import { ThemeSwitch } from "@/components/theme-switch";
 import { SearchIcon} from "@/components/icons";
 import { useContext } from "react";
 import { MenuContext } from "@/app/context/MenuContext";
+import HamburgerIcon from "@/app/assets/hamburger";
 export const Header = () => {
-	const { toggle } = useContext(MenuContext);
+	const { toggle , open } = useContext(MenuContext);
 	const searchInput = (
 		<Input
 			aria-label="Search"
@@ -37,13 +38,15 @@ export const Header = () => {
 	);
 
 	return (
-		<NextUINavbar maxWidth="full" position="sticky" className="border-solid border-b-2">
+		<NextUINavbar disableAnimation isBordered maxWidth="full" position="sticky">
 			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
-				{/* <NavbarMenuToggle /> */}
-				<Button onClick={toggle}>X</Button>
+				{/* <NavbarMenuToggle onClick={toggle}/> */}
+				<div onClick={toggle}>
+					<HamburgerIcon/>
+				</div>
 				<NavbarBrand as="li" className="gap-3 max-w-fit">
 					<NextLink className="flex justify-start items-center gap-1" href="/">
-						<p className="font-bold text-inherit">LMS</p>
+						<p className="font-bold text-inherit">{siteConfig.name}</p>
 					</NextLink>
 				</NavbarBrand>
 				{/* <ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -69,7 +72,6 @@ export const Header = () => {
 			>
 				<NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
 				<NavbarItem className="flex gap-3">
-					<ThemeSwitch />
 					<Button
 						as={Link}
 						className="font-normal text-default-600 bg-default-100"
@@ -78,6 +80,7 @@ export const Header = () => {
 					>
 						Login
 					</Button>
+					<ThemeSwitch />
 				</NavbarItem>
 			</NavbarContent>
 		</NextUINavbar>

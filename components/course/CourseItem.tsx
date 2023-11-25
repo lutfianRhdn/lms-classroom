@@ -5,7 +5,7 @@ import {Card, CardFooter, CardBody} from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 
 export const CourseItem = ({course}:any) => {
-  const {title} = course || {}; 
+  const { title } = course || {}; 
 	return (
 		<Card className="py-4">
       <CardBody className="py-0 overflow-visible">
