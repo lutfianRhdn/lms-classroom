@@ -1,6 +1,5 @@
-import FileIcon from "@/app/assets/fileIcon";
-
 export type SiteConfig = typeof siteConfig;
+import { faHouse, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 export const siteConfig = {
 	name: "UNIKOM LMS",
@@ -29,37 +28,14 @@ export const siteConfig = {
 	],
 	navMenuItems: [
 		{
-			label: "Profile",
+			label: "Home",
 			href: "/",
-			icon: FileIcon,
-		},
-		{
-			label: "Dashboard",
-			href: "/",
-		},
-		{
-			label: "Projects",
-			href: "/",
-		},
-		{
-			label: "Team",
-			href: "/",
-		},
-		{
-			label: "Calendar",
-			href: "/",
-		},
-		{
-			label: "Settings",
-			href: "/",
-		},
-		{
-			label: "Help & Feedback",
-			href: "/",
+			icon: faHouse,
 		},
 		{
 			label: "Logout",
 			href: "/",
+			icon: faRightFromBracket
 		},
 	],
 	navCourseItems: [
