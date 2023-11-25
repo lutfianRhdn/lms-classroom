@@ -1,8 +1,9 @@
 export type SiteConfig = typeof siteConfig;
+import { faHouse, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 
 export const siteConfig = {
-	name: "Next.js + NextUI",
-	description: "Make beautiful websites regardless of your design experience.",
+	name: "UNIKOM LMS",
+	description: "UNIKOM LMS is an online learning media to facilitate the teaching process at Universitas Komputer Indonesia.",
 	navItems: [
 		{
 			label: "Home",
@@ -27,43 +28,28 @@ export const siteConfig = {
 	],
 	navMenuItems: [
 		{
-			label: "Profile",
-			href: "/profile",
-		},
-		{
-			label: "Dashboard",
-			href: "/dashboard",
-		},
-		{
-			label: "Projects",
-			href: "/projects",
-		},
-		{
-			label: "Team",
-			href: "/team",
-		},
-		{
-			label: "Calendar",
-			href: "/calendar",
-		},
-		{
-			label: "Settings",
-			href: "/settings",
-		},
-		{
-			label: "Help & Feedback",
-			href: "/help-feedback",
+			label: "Home",
+			href: "/",
+			icon: faHouse,
 		},
 		{
 			label: "Logout",
-			href: "/logout",
+			href: "/",
+			icon: faRightFromBracket
 		},
 	],
-	links: {
-		github: "https://github.com/nextui-org/nextui",
-		twitter: "https://twitter.com/getnextui",
-		docs: "https://nextui.org",
-		discord: "https://discord.gg/9b6yyZKmH4",
-    sponsor: "https://patreon.com/jrgarciadev"
-	},
+	navCourseItems: [
+		{
+			label: "Module",
+			href: "/",
+		},
+		{
+			label: "Chatbot",
+			href: "/",
+		},
+		{
+			label: "People",
+			href: "/",
+		}
+	]
 };
