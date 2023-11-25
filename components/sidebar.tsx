@@ -1,37 +1,35 @@
-'use client'
-import { usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
-import { useSession } from "next-auth/react";
-import { ThemeSwitch } from './theme-switch';
+"use client";
+import React,{useContext} from 'react'
+import { MenuContext } from '@/app/context/MenuContext';
+import NextLink from "next/link";
+import { siteConfig } from '@/config/site';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-type SidebarProps = {
-  menu: SidebarItem[];
-}
-type SidebarItem = {
-  title: string;
-  icon: FontAwesomeIconProps['icon'];
-  link: string;
-}
-const Sidebar = ({ menu }: SidebarProps) => {
-  const pathname = usePathname();
-  const { data: session, status } = useSession();
+function Sidebar() {
+  const { open , toggle }= useContext( MenuContext );
+  const closeSeideBarHandler = () => {
+    toggle();
+  };
   return (
-    <>
-      <div className='flex flex-col w-72 h-screen dark:bg-gray-800 bg-white px-4 py-8'>
-        <div className='flex  justify-center'>
-          <h2 className='mt-4 text-xl font-medium dark:text-white'>{session?.user?.name || 'Name'}</h2>
-        </div>
-        <div className='mt-10'>
-          {menu.map((item, index) => (
-            <Link href={item.link} key={index} className={`flex items-center my-3 justify-start dark:text-white px-2 py-1 dark:hover:text-gray-200 ${pathname === item.link ? 'text-gray-200 bg-blue-500 px-2 py-1' : ''}`}>
+    <aside
+      className={`dark:bg-black bg-white fixed md:relative min-h-full -translate-y-[120%] md:translate-y-0 top-25 left-0 right-0 rounded-lg overflow-hidden transition-all duration-200 
+      ${open ? 'translate-y-0 md:w-60 p-4 md:p-0' : 'md:w-20'} shadow-sm z-50 md:z-0`}
+    >
+      {siteConfig.navMenuItems.map((item) => (
+          <NextLink 
+          className={`flex items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2 gap-3`}
+          href={item.href} 
+          key={item.label}
+          onClick={closeSeideBarHandler}
+          >
+            <div className='px-5 hidden md:block'>
               <FontAwesomeIcon icon={item.icon} />
-              <span className='mx-4'>{item.title}</span>
-            </Link>
-          ))}
-        </div></div>
-    </>
-  );
-};
+            </div>
+            <span className={`${open ? 'md:block' : 'md:hidden'}`}>{item.label}</span>
+          </NextLink>
+        ))}
+    </aside>
+  )
+}
 
-export default Sidebar;
+export default Sidebar
