@@ -29,7 +29,7 @@ export default function TabsCourse() {
           href={`/course/${id}`}
           title={
             <div className="flex items-center space-x-2">
-              <span>Module</span>
+              <span className='font-bold'>Module</span>
             </div>
           }
         />
@@ -38,7 +38,7 @@ export default function TabsCourse() {
           href={`/course/${id}/chatbot`}
           title={
             <div className="flex items-center space-x-2">
-              <span>ChatBot</span>
+              <span className='font-bold'>ChatBot</span>
             </div>
           }
         />
@@ -47,7 +47,7 @@ export default function TabsCourse() {
           href={`/course/${id}/people`}
           title={
             <div className="flex items-center space-x-2">
-              <span>People</span>
+              <span className='font-bold'>People</span>
             </div>
           }
         />
