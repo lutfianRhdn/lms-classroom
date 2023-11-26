@@ -177,3 +177,26 @@ export const Resource = [
     createAt: "2021-01-01",
   },
 ]
+
+export const people = [
+  {
+    id:1,
+    name:'Apriana',
+    role:'INSTRUCTOR'
+  },
+  {
+    id:2,
+    name:'Apriana',
+    role:'STUDENT'
+  },
+  {
+    id:3,
+    name:'Apriana',
+    role:'STUDENT'
+  },
+  {
+    id:4,
+    name:'Apriana',
+    role:'STUDENT'
+  },
+]
