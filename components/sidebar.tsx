@@ -5,7 +5,7 @@ import NextLink from "next/link";
 import { siteConfig } from '@/config/site';
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { useSession } from 'next-auth/react';
-
+import { Tooltip } from '@nextui-org/tooltip';
 type menuItems = {
   label: String,
   href: String,
@@ -34,7 +34,9 @@ function Sidebar() {
           key={index} 
           onClick={open?closeSeideBarHandler:undefined}
         >
-          <FontAwesomeIcon icon={item.icon} className={``} />
+          <Tooltip content={item.label} placement="right">
+            <FontAwesomeIcon icon={item.icon} className={``} />
+          </Tooltip>
           <span className={`${open?'md:w-fit px-4':'md:w-0'} md:overflow-hidden transition-all`}>{item.label}</span>
         </NextLink>
         ))}
