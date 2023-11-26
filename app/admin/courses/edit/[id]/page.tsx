@@ -44,8 +44,8 @@ export default function Users({params}:any) {
 
   return (
     <AdminLayout title="Course Management" subtitle="Update your course">
-      <h1 className="text-xl font-bold mb-5">Update Course {name }   </h1>
-      <form onSubmit={handleSubmit} className="max-w-2xl flex flex-col gap-5">
+      <h1 className="text-xl font-bold mb-5 text-center">Update Course {name }   </h1>
+      <form onSubmit={handleSubmit} className="w-full max-w-2xl flex flex-col gap-5 mx-auto">
         <Input type="text" label="Name" placeholder="Enter  name" value={name} onChange={(e: any) => setName(e.target.value)} />
         <div className="flex gap-5 ">
           <Select label="Class" placeholder="Select class" selectionMode="multiple" selectedKeys={class_id} onChange={(e: any) => setClassId(e.target.value)} >

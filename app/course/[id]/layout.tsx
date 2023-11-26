@@ -6,7 +6,7 @@ export default function CourseLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<section>
+		<section className="min-h-screen">
 			<div className="px-8">
       	<TabsCourse/>
 			</div>

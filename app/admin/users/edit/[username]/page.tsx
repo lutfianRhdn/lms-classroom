@@ -45,18 +45,17 @@ export default function Users({params}:any) {
   }, [params]);
   return (
     <AdminLayout title="User Management" subtitle={`Edit your user (${params.username})`}>
-      <h1 className="text-xl font-bold mb-5">Edit User {params.username}   </h1>
-      <form onSubmit={handleSubmit} className="max-w-2xl flex flex-col gap-5">
-      <div>
-
-      {isError && (
-        <Card className="dark:bg-red-400 bg-red-500 text-white">
-          <CardBody>
-            <span>{errorMessage}.</span>
-          </CardBody>
-        </Card>
-      )}
-      </div>
+      <h1 className="text-xl font-bold mb-5 text-center">Edit User {params.username}   </h1>
+      <form onSubmit={handleSubmit} className="w-full max-w-2xl flex flex-col gap-5 mx-auto">
+        <div>
+          {isError && (
+            <Card className="dark:bg-red-400 bg-red-500 text-white">
+              <CardBody>
+                <span>{errorMessage}.</span>
+              </CardBody>
+            </Card>
+          )}
+        </div>
         <Input type="text" label="Username" placeholder="Enter username" value={username} onChange={(e: any) => setUsername(e.target.value)} />
         <Input type="text" label="Name" placeholder="Enter name" value={name} onChange={(e: any) => setName(e.target.value)} />
         <Select label="Role" placeholder="Select role" selectedKeys={[role]} onChange={(e: any) => setRole(roles[e.target.value])}>
@@ -72,10 +71,8 @@ export default function Users({params}:any) {
           </Select>
         )}
         <div className="ml-auto">
-
           <Button color="warning" type="submit">Update</Button>
         </div>
-
       </form>
     </AdminLayout>
   );

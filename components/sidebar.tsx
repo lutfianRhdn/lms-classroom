@@ -12,15 +12,6 @@ type menuItems = {
   icon: FontAwesomeIconProps['icon'],
 }
 
-interface Props {
-  name: string;
-}
-
-interface Props2 extends Props {
-  username: string;
-}
-
-
 function Sidebar() {
   const { open, toggle } = useContext(MenuContext);
   const { data: session } = useSession();
@@ -34,20 +25,18 @@ function Sidebar() {
   };
   return (
     <aside
-      className={``}
+      className={`fixed md:relative top-0 left-0 h-full w-fit z-50 md:z-0 bg-white dark:bg-black shadow-lg transition-all ease-in-out duration-300 px-4 py-4 md:py-2 space-y-5 md:translate-x-0 ${open?'translate-x-0':'-translate-x-full'}`}
     >
-      {navMenuItems.map((item) => (
-          <NextLink 
-          className={`flex items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2 gap-3`}
+      {navMenuItems.map((item,index) => (
+        <NextLink 
+          className={`flex items-center hover:bg-blue-200 hover:text-blue-800 rounded-xl p-2 `}
           href={item.href} 
-          key={item.label}
-          onClick={closeSeideBarHandler}
-          >
-            <div className='px-5 hidden md:block'>
-              <FontAwesomeIcon icon={item.icon} />
-            </div>
-            <span className={`${open ? 'md:block' : 'md:hidden'}`}>{item.label}</span>
-          </NextLink>
+          key={index} 
+          onClick={open?closeSeideBarHandler:undefined}
+        >
+          <FontAwesomeIcon icon={item.icon} className={``} />
+          <span className={`${open?'md:w-fit px-4':'md:w-0'} md:overflow-hidden transition-all`}>{item.label}</span>
+        </NextLink>
         ))}
     </aside>
   )

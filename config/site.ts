@@ -6,6 +6,7 @@ import {
 	faBookOpenReader,
 	faChalkboardUser,
 	faUsers,
+	faTableColumns
 } from '@fortawesome/free-solid-svg-icons'
 export const siteConfig = {
 	name: "UNIKOM LMS",
@@ -52,7 +53,7 @@ export const siteConfig = {
 		},
 		{
       label: 'Dashboard',
-      icon: faBars,
+      icon: faTableColumns,
       href: '/admin/dashboard',
     },
     {
