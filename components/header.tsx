@@ -18,7 +18,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown,DropdownItem, DropdownMenu,DropdownTrigger,Avatar,AvatarIcon } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
-
+import { signOut } from "next-auth/react";
 export const Header = () => {
 	const { toggle , open } = useContext(MenuContext);
 	const { data: session } = useSession();
@@ -92,7 +92,7 @@ export const Header = () => {
 								<p className="font-semibold">{userData?.username}</p>
 							</DropdownItem>
 							<DropdownItem key="settings">My Settings</DropdownItem>
-							<DropdownItem key="logout" color="danger">
+							<DropdownItem key="logout" color="danger" onClick={()=>signOut()}>
 								Log Out
 							</DropdownItem>
 						</DropdownMenu>
