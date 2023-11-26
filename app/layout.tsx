@@ -47,17 +47,19 @@ export default function RootLayout({
 				)} 
 			>
 				<Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-       <MenuContextProvider>
-				 <Header/>
-						<div className="relative flex  ">
-            <Sidebar/>
-						<div className="relative flex flex-grow flex-col ">
-								<main className="dark:bg-gray-900 bg-gray-200 ">
-								{children}
-							</main>
+					<MenuContextProvider>
+						<Header/>
+						<div className="relative flex">
+							<div className="flex-shrink min-h-screen">
+								<Sidebar/>
+							</div>
+							<div className="relative flex flex-grow flex-col ">
+								<main className="dark:bg-gray-900 bg-gray-200 min-h-full">
+									{children}
+								</main>
+							</div>
 						</div>
-         </div>
-				</MenuContextProvider>
+					</MenuContextProvider>
 				</Providers>
 			</body>
 		</html>

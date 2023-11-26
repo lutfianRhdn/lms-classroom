@@ -51,7 +51,6 @@ export default  function Users() {
 
         <Button color="primary" className="mr-2" as={Link} href="/admin/classes/create">Create New Class</Button>
       </div>
-
       <Table headers={headers} data={data} uniqueKey="name" module="admin/classes" onDelete={handleDelete} />
     </AdminLayout>
   );

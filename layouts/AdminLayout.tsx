@@ -16,9 +16,9 @@ const AdminLayout = ({
   
   return (
     <>
-      <section className='flex h-screen py-10'>
+      <section className='flex h-screen py-5'>
         <div className='container mx-auto max-w-7xl mt-10 px-6 flex-grow'>
-          <Card className=" ">
+          <Card className="px-5 py-2">
             <CardHeader className="flex gap-3">
               <div className="flex flex-col">
                 <p className="text-2xl font-bold">{title || "TItle"}</p>
@@ -28,7 +28,6 @@ const AdminLayout = ({
             <Divider />
             <CardBody className="h-[75vh]" >
               {children}
-
             </CardBody>
           </Card>
         </div>

@@ -25,8 +25,8 @@ export default function Edit({ params }: { params: { slug: string } }) {
   }, [name])
   return (
     <AdminLayout title="User Management" subtitle="Create your user">
-      <h1 className="text-xl font-bold mb-5">Edit Class { name}  </h1>
-      <form onSubmit={handleSubmit} className="max-w-2xl flex flex-col gap-5">
+      <h1 className="text-xl font-bold mb-5 text-center">Edit Class { name}  </h1>
+      <form onSubmit={handleSubmit} className="w-full max-w-2xl flex flex-col gap-5 mx-auto">
         <Input type="text" label="Class Name" placeholder="Enter Class Name" errorMessage={errorMessage} value={className} onChange={(e) => setClassName(e.target.value)} />
         <Button color="warning" type="submit">Update</Button>
 

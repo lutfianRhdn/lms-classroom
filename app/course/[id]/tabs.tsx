@@ -5,6 +5,7 @@ import { Tab,Tabs } from '@nextui-org/tabs'
 import NextLink from 'next/link'
 import {usePathname} from "next/navigation";
 import { useParams } from 'next/navigation';
+import { siteConfig } from '@/config/site';
 export default function TabsCourse() {
   const pathname = usePathname();
   const { id } = useParams();
@@ -46,7 +47,7 @@ export default function TabsCourse() {
           href={`/course/${id}/people`}
           title={
             <div className="flex items-center space-x-2">
-              <span>Orang</span>
+              <span>People</span>
             </div>
           }
         />
