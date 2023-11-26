@@ -15,7 +15,7 @@ export default  function Users() {
   const router = useRouter();
   async function handleSubmit(e:any) {
     e.preventDefault();
-    const res = await fetchApi('/users', 'POST', {
+    const res = await fetchApi('/admin/users', 'POST', {
       username,
       name,
       role,
@@ -26,7 +26,7 @@ export default  function Users() {
     } 
   }
   useEffect(() => {
-    fetchApi('/classes', 'GET').then(res => {
+    fetchApi('/admin/classes', 'GET').then(res => {
       setClasses(res.data);
     });
 

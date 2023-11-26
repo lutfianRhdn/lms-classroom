@@ -14,12 +14,12 @@ export default function Edit({ params }: { params: { slug: string } }) {
   const {name}= params 
   async function handleSubmit(e: any) {
     e.preventDefault();
-    const res = await fetchApi(`/classes/${name}`, 'PUT', { class: className })
+    const res = await fetchApi(`/admin/classes/${name}`, 'PUT', { class: className })
     if (!res.data) setErrorMessage(res.message);
     // return router.push('/admin/classes');
   }
   useEffect(() => {
-    fetchApi(`/classes?name=${name}`, 'GET').then(res => {
+    fetchApi(`/admin/classes?name=${name}`, 'GET').then(res => {
       setClassName(res.data[0].name)
     })
   }, [name])

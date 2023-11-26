@@ -12,7 +12,7 @@ export default  function Users() {
   const router = useRouter();
   async function handleSubmit(e:any) {
     e.preventDefault();
-    const res = await fetchApi('/classes', 'POST', { class: className })
+    const res = await fetchApi('/admin/classes', 'POST', { class: className })
     if(!res.data) setErrorMessage(res.message);
     return router.push('/admin/classes');
   }

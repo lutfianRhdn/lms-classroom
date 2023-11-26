@@ -12,11 +12,11 @@ export default  function Users() {
   const headers = ['name', 'username', 'role'];
   const [data, setData] = useState([]);
   const handleDelete = async (username:string) => {
-    await fetchApi(`/users/${username}`, 'DELETE');
+    await fetchApi(`/admin/users/${username}`, 'DELETE');
       window.location.reload();
   }
   useEffect(() => {
-    fetchApi('/users', 'GET').then((res) => setData(res.data));
+    fetchApi('/admin/users', 'GET').then((res) => setData(res.data));
   }, [])
   const handleSearch = async (e: any) => {
     setData(data.filter((user: any) => user.username.includes(e.target.value)));
