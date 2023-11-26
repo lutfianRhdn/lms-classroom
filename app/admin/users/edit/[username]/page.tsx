@@ -19,7 +19,7 @@ export default function Users({params}:any) {
 
   async function handleSubmit(e: any) {
     e.preventDefault();
-    const res = await fetchApi(`/users/${params.username}`, 'PUT', {
+    const res = await fetchApi(`/admin/users/${params.username}`, 'PUT', {
       username,
       name,
       role,
@@ -33,10 +33,10 @@ export default function Users({params}:any) {
     router.push('/admin/users');
   }
   useEffect(() => {
-    fetchApi('/classes', 'GET').then(res => {
+    fetchApi('/admin/classes', 'GET').then(res => {
       setClasses(res.data);
     });
-    fetchApi(`/users?username=${params.username}`, 'GET').then((res:any) => {
+    fetchApi(`/admin/users?username=${params.username}`, 'GET').then((res:any) => {
       setUsername(res.data[0].username);
       setName(res.data[0].name);
       setRole(res.data[0].role);

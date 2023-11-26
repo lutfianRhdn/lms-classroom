@@ -16,7 +16,7 @@ export default function Users({params}:any) {
   const router = useRouter();
   async function handleSubmit(e: any) {
     e.preventDefault();
-    const res = await fetchApi(`/courses/${params.id}`, 'PUT', {
+    const res = await fetchApi(`/admin/courses/${params.id}`, 'PUT', {
       name,
       class_ids: class_id.split(',').map((id: any) => parseInt(id)),
       instructor_id: instructorId
@@ -26,13 +26,13 @@ export default function Users({params}:any) {
     }
   }
   useEffect(() => {
-    fetchApi('/classes', 'GET').then(res => {
+    fetchApi('/admin/classes', 'GET').then(res => {
       setClasses(res.data);
     });
-    fetchApi('/users', 'GET').then(res => {
+    fetchApi('/admin/users', 'GET').then(res => {
       setUsers(res.data.filter((user: any) => user.role == 'INSTRUCTOR'));
     });
-    fetchApi(`/courses?id=${params.id}`, 'GET').then((res):any => {
+    fetchApi(`/admin/courses?id=${params.id}`, 'GET').then((res):any => {
       const course_name = res.data[0].name;
       const class_ids = res.data.filter((course: any) => course.role == 'STUDENT').map((course: any) => course.class_id);
       const instructor_id = res.data.filter((course: any) => course.role == 'INSTRUCTOR')[0].instructor_id.toString();

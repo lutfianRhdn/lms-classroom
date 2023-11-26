@@ -8,20 +8,26 @@ import { Button, ButtonGroup } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 export const dynamic = 'force-dynamic';
-export default async function Users() {
+export default  function Users() {
   const headers = ['name', 'student count'];
+  const [data, setData] = useState([]);
   const router = useRouter() 
   async function  getData() {
-    const courses = (await fetchApi('/courses', 'GET'));
+    const courses = (await fetchApi('/admin/courses', 'GET'));
     return courses.data;
   }
   const handleDelete = async (id:number) => {
-    await fetchApi(`/courses/${id}`, 'DELETE');
+    await fetchApi(`/admin/courses/${id}`, 'DELETE');
       window.location.reload();
   }
-  const data = await getData();
+  useEffect(() => {
+    getData().then((res) => { 
+      setData(res);
+    })
+
+  },[])
 
   return (
     <AdminLayout title="Course Management" subtitle="Manage your Course Here">

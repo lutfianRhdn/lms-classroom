@@ -12,11 +12,11 @@ export default  function Users() {
   const headers = ['name'];
   const [data, setData] = useState([]);
   async function  getData() {
-    const classes = (await fetchApi('/classes', 'GET'));
+    const classes = (await fetchApi('/admin/classes', 'GET'));
     return classes.data;
   }
   const handleDelete = async (name:string) => {
-    const res = await fetchApi(`/classes/${name}`, 'DELETE');
+    const res = await fetchApi(`/admin/classes/${name}`, 'DELETE');
     window.location.reload();
   }
   useEffect(() => {
