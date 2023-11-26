@@ -1,4 +1,5 @@
 'use client'
+
 import { SearchIcon } from "@/components/icons";
 import Table from "@/components/table";
 import AdminLayout from "@/layouts/AdminLayout";
@@ -8,9 +9,13 @@ import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { useEffect, useState } from "react";
 export const dynamic = 'force-dynamic';
+
 export default  function Users() {
   const headers = ['name'];
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState('');
+  const [searchData, setSearchData] = useState([]);
+
   async function  getData() {
     const classes = (await fetchApi('/admin/classes', 'GET'));
     return classes.data;
@@ -23,9 +28,10 @@ export default  function Users() {
     getData().then((data) => { 
       setData(data);
     })
-
   }, [])
-  // const data =await getData();
+  useEffect(() => {
+    setSearchData(data.filter((item: any) => item.name.includes(search)));
+  }, [search])
   return (
     <AdminLayout title="Class Management" subtitle="Manage your Class Here">
       <div className="flex items-center my-5 gap-10 ">
@@ -44,6 +50,7 @@ export default  function Users() {
             innerWrapper: "bg-transparent",
           }}
           placeholder="Type to search..."
+          onChange={(e)=>setSearch(e.target.value)}
           startContent={
             <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
@@ -51,7 +58,7 @@ export default  function Users() {
 
         <Button color="primary" className="mr-2" as={Link} href="/admin/classes/create">Create New Class</Button>
       </div>
-      <Table headers={headers} data={data} uniqueKey="name" module="admin/classes" onDelete={handleDelete} />
+      <Table headers={headers} data={search == ''?data:searchData} uniqueKey="name" module="admin/classes" onDelete={handleDelete} />
     </AdminLayout>
   );
 }

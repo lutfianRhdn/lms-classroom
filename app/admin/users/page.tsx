@@ -1,4 +1,5 @@
 'use client'
+
 import { SearchIcon } from "@/components/icons";
 import Table from "@/components/table";
 import AdminLayout from "@/layouts/AdminLayout";
@@ -8,25 +9,32 @@ import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { useEffect, useState } from "react";
 export const dynamic = 'force-dynamic';
+
 export default  function Users() {
   const headers = ['name', 'username', 'role'];
+  const [search, setSearch] = useState('');
   const [data, setData] = useState([]);
+  const [searchData, setSearchData] = useState([]);
+
   const handleDelete = async (username:string) => {
     await fetchApi(`/admin/users/${username}`, 'DELETE');
       window.location.reload();
   }
+
   useEffect(() => {
     fetchApi('/admin/users', 'GET').then((res) => setData(res.data));
   }, [])
-  const handleSearch = async (e: any) => {
-    setData(data.filter((user: any) => user.username.includes(e.target.value)));
-  }
+
+  useEffect(() => {
+    setSearchData(data.filter((user: any) => user.name.includes(search)));
+  }, [search])
+
   return (
     <AdminLayout title="User Management" subtitle="Manage your User Here">
       <div className="flex items-center my-5 gap-10 ">
 
         <Input
-          label="Search"
+          label="Search Name"
           isClearable
           radius="lg"
           classNames={{
@@ -38,8 +46,8 @@ export default  function Users() {
             ],
             innerWrapper: "bg-transparent",
           }}
-          onChange={handleSearch }
-                      placeholder="Type to search..."
+          onChange={(e)=>setSearch(e.target.value)}
+          placeholder="Type to search..."
           startContent={
             <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
@@ -48,7 +56,7 @@ export default  function Users() {
         <Button color="primary" className="mr-2" as={Link} href="/admin/users/create">Create New User</Button>
       </div>
 
-      <Table headers={headers} data={data} uniqueKey="username" module="admin/users" onDelete={handleDelete} />
+      <Table headers={headers} data={search==''?data:searchData} uniqueKey="username" module="admin/users" onDelete={handleDelete} />
     </AdminLayout>
   );
 }

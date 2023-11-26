@@ -39,11 +39,6 @@ export const siteConfig = {
 			href: "/",
 			icon: faHouse,
 		},
-		{
-			label: "Logout",
-			href: "/",
-			icon: faRightFromBracket
-		},
 	],
 	navMenuItemsAdmin: [
 	{
