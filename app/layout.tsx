@@ -54,7 +54,7 @@ export default function RootLayout({
 								<Sidebar/>
 							</div>
 							<div className="relative flex flex-grow flex-col ">
-								<main className="dark:bg-gray-900 bg-gray-200 ">
+								<main className="dark:bg-gray-900 bg-gray-200 min-h-full">
 									{children}
 								</main>
 							</div>

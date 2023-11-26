@@ -71,11 +71,6 @@ export const siteConfig = {
       icon: faBookOpenReader,
       href: '/admin/courses',
 		},
-		{
-			label: "Logout",
-			href: "/",
-			icon: faRightFromBracket
-		},
 	],
 	navCourseItems: [
 		{
