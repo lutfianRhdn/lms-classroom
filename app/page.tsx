@@ -5,8 +5,10 @@ import { CourseList } from "@/components/course/CourseList";
 import { Course } from "@/config/data-dummy";
 import fetchApi from "@/utils/fetchApi";
 import EmptyCourse from "@/components/course/emptyCourse";
+import { Spinner } from "@nextui-org/react";
 export default function Home() {
 	const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 	async function  getData() {
     const courses = (await fetchApi('/courses', 'GET'));
     return courses.data;
@@ -14,12 +16,14 @@ export default function Home() {
   useEffect(()=>{
     getData().then((res)=>{
       setData(res)
+      setLoading(false)
     })
   },[])
-  console.log(data)
+  if (loading) return <Spinner className="w-full text-center h-screen"/>
 	return (
 		<section className="flex flex-col items-start justify-center gap-4 p-8">
-			{data?.length > 0 ?<CourseList data={data}/> : <EmptyCourse/> }
+      {data?.length > 0 ? <CourseList data={data}/>
+      :<EmptyCourse/> }
 		</section>
 	);
 }
