@@ -11,9 +11,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
+import { useSession } from 'next-auth/react';
 export default function page({params}:any) {
+  const { data:session } = useSession();
   const [data, setData] = useState([]);
-  const [isShownUpload, setIsShownUpload] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [canUpload, setCanUpload] = useState(false); 
   const [name, setName] = useState('');
   const [file, setFile] = useState(null);
   const course = Course.find((course) => course.id == params.id);
@@ -30,7 +33,6 @@ export default function page({params}:any) {
       body: formData,
     })
     if (res) {
-      setIsShownUpload(false);
       getData().then((res)=>{
         setData(res)
       })
@@ -38,12 +40,13 @@ export default function page({params}:any) {
     }
   }
   useEffect(()=>{
+    if (session?.user?.role !== 'STUDENT' && session) setCanUpload(true)
     getData().then((res)=>{
       setData(res)
     })
   },[])
   return (
-    <section className='w-full max-w-4xl py-2 px-5'>
+    <section className='w-full max-w-4xl py-2 px-5 flex flex-col gap-5'>
       <section>
         <Card className="w-full h-60 col-span-12 sm:col-span-7">
           <Image
@@ -58,30 +61,35 @@ export default function page({params}:any) {
           </CardFooter>
         </Card>
       </section>
-      <section className='py-8'>
-        {data?.resource?.length > 0 ? <ModuleList data={data?.resource}/> : <EmptyModule/>}
-      </section>
-      <section className='fixed right-10 bottom-0  shadow-lg'>
-        <section className='bg-gray-300 px-5 py-3 rounded-t-lg cursor-pointer shadow' onClick={() => setIsShownUpload(!isShownUpload)} ><FontAwesomeIcon icon={faUpload} className='ml-4 text-gray-800' /> Upload Some Resource </section>
-        
-        <form onSubmit={handleUpload} className={`bg-white px-5 py-3 flex flex-col gap-5 ${!isShownUpload && 'hidden' } `}> 
+      {canUpload && <section className='bg-white px-6 py-4 rounded-xl'>
+        <form onSubmit={handleUpload} className={`flex flex-col`}> 
           <Input
             isRequired
             type="text"
             name='name'
-            label="Name"
-            className="max-w-xs shadow"
+            label="File Name"
+            className="shadow"
+            onFocus={()=>setOpen(true)}
           />
-          <input
-            type="file"
-            className="max-w-xs"
-            name='file'
-          />
-          <Button color="primary" className="max-w-xs" type='submit'>
-            Upload
-          </Button>
+          <div className={`flex gap-3 ${open?'h-fit mt-4' :'h-0'} overflow-hidden transition-all`}>
+            <input
+              type="file"
+              className="flex-1"
+              name='file'
+            />
+            <Button color="default" className="max-w-xs" type='reset' onClick={()=>setOpen(false)}>
+              Cancel
+            </Button>
+            <Button color="primary" className="max-w-xs" type='submit'>
+              Upload
+            </Button>
+          </div>
         </form>
+      </section>}
+      <section>
+        {data?.resource?.length > 0 ? <ModuleList data={data?.resource}/> : <EmptyModule/>}
       </section>
+      
     </section>
   )
 }
