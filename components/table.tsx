@@ -26,7 +26,7 @@ export default function Table({ headers, module, data, uniqueKey, onDelete }:Pro
 
         </TableHeader>
         <TableBody>
-          {data.map((row, index) => (
+          {data?.map((row, index) => (
             <TableRow key={index}>
               {headers.map((header, index) => (
                 <TableCell className=" text-center" key={index}>{row[header]}</TableCell>

@@ -17,8 +17,8 @@ export default function Home() {
     })
   },[])
 	return (
-		<section className="flex flex-col items-center justify-center gap-4 p-8">
-			{data.length > 0 ?<CourseList data={data}/> : <EmptyCourse/> }
+		<section className="flex flex-col items-start justify-center gap-4 p-8">
+			{data?.length > 0 ?<CourseList data={data}/> : <EmptyCourse/> }
 		</section>
 	);
 }
