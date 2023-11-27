@@ -8,7 +8,7 @@ import EmptyCourse from "@/components/course/emptyCourse";
 export default function Home() {
 	const [data, setData] = useState([]);
 	async function  getData() {
-    const courses = (await fetchApi('/admin/courses', 'GET'));
+    const courses = (await fetchApi('/courses', 'GET'));
     return courses.data;
   }
   useEffect(()=>{
@@ -16,6 +16,7 @@ export default function Home() {
       setData(res)
     })
   },[])
+  console.log(data)
 	return (
 		<section className="flex flex-col items-start justify-center gap-4 p-8">
 			{data?.length > 0 ?<CourseList data={data}/> : <EmptyCourse/> }
