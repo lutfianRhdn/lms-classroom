@@ -7,6 +7,7 @@ import fetchApi from "@/utils/fetchApi";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
+import { Spinner } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 export const dynamic = 'force-dynamic';
 
@@ -15,14 +16,22 @@ export default  function Users() {
   const [search, setSearch] = useState('');
   const [data, setData] = useState([]);
   const [searchData, setSearchData] = useState([]);
-
+  const [loading, setLoading] = useState(true); 
   const handleDelete = async (username:string) => {
     await fetchApi(`/admin/users/${username}`, 'DELETE');
       window.location.reload();
   }
 
+  async function  getData() {
+    const users = (await fetchApi('/admin/users', 'GET'));
+    return users.data;
+  }
+
   useEffect(() => {
-    fetchApi('/admin/users', 'GET').then((res) => setData(res.data));
+    getData().then((res) => {
+      setData(res);
+      setLoading(false);
+    })
   }, [])
 
   useEffect(() => {
@@ -55,8 +64,7 @@ export default  function Users() {
 
         <Button color="primary" className="mr-2" as={Link} href="/admin/users/create">Create New User</Button>
       </div>
-
-      <Table headers={headers} data={search==''?data:searchData} uniqueKey="username" module="admin/users" onDelete={handleDelete} />
+      {loading ? <Spinner className="w-full text-center"/>:<Table headers={headers} data={search==''?data:searchData} uniqueKey="username" module="admin/users" onDelete={handleDelete} />}
     </AdminLayout>
   );
 }

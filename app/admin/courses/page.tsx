@@ -8,6 +8,7 @@ import fetchApi from "@/utils/fetchApi";
 import { Button, ButtonGroup } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
+import { Spinner } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 export const dynamic = 'force-dynamic';
@@ -18,7 +19,7 @@ export default  function Users() {
   const [search, setSearch] = useState('');
   const [searchData, setSearchData] = useState([]);
   const router = useRouter() 
-
+  const [loading, setLoading] = useState(true);
   async function  getData() {
     const courses = (await fetchApi('/admin/courses', 'GET'));
     return courses.data;
@@ -31,6 +32,7 @@ export default  function Users() {
   useEffect(() => {
     getData().then((res) => { 
       setData(res);
+      setLoading(false);
     })
 
   },[])
@@ -65,7 +67,7 @@ export default  function Users() {
         <Button color="primary" className="mr-2" as={Link} href="/admin/courses/create">Create New Course</Button>
       </div>
 
-      <Table headers={headers} data={search == ''?data:searchData} uniqueKey="id" module="admin/courses" onDelete={handleDelete} />
+      {loading? <Spinner className="w-full text-center"/>:<Table headers={headers} data={search == ''?data:searchData} uniqueKey="id" module="admin/courses" onDelete={handleDelete} />}
     </AdminLayout>
   );
 }
