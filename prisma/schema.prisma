@@ -91,6 +91,7 @@ model User_quiz {
   id        Int      @id @default(autoincrement())
   user_id   Int
   quiz_id   Int
+  score     Int
   answer    Json @default("[]")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
