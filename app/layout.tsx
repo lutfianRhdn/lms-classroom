@@ -3,9 +3,17 @@ import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Providers } from "./providers";
-import { Navbar } from "@/components/navbar";
 import { Link } from "@nextui-org/link";
+import { Header } from "@/components/header";
 import clsx from "clsx";
+
+import Sidebar from "@/components/sidebar";
+import { MenuContextProvider } from "./context/MenuContext";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import { ThemeSwitch } from "@/components/theme-switch";
+config.autoAddCss = false;
+
 
 export const metadata: Metadata = {
 	title: {
@@ -14,8 +22,8 @@ export const metadata: Metadata = {
 	},
 	description: siteConfig.description,
 	themeColor: [
-		{ media: "(prefers-color-scheme: light)", color: "white" },
-		{ media: "(prefers-color-scheme: dark)", color: "black" },
+		// { media: "(prefers-color-scheme: light)", color: "white" },
+		// { media: "(prefers-color-scheme: dark)", color: "black" },
 	],
 	icons: {
 		icon: "/favicon.ico",
@@ -39,23 +47,19 @@ export default function RootLayout({
 				)} 
 			>
 				<Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
-					<div className="relative flex flex-col h-screen">
-						{/* <Navbar /> */}
-						<main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
-							{children}
-						</main>
-						<footer className="w-full flex items-center justify-center py-3">
-							<Link
-								isExternal
-								className="flex items-center gap-1 text-current"
-								href="https://nextui-docs-v2.vercel.app?utm_source=next-app-template"
-								title="nextui.org homepage"
-							>
-								<span className="text-default-600">Powered by</span>
-								<p className="text-primary">NextUI</p>
-							</Link>
-						</footer>
-					</div>
+					<MenuContextProvider>
+						<Header/>
+						<div className="relative flex">
+							<div className="flex-shrink min-h-screen">
+								<Sidebar/>
+							</div>
+							<div className="relative flex flex-grow flex-col ">
+								<main className="dark:bg-gray-900 bg-gray-200 min-h-full">
+									{children}
+								</main>
+							</div>
+						</div>
+					</MenuContextProvider>
 				</Providers>
 			</body>
 		</html>

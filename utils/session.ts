@@ -1,5 +1,6 @@
 import { getServerSession } from 'next-auth';
 import { PrismaClient } from '@prisma/client';
+import { User } from '@/types';
 export default async function getSessionUser() {
   const prisma = new PrismaClient();
   const session = await getServerSession();
@@ -9,5 +10,5 @@ export default async function getSessionUser() {
       id: parseInt(session?.user?.email ||'0')
     },
   });
-  return user;
+  return user as User;
 }

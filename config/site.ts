@@ -1,8 +1,16 @@
 export type SiteConfig = typeof siteConfig;
-
+import {
+	faHouse,
+	faRightFromBracket,
+	faBars,
+	faBookOpenReader,
+	faChalkboardUser,
+	faUsers,
+	faTableColumns
+} from '@fortawesome/free-solid-svg-icons'
 export const siteConfig = {
-	name: "Next.js + NextUI",
-	description: "Make beautiful websites regardless of your design experience.",
+	name: "UNIKOM LMS",
+	description: "UNIKOM LMS is an online learning media to facilitate the teaching process at Universitas Komputer Indonesia.",
 	navItems: [
 		{
 			label: "Home",
@@ -27,43 +35,50 @@ export const siteConfig = {
 	],
 	navMenuItems: [
 		{
-			label: "Profile",
-			href: "/profile",
-		},
-		{
-			label: "Dashboard",
-			href: "/dashboard",
-		},
-		{
-			label: "Projects",
-			href: "/projects",
-		},
-		{
-			label: "Team",
-			href: "/team",
-		},
-		{
-			label: "Calendar",
-			href: "/calendar",
-		},
-		{
-			label: "Settings",
-			href: "/settings",
-		},
-		{
-			label: "Help & Feedback",
-			href: "/help-feedback",
-		},
-		{
-			label: "Logout",
-			href: "/logout",
+			label: "Home",
+			href: "/",
+			icon: faHouse,
 		},
 	],
-	links: {
-		github: "https://github.com/nextui-org/nextui",
-		twitter: "https://twitter.com/getnextui",
-		docs: "https://nextui.org",
-		discord: "https://discord.gg/9b6yyZKmH4",
-    sponsor: "https://patreon.com/jrgarciadev"
-	},
+	navMenuItemsAdmin: [
+	{
+			label: "Home",
+			href: "/",
+			icon: faHouse,
+		},
+		{
+      label: 'Dashboard',
+      icon: faTableColumns,
+      href: '/admin/dashboard',
+    },
+    {
+      label: 'Users',
+      icon: faUsers,
+      href: '/admin/users',
+    },
+    {
+      label: 'Class',
+      icon: faChalkboardUser,
+      href: '/admin/classes',
+    },
+    {
+      label: 'Course',
+      icon: faBookOpenReader,
+      href: '/admin/courses',
+		},
+	],
+	navCourseItems: [
+		{
+			label: "Module",
+			href: "/",
+		},
+		{
+			label: "Chatbot",
+			href: "/",
+		},
+		{
+			label: "People",
+			href: "/",
+		}
+	]
 };
