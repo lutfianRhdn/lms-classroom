@@ -11,7 +11,7 @@ export default function TabsCourse() {
   const { id } = useParams();
   
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col bg-white px-8">
       <Tabs 
         aria-label="Options" 
         color="primary" 

@@ -7,9 +7,7 @@ export default function CourseLayout({
 }) {
 	return (
 		<section className="min-h-screen">
-			<div className="px-8">
-      	<TabsCourse/>
-			</div>
+      <TabsCourse/>
       <div className="flex justify-center items-center py-2">
 			  {children}
       </div>
