@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.3.0",
+    "@azure/identity": "^4.0.0",
     "@azure/openai": "^1.0.0-beta.7",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-brands-svg-icons": "^6.4.2",
