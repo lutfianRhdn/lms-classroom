@@ -7,9 +7,9 @@ import { faFileLines } from '@fortawesome/free-solid-svg-icons'
 import NextLink from 'next/link';
 import { showFormattedDate } from '@/utils/timeStamp';
 export default function ModuleItem({module}:any) {
-  const { name,createdAt, path } = module || {};
+  const { id,name,createdAt, path } = module || {};
   return (
-    <NextLink href={path}>
+    <NextLink href={path?path:`/quiz/${id}`}>
       <Card className="flex gap-3 flex-row py-2 px-4 hover:scale-105 cursor-pointer">
         <div className='rounded-3xl w-10 bg-blue-500 flex justify-center items-center p-2'>
           <FontAwesomeIcon icon={ faFileLines } className='fa-xl text-white'/>

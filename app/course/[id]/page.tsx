@@ -92,7 +92,7 @@ export default function page({params}:any) {
         </form>
       </section>}
       <section>
-        {data?.resource?.length > 0 ? <ModuleList data={data?.resource}/> : <EmptyModule/>}
+        {data?.module?.length > 0 ? <ModuleList data={data?.module}/> : <EmptyModule/>}
       </section>
     </section>
   )
