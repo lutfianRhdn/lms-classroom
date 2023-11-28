@@ -76,3 +76,13 @@ export async function DELETE(req: Request, { params }: any) {
     }
   })
 } 
+
+export async function GET(req: Request, { params }: any) {
+  const { id } = params;
+  const quiz = await prisma.quiz.findUnique({
+    where: {
+      id: +id
+    }
+  })
+  return getResponse(quiz, 'success get quiz', 200);
+}
