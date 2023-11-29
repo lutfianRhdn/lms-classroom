@@ -34,6 +34,12 @@ model User {
 model Course {
   id        Int      @id @default(autoincrement())
   name      String
+  
+  azure_index_name String  
+  azure_indexer_name String
+  azure_container_name String
+  azure_datasource_name String
+  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   deletedAt DateTime?
