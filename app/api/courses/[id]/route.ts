@@ -39,6 +39,6 @@ export async function GET(req: NextApiRequest, { params }: any) {
     isAnswered: item.isAnswered
   }))
 
-  return getResponse({name:coursesUser?.name, module:[resultSorted]}, 'success get all courses', 200);
+  return getResponse({name:coursesUser?.name, module:resultSorted}, 'success get all courses', 200);
 
 }
