@@ -20,10 +20,10 @@ export default withAuth({
 // Define paths for which the middleware will run
 export const config = {
   matcher: [
-    '/api/admin/(.*)',
+    // '/api/admin/(.*)',
     '/admin/(.*)',
-    '/api/resources/(.*)',
+    // '/api/resources/(.*)',
     '/api/users/(.*)',
-    '/api/courses/(.*)',
+    // '/api/courses/(.*)',
   ]
 }
