@@ -15,7 +15,9 @@ import { useSession } from 'next-auth/react';
 import { Spinner } from '@nextui-org/react';
 
 export default function page({params}:any) {
+
   const { data:session } = useSession();
+  const userData = session?.user
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
   const [canUpload, setCanUpload] = useState(false);
@@ -42,13 +44,19 @@ export default function page({params}:any) {
       alert('Success Upload')
     }
   }
+
   useEffect(()=>{
-    if (session?.user?.role !== 'STUDENT' && session) setCanUpload(true)
+    if (userData?.role !== 'STUDENT' && session) setCanUpload(true)
+    else setCanUpload(false)
+  },[session])
+
+  useEffect(()=>{
     getData().then((res)=>{
       setData(res)
       setLoading(false)
     })
   },[])
+  
   if (loading) return <Spinner className="w-full text-center"/>
   return (
     <section className='w-full max-w-4xl py-2 px-5 flex flex-col gap-5'>
@@ -92,7 +100,7 @@ export default function page({params}:any) {
         </form>
       </section>}
       <section>
-        {data?.module?.length > 0 ? <ModuleList data={data?.module}/> : <EmptyModule/>}
+        {data?.module?.length > 0 ? <ModuleList module={data?.module}/> : <EmptyModule/>}
       </section>
     </section>
   )

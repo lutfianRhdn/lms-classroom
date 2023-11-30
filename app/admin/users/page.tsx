@@ -35,7 +35,7 @@ export default  function Users() {
   }, [])
 
   useEffect(() => {
-    setSearchData(data.filter((user: any) => user.name.includes(search)));
+    setSearchData(data.filter((user: any) => user.username.toLowerCase().includes(search.toLowerCase())));
   }, [search])
 
   return (
@@ -43,7 +43,7 @@ export default  function Users() {
       <div className="flex items-center my-5 gap-10 ">
 
         <Input
-          label="Search Name"
+          label="Search Username"
           isClearable
           radius="lg"
           classNames={{

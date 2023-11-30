@@ -6,9 +6,10 @@ import { siteConfig } from '@/config/site';
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { useSession } from 'next-auth/react';
 import { Tooltip } from '@nextui-org/tooltip';
+
 type menuItems = {
   label: String,
-  href: String,
+  href: any,
   icon: FontAwesomeIconProps['icon'],
 }
 
