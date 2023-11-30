@@ -6,11 +6,22 @@ export const createIndex = async (indexName: string) => {
     await clientIndex.createIndex({
       name: indexName,
       fields: [
-        { name: 'document_id', type: 'Edm.String', key: true },
-        { name: 'content', type: 'Edm.String' },
-        { name: 'filename', type: 'Edm.String' },
-        { name: 'url', type: 'Edm.String' },
-      ]
+        { name: 'id', type: 'Edm.String', key: true,filterable:true,sortable:true },
+        { name: 'content', type: 'Edm.String',searchable:true },
+        { name: 'filepath', type: 'Edm.String' },
+        { name: 'url', type: 'Edm.String', },
+        {name:'title',type:'Edm.String',searchable:true}
+      ],
+      corsOptions: {
+        allowedOrigins: ['*'],
+        maxAgeInSeconds: 300
+      },
+
+      semanticSearch: {
+        configurations: [
+          { name: 'default', prioritizedFields: { titleField: { name: 'title' }, contentFields: [{ name: 'content' }]}}
+        ]
+      }
     })
   console.info(`[SYSTEM] created index : ${indexName} `)
 
