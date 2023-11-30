@@ -100,7 +100,7 @@ export default function page({params}:any) {
         </form>
       </section>}
       <section>
-        {data?.module?.length > 0 ? <ModuleList module={data?.module}/> : <EmptyModule/>}
+        {data?.module?.length > 0 ? <ModuleList userRole={userData?.role}  module={data?.module}/> : <EmptyModule/>}
       </section>
     </section>
   )

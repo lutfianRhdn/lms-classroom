@@ -5,12 +5,12 @@ import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { fetchData } from "next-auth/client/_utils";
 import fetchApi from "@/utils/fetchApi";
-
+import { useRouter } from "next/navigation";
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [comfirmPassword, setConfirmPassword] = useState("");
-
+  const router = useRouter();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -19,6 +19,8 @@ const Register = () => {
       username,
       password,
     })
+    if (!registered) console.log('error')
+    router.push('/auth/login')
   };
 
   return (

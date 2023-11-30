@@ -6,29 +6,47 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileLines } from '@fortawesome/free-solid-svg-icons'
 import NextLink from 'next/link';
 import { showFormattedDate } from '@/utils/timeStamp';
-export default function ModuleItem({module}:any) {
+import { Button } from '@nextui-org/button';
+import fetchApi from '@/utils/fetchApi';
+
+export default function ModuleItem({userRole,module}:any) {
   const { id,name,createdAt, path, isAnswered } = module || {};
   const [ quiz, setQuiz ] = useState(false)
+
   useEffect(() => {
     if(!path) setQuiz(true)
   }, [])
+
+  const handleDeleteQuiz = async(e:any,id:any) => {
+    e.preventDefault();
+    await fetchApi(`/quiz/${id}`, 'DELETE');
+  }
+  const handleDeleteModule = async(e:any,id:any) => {
+    e.preventDefault();
+    await fetchApi(`/resources/${id}`, 'DELETE');
+  }
   return (
     <>
       {quiz ? 
-        <NextLink href={isAnswered?`/quiz/${id}/result`:`/quiz/${id}`}>
-          <Card className="flex gap-3 flex-row py-2 px-4 hover:scale-105 cursor-pointer">
-            <div className='rounded-3xl w-10 bg-yellow-500 flex justify-center items-center p-2'>
-              <FontAwesomeIcon icon={ faFileLines } className='fa-xl text-white'/>
-            </div>
-            <div className="flex flex-col">
-              <p className="text-md">{name}</p>
-              <p className="text-small text-default-500">{showFormattedDate(createdAt)}</p>
-            </div>
-          </Card>
+      <Card className="group flex gap-3 flex-row py-2 px-4 hover:scale-105 cursor-pointer justify-between items-center">
+        <NextLink href={isAnswered?`/quiz/${id}/result`:`/quiz/${id}`} className='flex gap-3 flex-row'>
+          <div className='rounded-3xl w-10 bg-yellow-500 flex justify-center items-center p-2'>
+            <FontAwesomeIcon icon={ faFileLines } className='fa-xl text-white'/>
+          </div>
+          <div className="flex flex-col">
+            <p className="text-md">{name}</p>
+            <p className="text-small text-default-500">{showFormattedDate(createdAt)}</p>
+          </div>
         </NextLink>
+        {userRole !== 'STUDENT' && (
+          <div className='group-hover:flex hidden'>
+            <Button color='danger' size='sm' onClick={(e)=>handleDeleteQuiz(e,id)}>Delete</Button>
+          </div>
+        )}
+      </Card>
       :
-      <NextLink href={`${path}`}>
-        <Card className="flex gap-3 flex-row py-2 px-4 hover:scale-105 cursor-pointer">
+      <Card className="group flex gap-3 flex-row py-2 px-4 hover:scale-105 cursor-pointer justify-between items-center">
+        <NextLink href={`${path}`} className='flex gap-3 flex-row'>
           <div className='rounded-3xl w-10 bg-blue-500 flex justify-center items-center p-2'>
             <FontAwesomeIcon icon={ faFileLines } className='fa-xl text-white'/>
           </div>
@@ -36,8 +54,13 @@ export default function ModuleItem({module}:any) {
             <p className="text-md">{name}</p>
             <p className="text-small text-default-500">{showFormattedDate(createdAt)}</p>
           </div>
-        </Card>
-      </NextLink>
+        </NextLink>
+        {userRole !== 'STUDENT' && (
+          <div className='group-hover:flex hidden'>
+            <Button color='danger' size='sm' onClick={(e)=>handleDeleteModule(e,id)}>Delete</Button>
+          </div>
+        )}
+      </Card>
       }
     </>
  
