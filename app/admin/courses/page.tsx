@@ -38,7 +38,7 @@ export default  function Users() {
   },[])
 
   useEffect(() => {
-    setSearchData(data.filter((item: any) => item.name.includes(search)));
+    setSearchData(data.filter((item: any) => item.name.toLowerCase().includes(search.toLowerCase())));
   }, [search])
   
   return (

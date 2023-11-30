@@ -19,10 +19,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown,DropdownItem, DropdownMenu,DropdownTrigger,Avatar,AvatarIcon } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 export const Header = () => {
-	const { toggle , open } = useContext(MenuContext);
+	const { toggle , open, setSearch } = useContext(MenuContext);
 	const { data: session } = useSession();
   const userData = session?.user
+	const path = usePathname();
 	const searchInput = (
 		<Input
 			aria-label="Search"
@@ -30,6 +32,7 @@ export const Header = () => {
 				inputWrapper: "bg-default-100",
 				input: "text-sm",
 			}}
+			onChange={(e)=>setSearch(e.target.value)}
 			labelPlacement="outside"
 			placeholder="Search..."
 			startContent={
@@ -50,16 +53,9 @@ export const Header = () => {
 				</NavbarBrand>
 			</NavbarContent>
 
-			<NavbarContent
-				className="flex basis-1/5 sm:basis-full"
-				justify="end"
-			>
-				
-			</NavbarContent>
-
 			<NavbarContent as="div" justify="end">
 				<ThemeSwitch />
-				<NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
+				<NavbarItem className="hidden md:flex">{path == '/' && searchInput}</NavbarItem>
 				{session == null ? (
 					<NavbarItem className="flex gap-3">
 						<Button
