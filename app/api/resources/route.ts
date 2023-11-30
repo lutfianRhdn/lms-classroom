@@ -6,7 +6,7 @@ import { unlink, writeFile } from "fs/promises";
 import { BlobServiceClient } from "@azure/storage-blob";
 import * as openai from "@azure/openai";
 import { storageClient,clientIndexer, clientIndex } from "@/config/azure";
-import { upload } from "@/utils/azure/storageBlob";
+import { deleteBlob, upload } from "@/utils/azure/storageBlob";
 import { runIndexer } from "@/utils/azure/searchDocuments";
 
 const prisma = new PrismaClient()
@@ -44,4 +44,25 @@ export async function POST(req: Request) {
 
 
   return getResponse(resource, 'success get create new resource', 200);
+}
+export async function DELETE(req: Request, { params }: any) {
+  const { id } = params;
+  const resource = await prisma.resource.findUnique({
+    where: {
+      id: +id
+    },
+    include: {
+      course: true
+    }
+  })
+  if (!resource) return getResponse(null, 'resource not found', 404);
+  const containerName = resource.course.azure_container_name
+  await deleteBlob(containerName, resource.path)
+  await runIndexer(resource.course.azure_indexer_name)
+  await prisma.resource.delete({
+    where: {
+      id: +id
+    }
+  })
+  return getResponse(null, 'success delete resource', 200);
 }
