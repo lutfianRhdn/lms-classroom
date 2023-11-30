@@ -200,3 +200,12 @@ export const people = [
     role:'STUDENT'
   },
 ]
+
+export const quizResult = [
+  {
+    id:1,
+    quizName : "Quiz 1",
+    createdAt: "2021-01-01",
+    score: 100,
+  }
+]

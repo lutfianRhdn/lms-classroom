@@ -24,7 +24,6 @@ export default function page({params: { id }}: {params: { id: any }}) {
   const [errorMessage, setErrorMessage] = useState('');
   const [data, setData] = useState<dataProps>({ name: '', question: [{ title: '', choices: [''] }] })
   const [formData, setFormData] = useState<{ title: string, answer: string }[]>([]);
-
   async function handleSubmit(e: any) {
     e.preventDefault();
     if (formData.length !== data.question.length) {
@@ -62,7 +61,6 @@ export default function page({params: { id }}: {params: { id: any }}) {
 
   return (
     <section>
-      <h1 className="text-2xl bg-white p-4">Quiz {data?.name}</h1>
       <div className="flex flex-col md:grid p-5 lg:px-28 gap-3 md:grid-cols-3">
         <QuizList question={data.question} handleInputChange={handleInputChange} className='space-y-4 container order-2 md:order-1 col-span-2'/>
         <QuizNavigation handleSubmit={handleSubmit} question={data.question} formData={formData} errorMessage={errorMessage} className='container order-1 md:order-2 h-fit px-5 py-2 md:sticky md:top-20 '/>
