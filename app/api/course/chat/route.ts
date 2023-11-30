@@ -4,6 +4,7 @@ import { NextApiRequest } from 'next';
 import { getSession } from "next-auth/react"
 import { OpenAIClient, AzureKeyCredential } from "@azure/openai";
 import { DefaultAzureCredential } from "@azure/identity";
+   
 
 export async function POST(req: NextApiRequest, response: Response) {
   const session = await getSessionUser();
@@ -28,9 +29,10 @@ export async function POST(req: NextApiRequest, response: Response) {
         {
           type: "AzureCognitiveSearch",
           parameters: {
-            endpoint: searchEndpoint,
+            endpoint: 'https://aiclassroom.search.windows.net',
             key: searchKey,
             indexName: searchIndex,
+            
           },
         },
       ],

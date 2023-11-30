@@ -1,5 +1,9 @@
+import { clientIndex, clientIndexer, storageClient } from '@/config/azure';
+import { craateDatasource, createIndex, createIndexer } from '@/utils/azure/searchDocuments';
+import { createContainer } from '@/utils/azure/storageBlob';
 import getResponse from '@/utils/getResponse';
-import { PrismaClient } from '@prisma/client';
+import getSessionUser from '@/utils/session';
+import { PrismaClient, User } from '@prisma/client';
 const prisma = new PrismaClient()
 
 export async function GET(req: Request, response: Response) {
@@ -33,9 +37,9 @@ const processedResult = result.map(row => ({
   return getResponse(processedResult, 'success get all courses', 200);
 }
 
-export async function POST(req: Request ) {
+export async function POST(req: Request) {
   const { name, class_ids, instructor_id } = await req.json();
-  if (!name) return getResponse(null, 'name is required', 400);
+  if (!name|| !class_ids ||!instructor_id) return getResponse(null, 'please fill all inputs', 400);
   const userIds = (await prisma.user.findMany({
     where: {
       class_id: {
@@ -46,9 +50,24 @@ export async function POST(req: Request ) {
       id: true
     }
   })).map(item=>item.id)
+  
+  const indexName = `${new Date().getTime()}-${name}-index`.toLowerCase()
+  const containerName = `${new Date().getTime()}-${name}-container`.toLowerCase()
+  const dataSourceName = `${new Date().getTime()}-${name}-datasource`.toLowerCase()
+  const indexerName = `${new Date().getTime()}-${name}-indexer`.toLowerCase()
+  
+  await createIndex(indexName)
+  await createContainer(containerName)
+  await craateDatasource(dataSourceName,containerName) 
+  await createIndexer(indexerName, dataSourceName, indexName)
+  
   const courses = await prisma.course.create({
     data: {
       name,
+      azure_container_name: containerName,
+      azure_index_name: indexName,
+      azure_indexer_name: indexerName,
+      azure_datasource_name: dataSourceName
     }
   })
   await prisma.user_course.createMany({
