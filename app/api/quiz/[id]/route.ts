@@ -8,10 +8,9 @@ export async function POST(req: Request, { params }: any) {
   const answers : Answer[] = await req.json();
   const { id } = params;
   if (!answers) return getResponse(null, 'answers is required', 400);
-  // if (!session?.id) return getResponse(null, "user not found", 400)
   const isAlreadyAnswered = await prisma.user_quiz.findFirst({
     where: {
-      user_id:2,
+      user_id:session?.id,
       quiz_id: +id
     }
   })
@@ -36,7 +35,7 @@ export async function POST(req: Request, { params }: any) {
   const quizResult = await prisma.user_quiz.create({
     data: {      
       quiz_id: +id,
-      user_id: 2,
+      user_id: session?.id as number,
       answer: answers as any ,
       score
     }
@@ -79,9 +78,17 @@ export async function DELETE(req: Request, { params }: any) {
 
 export async function GET(req: Request, { params }: any) {
   const { id } = params;
+  const session = await getSessionUser();
   const quiz = await prisma.quiz.findUnique({
     where: {
       id: +id
+    },
+    include: {
+      user_quiz: {
+        where: {
+          user_id: session?.id
+        }
+      }
     }
   })
   return getResponse(quiz, 'success get quiz', 200);
