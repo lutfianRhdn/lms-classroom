@@ -91,7 +91,6 @@ export const Header = () => {
 								<p className="font-semibold">Signed in as</p>
 								<p className="font-semibold">{userData?.username}</p>
 							</DropdownItem>
-							<DropdownItem key="settings">My Settings</DropdownItem>
 							<DropdownItem key="logout" color="danger" onClick={()=>signOut()}>
 								Log Out
 							</DropdownItem>

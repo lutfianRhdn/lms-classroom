@@ -6,12 +6,14 @@ import NextLink from 'next/link'
 import {usePathname} from "next/navigation";
 import { useParams } from 'next/navigation';
 import { siteConfig } from '@/config/site';
+import { useSession } from 'next-auth/react';
 export default function TabsCourse() {
   const pathname = usePathname();
   const { id } = useParams();
-  
+  const { data: session } = useSession();
+  const userData = session?.user  
   return (
-    <div className="flex w-full flex-col bg-white px-8">
+    <div className="flex w-full flex-col bg-white dark:bg-black px-8">
       <Tabs 
         aria-label="Options" 
         color="primary" 
@@ -51,6 +53,17 @@ export default function TabsCourse() {
             </div>
           }
         />
+        { userData?.role === 'INSTRUCTOR' && (
+          <Tab
+          key={`/course/${id}/quiz`}
+          href={`/course/${id}/quiz`}
+          title={
+            <div className="flex items-center space-x-2">
+              <span className='font-bold'>Quiz</span>
+            </div>
+          }
+        />
+        )}
       </Tabs>
     </div>  
   )

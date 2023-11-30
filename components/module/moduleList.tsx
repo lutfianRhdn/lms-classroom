@@ -2,10 +2,15 @@
 import React from 'react'
 import ModuleItem from './moduleItem'
 import NextLink from 'next/link'
-export default function ModuleList({data}:any) {
+
+type moduleProps = {
+  module:any
+}
+
+export default function ModuleList({module}:moduleProps) {
   return (
     <div className='w-full flex flex-col gap-5'>
-      {data.map((item:any,index:any)=>{
+      {module.map((item:any,index:any)=>{
         return (
           <ModuleItem key={index} module={item}/>
         )
