@@ -28,7 +28,7 @@ export default function page({params: {id}}: {params: {id: string}}) {
           )}
         </TableHeader>
         <TableBody>
-          {rows.map((row) =>{
+          {rows.map((row:any) =>{
             if (row.createdAt) row.createdAt = showFormattedDate(row.createdAt)
             return (
             <TableRow key={row.id}>

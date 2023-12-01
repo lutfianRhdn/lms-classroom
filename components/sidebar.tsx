@@ -15,7 +15,7 @@ type menuItems = {
 
 function Sidebar() {
   const { open, toggle } = useContext(MenuContext);
-  const { data: session } = useSession();
+  const { data: session } = useSession() as any;
   const [navMenuItems, setNavMenuItems] = React.useState<menuItems[]>(siteConfig.navMenuItems);
 
   useEffect(() => {

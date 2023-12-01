@@ -64,8 +64,8 @@ export default function Users({params}:any) {
           ))}
         </Select>
         {role == 'STUDENT' && (
-          <Select label="Class" placeholder="Select class" selectedKeys={classId} onChange={(e: any) => setClassId(e.target.value)} >
-            {classes.map((classs, index) => (
+          <Select label="Class" placeholder="Select class" selectedKeys={classId.toString()} onChange={(e: any) => setClassId(e.target.value)} >
+            {classes.map((classs:any, index) => (
               <SelectItem value={classs?.id} key={classs.id}   >{classs?.name}</SelectItem>
             ))}
           </Select>

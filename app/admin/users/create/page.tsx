@@ -39,14 +39,14 @@ export default  function Users() {
       <form onSubmit={handleSubmit} className="w-full max-w-2xl flex flex-col gap-5 mx-auto">
         <Input type="text" label="Username" placeholder="Enter  username" onChange={(e:any)=>setUsername(e.target.value)} />
         <Input type="text" label="Name" placeholder="Enter  name" onChange={(e: any) => setName(e.target.value)} />
-        <Select label="Role" placeholder="Select role"  onChange={(e: any) => setRole(roles[e.target.value])}>
+        <Select label="Role" placeholder="Select role"  onChange={(e: any) => setRole(roles[e.target.value] as any)}>
           {roles.map((role,index) => (
             <SelectItem value={role} key={index}>{role}</SelectItem>
           ))}
         </Select>
         {role == 'STUDENT' && (
           <Select label="Class" placeholder="Select class" onChange={(e: any) => setClassId(e.target.value)} >
-          {classes.map((classs,index) => (
+          {classes.map((classs:any,index) => (
             <SelectItem value={classs?.id} key={classs.id}>{classs?.name}</SelectItem>
             ))}
         </Select>

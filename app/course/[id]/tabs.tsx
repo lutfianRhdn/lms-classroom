@@ -7,11 +7,12 @@ import {usePathname} from "next/navigation";
 import { useParams } from 'next/navigation';
 import { siteConfig } from '@/config/site';
 import { useSession } from 'next-auth/react';
+import { User } from '@prisma/client';
 export default function TabsCourse() {
   const pathname = usePathname();
   const { id } = useParams();
   const { data: session } = useSession();
-  const userData = session?.user  
+  const userData = session?.user   as User
   return (
     <div className="flex w-full flex-col bg-white dark:bg-black px-8">
       <Tabs 

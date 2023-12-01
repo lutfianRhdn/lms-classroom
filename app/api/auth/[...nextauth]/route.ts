@@ -24,7 +24,7 @@ const handler = NextAuth({
         
         const match = compareSync(password, user.password)
         if (!match) throw new Error('Username And Password Not Match ')
-        return user
+        return user as any
       },
       
     }),
@@ -41,7 +41,7 @@ const handler = NextAuth({
     },
     async session({ session, token, user }) {
       session.user = token;
-      session.user.email= token.id
+      session.user.email= token.id as any
       return session;
     },
   },

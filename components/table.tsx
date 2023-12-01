@@ -2,15 +2,8 @@
 import React from "react";
 import { Table as T, TableHeader, TableColumn, TableBody, TableRow, TableCell, RadioGroup, Radio, ButtonGroup, Button } from "@nextui-org/react";
 import Link from "next/link";
-type Props = {
-  headers: string[];
-  module: string;
-  data: any[];
-  uniqueKey: string;
-  onDelete: any,
-}
 
-export default function Table({ headers, module, data, uniqueKey, onDelete }:Props) {
+export default function Table({ headers, module, data, uniqueKey, onDelete }:any) {
   return (
     <div className="flex flex-col gap-3">
       <T
@@ -19,16 +12,16 @@ export default function Table({ headers, module, data, uniqueKey, onDelete }:Pro
         aria-label="Example static collection table"
       >
         <TableHeader>
-          {headers.map((header, index) => (
+          {headers.map((header:string, index:number) => (
             <TableColumn className="text-center" key={index}>{header}</TableColumn>
           ))}
           <TableColumn className="text-center" >Aksi</TableColumn>
 
         </TableHeader>
         <TableBody>
-          {data?.map((row, index) => (
+          {data?.map((row:any, index:number) => (
             <TableRow key={index}>
-              {headers.map((header, index) => (
+              {headers.map((header:string, index:number) => (
                 <TableCell className=" text-center" key={index}>{row[header]}</TableCell>
               ))}
               <TableCell >
