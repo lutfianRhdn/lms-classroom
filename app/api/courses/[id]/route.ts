@@ -1,11 +1,10 @@
 import getResponse from '@/utils/getResponse';
 import getSessionUser from '@/utils/session';
 import { PrismaClient } from '@prisma/client';
-import { NextApiRequest } from 'next';
 
 const prisma = new PrismaClient()
 
-export async function GET(req: NextApiRequest, { params }: any) {
+export async function GET(req: Request, { params }: any) {
   const { id } = params;
   const session = await getSessionUser();
   const coursesUser = await prisma.course.findUnique({

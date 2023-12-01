@@ -11,7 +11,7 @@ export default function Edit({ params }: { params: { slug: string } }) {
   
   const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
-  const {name}= params 
+  const {name} :any = params 
   async function handleSubmit(e: any) {
     e.preventDefault();
     const res = await fetchApi(`/admin/classes/${name}`, 'PUT', { class: className })

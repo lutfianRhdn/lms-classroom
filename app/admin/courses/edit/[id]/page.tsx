@@ -49,13 +49,13 @@ export default function Users({params}:any) {
         <Input type="text" label="Name" placeholder="Enter  name" value={name} onChange={(e: any) => setName(e.target.value)} />
         <div className="flex gap-5 ">
           <Select label="Class" placeholder="Select class" selectionMode="multiple" selectedKeys={class_id} onChange={(e: any) => setClassId(e.target.value)} >
-            {classes.map((classs, index) => (
+            {classes.map((classs:any) => (
               <SelectItem value={classs?.id} key={classs.id}>{classs?.name}</SelectItem>
             ))}
           </Select>
             
           <Select label="Instructor" placeholder="Select Instructor"  selectedKeys={instructorId} onChange={(e: any) => setInstructorId(e.target.value)} >
-            {users.map((user, index) => (
+            {users.map((user:any) => (
               <SelectItem value={user.id} key={user.id}>{user.username}</SelectItem>
             ))}
           </Select>

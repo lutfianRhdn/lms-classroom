@@ -9,7 +9,7 @@ export default  function Users() {
   const [name, setName] = useState('');
   const [class_id, setClassId] = useState('');
   const [instructorId, setInstructorId] = useState('');
-  const [classes, setClasses] = useState([]);
+  const [classes, setClasses] :any = useState([]);
   const [users, setUsers] = useState([]);
   
   const router = useRouter();
@@ -42,13 +42,13 @@ export default  function Users() {
         <div className="flex gap-5 ">
           
           <Select label="Class" placeholder="Select class" selectionMode="multiple" onChange={(e: any) => setClassId(e.target.value)} >
-          {classes.map((classs,index) => (
-            <SelectItem value={classs?.id} key={classs.id}>{classs?.name}</SelectItem>
+          {classes.map((classs : any ,index:number) => (
+            <SelectItem value={classs?.id } key={classs.id}>{classs?.name}</SelectItem>
             ))}
           </Select>
 
           <Select label="Instructor" placeholder="Select Instructor" onChange={(e: any) =>setInstructorId(e.target.value)} >
-            {users.map((user, index) => (
+            {users.map((user : any, index) => (
               <SelectItem value={user.id} key={user.id}>{user.username}</SelectItem>
             ))}
           </Select>

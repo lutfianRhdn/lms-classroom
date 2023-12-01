@@ -13,12 +13,13 @@ import { Input } from '@nextui-org/input';
 import { Button } from '@nextui-org/button';
 import { useSession } from 'next-auth/react';
 import { Spinner } from '@nextui-org/react';
+import { User } from '@/types';
 
 export default function page({params}:any) {
 
   const { data:session } = useSession();
-  const userData = session?.user
-  const [data, setData] = useState([]);
+  const userData = session?.user as User
+  const [data, setData] = useState([]) as any;
   const [open, setOpen] = useState(false);
   const [canUpload, setCanUpload] = useState(false);
   const [loading, setLoading] = useState(true);
