@@ -16,9 +16,15 @@ export const upload = async (containerName: string, fileName: string, buffer: Bu
   console.info(`[SYSTEM] uploaded file : ${fileName} to container : ${containerName}`)
   return uploaded._response
 }
-export const deleteBlob = async (containerName: string, fileName: string) => {
+export const deleteBlob = async (containerName: string, link: string) => {
+
+const linkSplited = link.split('/')
+
+const fileName = linkSplited[linkSplited.length-1]
+
+const decodedString = decodeURIComponent(fileName.replace(/\+/g, ' '));
   const containerClient = storageClient.getContainerClient(containerName);
-  const blockBlobClient = containerClient.getBlockBlobClient(fileName);
+  const blockBlobClient = containerClient.getBlockBlobClient(decodedString);
   await blockBlobClient.delete()
   console.info(`[SYSTEM] deleted file : ${fileName} from container : ${containerName}`)
 }

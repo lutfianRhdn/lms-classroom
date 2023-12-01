@@ -74,6 +74,7 @@ export async function DELETE(req: Request, { params }: any) {
       id: +id
     }
   })
+  return getResponse(null, 'success delete quiz', 200);
 } 
 
 export async function GET(req: Request, { params }: any) {
