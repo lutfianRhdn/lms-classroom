@@ -9,8 +9,7 @@ import {
 	faTableColumns
 } from '@fortawesome/free-solid-svg-icons'
 export const siteConfig = {
-	name: "UNIKOM LMS",
-	description: "UNIKOM LMS is an online learning media to facilitate the teaching process at Universitas Komputer Indonesia.",
+	name: "AI CLASS",
 	navItems: [
 		{
 			label: "Home",

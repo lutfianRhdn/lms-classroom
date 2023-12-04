@@ -49,15 +49,13 @@ export default function RootLayout({
 				<Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
 					<MenuContextProvider>
 						<Header/>
-						<div className="relative flex">
-							<div className="flex-shrink min-h-screen">
+						<div className="flex min-h-[90vh]">
+							<div className="flex-shrink">
 								<Sidebar/>
 							</div>
-							<div className="relative flex flex-grow flex-col ">
-								<main className="dark:bg-gray-900 bg-gray-200 min-h-full">
-									{children}
-								</main>
-							</div>
+							<main className="dark:bg-gray-900 bg-gray-200 h-auto flex-grow">
+								{children}
+							</main>
 						</div>
 					</MenuContextProvider>
 				</Providers>

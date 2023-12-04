@@ -29,7 +29,7 @@ function Sidebar() {
 
   return (
     <aside
-      className={`fixed md:relative top-0 left-0 h-full w-fit z-50 md:z-0 bg-white dark:bg-black shadow-lg transition-all ease-in-out duration-300 px-4 py-4 md:py-2 space-y-5 md:translate-x-0 ${open?'translate-x-0':'-translate-x-full'}`}
+      className={`fixed md:relative top-0 left-0 h-full w-fit z-50 md:z-0 dark:bg-black shadow-lg transition-all ease-in-out duration-300 px-4 py-4 md:py-2 space-y-5 md:translate-x-0 ${open?'translate-x-0':'-translate-x-full'}`}
     >
       {navMenuItems.map((item,index) => (
         <NextLink 

@@ -6,9 +6,9 @@ export default function CourseLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<section className="min-h-screen">
+		<section className="w-full min-h-[90vh] flex flex-col">
       <TabsCourse/>
-      <div className="flex justify-center items-center py-2">
+      <div className="flex justify-center flex-1 items-stretch">
 			  {children}
       </div>
 		</section>
