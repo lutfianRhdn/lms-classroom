@@ -209,3 +209,76 @@ export const quizResult = [
     score: 100,
   }
 ]
+
+export const chatbot = [
+  {
+    content: "tset",
+    context:[],
+    role: "user"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+  {
+    content: "lorem ipsummmmjsajdbjashdasdkjagkhjgsdhv s gdvuigdsfgsdgfyug",
+    context:[],
+    role: "assistent"
+  },
+]

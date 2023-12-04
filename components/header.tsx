@@ -20,12 +20,18 @@ import { Dropdown,DropdownItem, DropdownMenu,DropdownTrigger,Avatar,AvatarIcon }
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { User } from "@/types";
 export const Header = () => {
+	const router = useRouter()
 	const { toggle , open, setSearch } = useContext(MenuContext);
 	const { data: session } = useSession();
   const userData = session?.user as User
 	const path = usePathname();
+	const handleSignOut = () =>{
+		signOut()
+		router.push('/')
+	}
 	const searchInput = (
 		<Input
 			aria-label="Search"
@@ -44,7 +50,7 @@ export const Header = () => {
 	);
 
 	return (
-		<NextUINavbar disableAnimation isBordered maxWidth="full" position="sticky">
+		<NextUINavbar disableAnimation isBordered maxWidth="full" position="sticky" className="h-[10vh]">
 			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
 				<FontAwesomeIcon icon={faBars} onClick={toggle} className="fa-lg"/>
 				<NavbarBrand as="li" className="gap-3 max-w-fit">
@@ -88,7 +94,7 @@ export const Header = () => {
 								<p className="font-semibold">Signed in as</p>
 								<p className="font-semibold">{userData?.username}</p>
 							</DropdownItem>
-							<DropdownItem key="logout" color="danger" onClick={()=>signOut()}>
+							<DropdownItem key="logout" color="danger" onClick={handleSignOut}>
 								Log Out
 							</DropdownItem>
 						</DropdownMenu>

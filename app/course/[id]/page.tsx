@@ -60,7 +60,7 @@ export default function page({params}:any) {
   
   if (loading) return <Spinner className="w-full text-center"/>
   return (
-    <section className='w-full max-w-4xl py-2 px-5 flex flex-col gap-5'>
+    <section className='w-full max-w-4xl py-4 px-5 flex flex-col gap-5'>
       <section>
         <Card className="w-full h-60 col-span-12 sm:col-span-7">
           <Image

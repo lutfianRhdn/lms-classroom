@@ -2,12 +2,15 @@
 import React, { useEffect, useState } from 'react'
 import {Card, CardBody, Input, Button} from "@nextui-org/react";
 import fetchApi from '@/utils/fetchApi';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faComments } from '@fortawesome/free-regular-svg-icons';
+import { chatbot } from '@/config/data-dummy';
+import { Spinner } from '@nextui-org/react';
 export default function page({params}:any) {
-
-  const [message, setMessage] = useState([]);
+  const [message, setMessage] = useState('');
   const [data, setData] = useState<any[]>([]);
-
+  const [loading,setLoading] = useState(false)
   const handleSubmitChat = async (e: any) => {
     e.preventDefault();
     setData((prev:any)=>([
@@ -17,51 +20,69 @@ export default function page({params}:any) {
         content: message,
       }
     ]))
+    setLoading(true)
     const res = await fetchApi(`/courses/${params.id}/chat`, 'POST', {
         message: message 
       })
     if (res) {
+      setLoading(false)
       setData((prev:any)=>([
         ...prev,
         res.data
       ]))
+      setMessage('')
     }
-  }
 
+  }
   useEffect(()=>{
     console.log(data)
   },[data])
-  
+
   return (
-    <section className='w-full max-w-4xl py-2 px-5 flex flex-col gap-5'>
-      <section className='bg-white px-6 py-4 rounded-xl'>
-        <form onSubmit={handleSubmitChat} className={`flex gap-3 align-center`}> 
-          <Input
-            isRequired
-            type="text"
-            name='message'
-            className="shadow"
-            onChange={(e: any) => setMessage(e.target.value)}
-            placeholder='Enter your question here...'
-          />
-          <Button color="primary" className="max-w-xs" type='submit'>
-            Send
-          </Button>
-        </form>
+    <section className='w-full light:bg-[#E7F1F9] flex justify-center items-center '>
+      <section className='max-w-4xl w-full rounded-lg flex flex-col h-[80vh]'>
+        <section className='flex-grow overflow-auto py-2 px-4'>
+          {data.length != 0 ? (data.map((message:any) =>{
+            return (
+              <Card className={`mb-4 w-fit ${message.role == 'user'?"ms-auto bg-blue-400 text-white":''}`}>
+                <CardBody>
+                  <p>{message.content}</p>
+                  { message.catation }
+                </CardBody>
+              </Card>
+            )
+          })):(
+            <section className='mt-16 text-center space-y-5'>
+              <FontAwesomeIcon icon={faComments} className='fa-2xl'/>
+              <h1 className='text-2xl'>How Can I Help You?</h1>
+            </section >
+          )}
+          {loading && <Card className={`mb-4 w-fit px-5`}>
+            <CardBody>
+              <Spinner size='sm'/>
+            </CardBody>
+          </Card>}
+        </section>
+        <section className='pb-4 pt-4 px-6'>
+          <form onSubmit={handleSubmitChat} className='flex gap-4'> 
+            <Input
+              isRequired
+              type="text"
+              name='message'
+              value={message}
+              className="shadow py-0"
+              onChange={(e: any) => setMessage(e.target.value)}
+              placeholder='Enter your question here...'
+              endContent={
+                <Button variant='light' isIconOnly type='submit'>
+                  <FontAwesomeIcon icon={faPaperPlane}/>
+                </Button>
+              }
+            />
+          </form>
+        </section>
       </section>
-      <section>
-        {data.map((message:any) =>{
-          return (
-            <Card className='mb-2'>
-              <CardBody>
-                <p>{message.content}</p>
-                <hr />
-                { message.catation }
-              </CardBody>
-            </Card>
-          )
-        })}
-      </section>
+      
     </section>
   )
 }
