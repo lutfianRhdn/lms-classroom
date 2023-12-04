@@ -13,14 +13,17 @@ export default  function Users() {
   const [classes, setClasses] = useState([]);
   const roles = ['STUDENT', 'INSTRUCTOR', 'ADMIN'];
   const router = useRouter();
+  const [loading,setLoading] = useState(false)
   async function handleSubmit(e:any) {
     e.preventDefault();
+    setLoading(true)
     const res = await fetchApi('/admin/users', 'POST', {
       username,
       name,
       role,
       class_id
     });
+    setLoading(false)
     if (res.data) {
         router.push('/admin/users');
     } 
@@ -53,7 +56,7 @@ export default  function Users() {
             )}
         <div className="ml-auto">
 
-        <Button color="primary" type="submit">Create</Button>
+        <Button color="primary" type="submit" isLoading={loading}>Create</Button>
         </div>
 
       </form>

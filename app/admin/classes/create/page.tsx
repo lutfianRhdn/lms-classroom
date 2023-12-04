@@ -9,11 +9,14 @@ import { useState } from "react";
 export default  function Users() {
   const [className, setClassName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [loading,setLoading] = useState(false)
   const router = useRouter();
   async function handleSubmit(e:any) {
     e.preventDefault();
+    setLoading(true)
     const res = await fetchApi('/admin/classes', 'POST', { class: className })
     if(!res.data) setErrorMessage(res.message);
+    setLoading(true)
     return router.push('/admin/classes');
   }
   return (
@@ -22,7 +25,7 @@ export default  function Users() {
       <form onSubmit={handleSubmit} className="w-1/2 max-w-2xl flex flex-col gap-5 mx-auto">
         <Input type="text" label="Class Name" placeholder="Enter Class Name" errorMessage={errorMessage} onChange={(e)=>setClassName(e.target.value)} />
        
-        <Button color="primary" type="submit">Create</Button>
+        <Button color="primary" type="submit" isLoading={loading}>Create</Button>
 
       </form>
     </AdminLayout>

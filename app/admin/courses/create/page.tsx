@@ -11,15 +11,17 @@ export default  function Users() {
   const [instructorId, setInstructorId] = useState('');
   const [classes, setClasses] :any = useState([]);
   const [users, setUsers] = useState([]);
-  
+  const [loading,setLoading] = useState(false)
   const router = useRouter();
   async function handleSubmit(e:any) {
     e.preventDefault();
+    setLoading(true)
     const res = await fetchApi('/admin/courses', 'POST', {
       name,
       class_ids: class_id.split(',').map((id:any) => parseInt(id)),
       instructor_id: instructorId
     });
+    setLoading(false)
     if (res.data) {
         router.push('/admin/courses');
     } 
@@ -35,8 +37,8 @@ export default  function Users() {
   }, []);
   // const data = await getData();
   return (
-    <AdminLayout title="Course Management" subtitle="Create your user">
-      <h1 className="text-xl font-bold mb-5 text-center">Create User   </h1>
+    <AdminLayout title="Course Management" subtitle="Create your course">
+      <h1 className="text-xl font-bold mb-5 text-center">Create Course   </h1>
       <form onSubmit={handleSubmit} className="w-full max-w-2xl flex flex-col gap-5 md:mx-auto">
         <Input type="text" label="Name" placeholder="Enter  name" onChange={(e: any) => setName(e.target.value)} />
         <div className="flex gap-5 ">
@@ -56,7 +58,7 @@ export default  function Users() {
         
         <div className="ml-auto">
 
-        <Button color="primary" type="submit">Create</Button>
+        <Button color="primary" type="submit" isLoading={loading}>Create</Button>
         </div>
 
       </form>
