@@ -13,15 +13,19 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const { data: session } = useSession();
+  const [loading, setLoading] = useState(false)
+  const [error,setError] = useState('')
 
   const handleSubmit = (e:any) => {
     e.preventDefault();
-    // Add your registration logic here
-
+    setLoading(true)
     signIn("credentials", {
       username,
       password,
-      callbackUrl: `/`,
+      redirect:false
+    }).then(({ok,error}:any) => {
+      setError(error)
+      setLoading(false)
     })
     
   };
@@ -33,9 +37,7 @@ const Login = () => {
 
   return (
     <section className="flex flex-col py-10 items-center">
-      <div>
       <h1 className="text-3xl font-bold">Login</h1>
-      </div>
       <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-8 w-full">
         <div className="mb-4">
           <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">
@@ -62,10 +64,11 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          <p className="my-2">{error}</p>
         </div>
         <div className="flex items-center justify-between">
-          <Button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold">
-            Login
+            <Button isLoading={loading} id="buttonLogin" type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold">
+              Login
             </Button>
             <Link href="/auth/register" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
               i dont have an account

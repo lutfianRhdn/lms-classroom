@@ -45,11 +45,6 @@ export const siteConfig = {
 			href: "/",
 			icon: faHouse,
 		},
-		{
-      label: 'Dashboard',
-      icon: faTableColumns,
-      href: '/admin/dashboard',
-    },
     {
       label: 'Users',
       icon: faUsers,
@@ -66,18 +61,5 @@ export const siteConfig = {
       href: '/admin/courses',
 		},
 	],
-	navCourseItems: [
-		{
-			label: "Module",
-			href: "/",
-		},
-		{
-			label: "Chatbot",
-			href: "/",
-		},
-		{
-			label: "People",
-			href: "/",
-		}
-	]
+
 };
