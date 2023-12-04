@@ -3,7 +3,6 @@ import React,{ useEffect, useState } from 'react'
 import { Course,Resource } from '@/config/data-dummy'
 import { Image } from '@nextui-org/image';
 import { Card, CardFooter } from '@nextui-org/card';
-import { title } from '@/components/primitives';
 import ModuleList from '@/components/module/moduleList';
 import fetchApi from '@/utils/fetchApi';
 import EmptyModule from '@/components/module/emptyModule';

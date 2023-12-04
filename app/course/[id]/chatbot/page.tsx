@@ -52,7 +52,7 @@ export default function page({params}:any) {
               </Card>
             )
           })):(
-            <section className='mt-16 text-center space-y-5'>
+            <section className=' text-center space-y-5 h-full flex items-center justify-center flex-col'>
               <FontAwesomeIcon icon={faComments} className='fa-2xl'/>
               <h1 className='text-2xl'>How Can I Help You?</h1>
             </section >
