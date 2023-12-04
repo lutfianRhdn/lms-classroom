@@ -11,7 +11,7 @@ export async function POST(req: Request,{params}:any) {
     },
   })
   if (!course) return getResponse(null, 'course not found', 404);
-  const indexName = course.azure_index_name
-  const response = await getChatCompletions(indexName, message)
+  const indexName = course.azure_index_name;
+  const response = await getChatCompletions(indexName, message);
   return getResponse(response.choices[0].message, 'success', 200);
 }
