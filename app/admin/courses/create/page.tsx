@@ -35,7 +35,7 @@ export default  function Users() {
   }, []);
   // const data = await getData();
   return (
-    <AdminLayout title="User Management" subtitle="Create your user">
+    <AdminLayout title="Course Management" subtitle="Create your user">
       <h1 className="text-xl font-bold mb-5 text-center">Create User   </h1>
       <form onSubmit={handleSubmit} className="w-full max-w-2xl flex flex-col gap-5 md:mx-auto">
         <Input type="text" label="Name" placeholder="Enter  name" onChange={(e: any) => setName(e.target.value)} />

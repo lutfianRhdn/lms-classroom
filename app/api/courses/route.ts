@@ -5,6 +5,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient()
 export async function GET(req: Request, response: Response) {
   const session: User |null= await getSessionUser();
+  if (!session) return getResponse([], 'failed get all course, user must login', 200)
   const coursesUser = await prisma.course.findMany({
     where: {
       user_course: {

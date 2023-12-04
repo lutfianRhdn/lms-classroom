@@ -29,8 +29,8 @@ export const Header = () => {
   const userData = session?.user as User
 	const path = usePathname();
 	const handleSignOut = () =>{
-		signOut()
 		router.push('/')
+		signOut()
 	}
 	const searchInput = (
 		<Input

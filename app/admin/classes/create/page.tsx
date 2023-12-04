@@ -17,7 +17,7 @@ export default  function Users() {
     return router.push('/admin/classes');
   }
   return (
-    <AdminLayout title="User Management" subtitle="Create your user">
+    <AdminLayout title="Class Management" subtitle="Create your user">
       <h1 className="text-xl font-bold mb-5 text-center">Create New Class   </h1>
       <form onSubmit={handleSubmit} className="w-1/2 max-w-2xl flex flex-col gap-5 mx-auto">
         <Input type="text" label="Class Name" placeholder="Enter Class Name" errorMessage={errorMessage} onChange={(e)=>setClassName(e.target.value)} />
