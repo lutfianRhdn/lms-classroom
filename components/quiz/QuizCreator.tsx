@@ -5,6 +5,7 @@ import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Swal from 'sweetalert2';
 
 interface QuizProps {
   courseId: any;
@@ -65,7 +66,11 @@ export const QuizCreator = ({ courseId,quizName,onSubmit }:QuizProps) => {
 
   const handleSubmit = (e:any) => {
     if (!courseId || !quizName || questions.some(q => !q.title || q.choices.some(c => !c)) || answers.some(a => !a.answer)) {
-      alert('Harap isi semua data sebelum mengirimkan kuis.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please fill in all the fields!',
+      })
       return;
     }
     const quizData: QuizData = {
