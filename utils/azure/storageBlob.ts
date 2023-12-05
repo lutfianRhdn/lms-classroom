@@ -28,3 +28,8 @@ const decodedString = decodeURIComponent(fileName.replace(/\+/g, ' '));
   await blockBlobClient.delete()
   console.info(`[SYSTEM] deleted file : ${fileName} from container : ${containerName}`)
 }
+export const deleteContainer = async (containerName: string) => {
+  const containerClient = storageClient.getContainerClient(containerName);
+  await containerClient.delete()
+  console.info(`[SYSTEM] deleted container : ${containerName}`)
+}
