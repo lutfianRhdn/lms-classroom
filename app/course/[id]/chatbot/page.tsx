@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect, useState } from 'react'
-import {Card, CardBody, Input, Button} from "@nextui-org/react";
+import {Card, CardBody, Input, Button, CardFooter} from "@nextui-org/react";
 import fetchApi from '@/utils/fetchApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { faComments } from '@fortawesome/free-regular-svg-icons';
 import { chatbot } from '@/config/data-dummy';
 import { Spinner } from '@nextui-org/react';
+import Link from 'next/link';
 export default function page({params}:any) {
   const [message, setMessage] = useState('');
   const [data, setData] = useState<any[]>([]);
@@ -34,21 +35,41 @@ export default function page({params}:any) {
     }
 
   }
-  useEffect(()=>{
-    console.log(data)
-  },[data])
+  const replacePatternWithSup = (text:string) => {
+    const regex = /\[doc(\d+)\]/g;
+
+    // Replace each match with its corresponding number wrapped in <sup> tags
+    const outputText = text.replace(regex, (match, number) => {
+      return `<sup>${number}</sup>`;
+    });
+
+    return <div dangerouslySetInnerHTML={{__html:outputText}} />;
+  };
+
 
   return (
     <section className='w-full light:bg-[#E7F1F9] flex justify-center items-center '>
       <section className='max-w-4xl w-full rounded-lg flex flex-col h-[80vh]'>
         <section className='flex-grow overflow-auto py-2 px-4'>
-          {data.length != 0 ? (data.map((message:any) =>{
+          {chatbot.length != 0 ? (chatbot.map((message: any) => {
+            const parsedMessage = JSON.parse(message.context?.messages[0]?.content || '{}')?.citations
+            console.log(parsedMessage)
             return (
               <Card className={`mb-4 w-fit ${message.role == 'user'?"ms-auto bg-blue-400 text-white":''}`}>
                 <CardBody>
-                  <p>{message.content}</p>
+                  <div>{ replacePatternWithSup(message.content)}</div>
                   { message.catation }
                 </CardBody>
+                <CardFooter className='flex flex-col items-start justify-start'>
+
+                  {(message.role == 'assistant' && parsedMessage) &&
+                    parsedMessage.map((item: any,index:number) => (
+                      <Link href={item.url || ''} className='text-blue-500 hover:underline'>
+                        [{ index+1}] {item.title}
+                      </Link>
+                    ))
+                  }
+                </CardFooter>
               </Card>
             )
           })):(
