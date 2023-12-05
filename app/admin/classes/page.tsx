@@ -37,8 +37,7 @@ export default  function Users() {
   }, [search])
   return (
     <AdminLayout title="Class Management" subtitle="Manage your Class Here">
-      <div className="flex items-center my-5 gap-10 ">
-
+      <div className="flex flex-col md:flex-row gap-2 my-5">
         <Input
           label="Search"
           isClearable
@@ -57,11 +56,17 @@ export default  function Users() {
           startContent={
             <SearchIcon className="text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
-          />
-
-        <Button color="primary" className="mr-2" as={Link} href="/admin/classes/create">Create New Class</Button>
+        />
+        <Button color="primary" className="self-end" as={Link} href="/admin/classes/create">Create</Button>
       </div>
-      {loading ? <Spinner className="w-full text-center"/>:<Table headers={headers} data={search == ''?data:searchData} uniqueKey="name" module="admin/classes" onDelete={handleDelete} />}
+      <Table 
+        headers={headers} 
+        data={search == ''?data:searchData} 
+        uniqueKey="name" 
+        module="admin/classes" 
+        onDelete={handleDelete} 
+        loading={loading}
+      />
     </AdminLayout>
   );
 }

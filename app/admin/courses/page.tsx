@@ -43,7 +43,7 @@ export default  function Users() {
   
   return (
     <AdminLayout title="Course Management" subtitle="Manage your Course Here">
-      <div className="flex items-center my-5 gap-10 ">
+      <div className="flex flex-col md:flex-row items-center my-5 gap-2 ">
         <Input
           label="Search"
           isClearable
@@ -64,10 +64,16 @@ export default  function Users() {
           }
           />
 
-        <Button color="primary" className="mr-2" as={Link} href="/admin/courses/create">Create</Button>
+        <Button color="primary" className="self-end" as={Link} href="/admin/courses/create">Create</Button>
       </div>
 
-      {loading? <Spinner className="w-full text-center"/>:<Table headers={headers} data={search == ''?data:searchData} uniqueKey="id" module="admin/courses" onDelete={handleDelete} />}
+      <Table 
+        headers={headers} 
+        data={search == ''?data:searchData} 
+        uniqueKey="id" module="admin/courses" 
+        onDelete={handleDelete} 
+        loading={loading}
+      />
     </AdminLayout>
   );
 }

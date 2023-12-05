@@ -16,9 +16,9 @@ const AdminLayout = ({
   
   return (
     <>
-      <section className='flex  py-5 my-5'>
-        <div className='container mx-auto max-w-7xl mt-10 px-6 flex-grow'>
-          <Card className="px-5 py-2">
+      <section className='py-5 my-5'>
+        <div className='container mx-auto w-screen md:w-full max-w-7xl mt-10 px-4'>
+          <Card className="p-2 w-full">
             <CardHeader className="flex gap-3">
               <div className="flex flex-col">
                 <p className="text-2xl font-bold">{title || "TItle"}</p>
@@ -31,7 +31,6 @@ const AdminLayout = ({
             </CardBody>
           </Card>
         </div>
-
       </section>
     </>
   );

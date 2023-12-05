@@ -1,15 +1,18 @@
 'use client'
 import React from "react";
-import { Table as T, TableHeader, TableColumn, TableBody, TableRow, TableCell, RadioGroup, Radio, ButtonGroup, Button } from "@nextui-org/react";
+import { Table as T, TableHeader, TableColumn, TableBody, TableRow, TableCell, RadioGroup, Radio, ButtonGroup, Button, Spinner } from "@nextui-org/react";
 import Link from "next/link";
 
-export default function Table({ headers, module, data, uniqueKey, onDelete }:any) {
+export default function Table({ headers, module, data, uniqueKey, onDelete, loading }:any) {
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 overflow-x-auto">
       <T
         color="default"
         // selectionMode={isMultiple ? "multiple" : "single"}
         aria-label="Example static collection table"
+        classNames={loading && {
+          table: "min-h-[200px]",
+        }}
       >
         <TableHeader>
           {headers.map((header:string, index:number) => (
@@ -18,7 +21,7 @@ export default function Table({ headers, module, data, uniqueKey, onDelete }:any
           <TableColumn className="text-center" >Aksi</TableColumn>
 
         </TableHeader>
-        <TableBody>
+        <TableBody isLoading={loading} loadingContent={<Spinner/>}>
           {data?.map((row:any, index:number) => (
             <TableRow key={index}>
               {headers.map((header:string, index:number) => (
