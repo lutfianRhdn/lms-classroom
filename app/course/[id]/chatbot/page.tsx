@@ -51,21 +51,20 @@ export default function page({params}:any) {
     <section className='w-full light:bg-[#E7F1F9] flex justify-center items-center '>
       <section className='max-w-4xl w-full rounded-lg flex flex-col h-[80vh]'>
         <section className='flex-grow overflow-auto py-2 px-4'>
-          {chatbot.length != 0 ? (chatbot.map((message: any) => {
+          {chatbot.length != 0 ? (chatbot.map((message: any,index:number) => {
             const parsedMessage = JSON.parse(message.context?.messages[0]?.content || '{}')?.citations
-            console.log(parsedMessage)
             return (
-              <Card className={`mb-4 w-fit ${message.role == 'user'?"ms-auto bg-blue-400 text-white":''}`}>
+              <Card key={index} className={`mb-4 w-fit ${message.role == 'user'?"ms-auto bg-blue-400 text-white":''}`}>
                 <CardBody>
                   <div>{ replacePatternWithSup(message.content)}</div>
                 </CardBody>
                 <CardFooter className={`flex flex-wrap gap-3 ${(!parsedMessage  || parsedMessage.length == 0) && 'hidden'}`}>
-                  <h3>Reference :</h3>
+                  <h3 className='font-semibold'>Reference :</h3>
                   {(message.role == 'assistant' && parsedMessage) &&
                     parsedMessage.map((item: any,index:number) => {
                       if (!item.title) return null
                       return (
-                        <Link href={item.url || ''} className='text-blue-500 hover:underline bg-blue-100 dark:bg-blue-950 px-2 rounded-lg'>
+                        <Link key={index} href={item.url || ''} className='text-blue-500 hover:underline bg-blue-100 dark:bg-blue-950 px-2 rounded-lg'>
                           {index+1}. {item.title}
                         </Link>
                       )
