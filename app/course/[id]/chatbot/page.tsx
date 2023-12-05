@@ -51,7 +51,7 @@ export default function page({params}:any) {
     <section className='w-full light:bg-[#E7F1F9] flex justify-center items-center '>
       <section className='max-w-4xl w-full rounded-lg flex flex-col h-[80vh]'>
         <section className='flex-grow overflow-auto py-2 px-4'>
-          {chatbot.length != 0 ? (chatbot.map((message: any,index:number) => {
+          {data.length != 0 ? (data.map((message: any,index:number) => {
             const parsedMessage = JSON.parse(message.context?.messages[0]?.content || '{}')?.citations
             return (
               <Card key={index} className={`mb-4 w-fit ${message.role == 'user'?"ms-auto bg-blue-400 text-white":''}`}>
