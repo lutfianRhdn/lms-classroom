@@ -43,7 +43,15 @@ export const createIndexer = async (indexerName :string,dataSourceName:string,in
         indexedFileNameExtensions: '.pdf,.docx,.doc,.pptx,.ppt,.xlsx,.xls,.txt',
         parsingMode: 'default',
       }
-    }
+      
+    },
+    fieldMappings: [
+      { sourceFieldName: 'metadata_storage_path', targetFieldName: 'filepath' },
+      { sourceFieldName: 'metadata_storage_name', targetFieldName: 'id' },
+      { sourceFieldName: 'metadata_storage_path', targetFieldName: 'url' },
+      { sourceFieldName: 'metadata_title', targetFieldName: 'title' },
+      { sourceFieldName: 'content', targetFieldName: 'content' },
+    ],
   
   });
   console.info(` [SYSTEM] created indexer: ${indexerName} `)
