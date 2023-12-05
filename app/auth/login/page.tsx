@@ -67,12 +67,12 @@ const Login = () => {
           <p className="my-2">{error}</p>
         </div>
         <div className="flex items-center justify-between">
-            <Button isLoading={loading} id="buttonLogin" type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold">
-              Login
-            </Button>
             <Link href="/auth/register" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
               i dont have an account
             </Link>
+            <Button isLoading={loading} id="buttonLogin" type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold">
+              Login
+            </Button>
         </div>
       </form>
     </section>
