@@ -27,11 +27,6 @@ export default function Home() {
       setLoading(false)
     })
   }, [])
-  const replaceMessage = (message: string) => {
-    return message.replace(/(<([^>]+)>)/gi, (match:any, number:any) => (
-      <sup>{number}</sup>
-    ));
-  }
   if (loading) return <Spinner className="w-full text-center h-screen"/>
 	return (
 		<section className="flex flex-col items-start justify-center gap-4 p-8">
