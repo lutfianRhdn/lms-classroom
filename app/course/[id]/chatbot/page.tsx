@@ -64,7 +64,7 @@ export default function page({params}:any) {
                     parsedMessage.map((item: any,index:number) => {
                       if (!item.title) return null
                       return (
-                        <Link key={index} href={item.url || ''} className='text-blue-500 hover:underline bg-blue-100 dark:bg-blue-950 px-2 rounded-lg'>
+                        <Link key={index} href={item.url || ''} target='_blank' className='text-blue-500 hover:underline bg-blue-100 dark:bg-blue-950 px-2 rounded-lg'>
                           {index+1}. {item.title}
                         </Link>
                       )
