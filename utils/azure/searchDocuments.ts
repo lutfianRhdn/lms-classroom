@@ -76,3 +76,18 @@ export const runIndexer = async (indexerName: string) => {
   await clientIndexer.resetIndexer(indexerName)
   return await clientIndexer.runIndexer(indexerName)
 }
+
+export const deleteIndex = async (indexName: string) => {
+  console.info(`[SYSTEM] delete index : ${indexName} `)
+  return await clientIndex.deleteIndex(indexName)
+}
+
+export const deleteIndexer = async (indexerName: string) => {
+  console.info(`[SYSTEM] delete indexer : ${indexerName} `)
+  return await clientIndexer.deleteIndexer(indexerName)
+}
+
+export const deleteDatasource = async (dataSourceName: string) => {
+  console.info(`[SYSTEM] delete datasource : ${dataSourceName} `)
+  return await clientIndexer.deleteDataSourceConnection(dataSourceName)
+}

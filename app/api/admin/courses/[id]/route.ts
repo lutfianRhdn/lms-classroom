@@ -1,3 +1,5 @@
+import { deleteDatasource, deleteIndexer } from "@/utils/azure/searchDocuments";
+import { deleteContainer } from "@/utils/azure/storageBlob";
 import getResponse from "@/utils/getResponse";
 import { PrismaClient } from "@prisma/client";
 
@@ -67,12 +69,24 @@ export async function POST(req: Request ,{params}: any) {
 }
 
 export async function DELETE(req: Request, { params }: any) {
+  const course = await prisma.course.findUnique({
+    where: {
+      id: +params.id
+    }
+  })
+  if (!course) return getResponse(null, 'course not found', 400);
+  
+  await deleteIndexer(course.azure_indexer_name)
+  await deleteIndexer(course.azure_index_name)
+  await deleteDatasource(course.azure_datasource_name)
+  await deleteContainer(course.azure_container_name)
+
   await prisma.user_course.deleteMany({
     where: {
       course_id: +params.id
     }
   })
-  const course = await prisma.course.delete({
+  const courseDeleted = await prisma.course.delete({
     where: {
       id: +params.id
     }
