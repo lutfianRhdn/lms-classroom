@@ -73,5 +73,6 @@ export const craateDatasource = async (dataSourceName:string,containerName:strin
 
 export const runIndexer = async (indexerName: string) => { 
   console.info(`[SYSTEM] run indexer : ${indexerName} `)
+  await clientIndexer.resetIndexer(indexerName)
   return await clientIndexer.runIndexer(indexerName)
 }
