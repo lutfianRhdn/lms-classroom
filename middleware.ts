@@ -11,19 +11,20 @@ export default withAuth({
       if (path.startsWith("/api/admin")) {
         return token?.role === "ADMIN";
       }
-
-      return token !== null;
-    }
-  }
+      return token != null;
+  }}
 })
 
 // Define paths for which the middleware will run
 export const config = {
   matcher: [
-    // '/api/admin/(.*)',
+    '/api/admin/(.*)',
     '/admin/(.*)',
-    // '/api/resources/(.*)',
+    '/api/resources/(.*)',
     '/api/users/(.*)',
-    // '/api/courses/(.*)',
+    '/api/courses/(.*)',
+    '/auth/register',
+    '/course/(.*)',
+    '/quiz/(.*)'
   ]
 }
