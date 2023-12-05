@@ -20,10 +20,12 @@ export default function ModuleItem({userRole,module}:any) {
   const handleDeleteQuiz = async(e:any,id:any) => {
     e.preventDefault();
     await fetchApi(`/quiz/${id}`, 'DELETE');
+    window.location.reload();
   }
   const handleDeleteModule = async(e:any,id:any) => {
     e.preventDefault();
     await fetchApi(`/resources/${id}`, 'DELETE');
+    window.location.reload();
   }
   return (
     <>

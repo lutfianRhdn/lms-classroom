@@ -24,6 +24,7 @@ export default function page({params}:any) {
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState('');
   const [file, setFile] = useState(null);
+  const [loadingUpload, setLoadingUpload] = useState(false);
   const course = Course.find((course) => course.id == params.id);
   async function  getData() {
     const courses = (await fetchApi(`/courses/${params.id}`, 'GET'));
@@ -31,17 +32,18 @@ export default function page({params}:any) {
   }
   const handleUpload = async (e: any) => {
     e.preventDefault();
+    setLoadingUpload(true)
     const formData = new FormData(e.target);
     formData.append('course_id', params.id);
     const res = await fetch(`/api/resources`, {
       method: 'POST',
       body: formData,
     })
+    setLoadingUpload(false)
     if (res) {
       getData().then((res)=>{
         setData(res)
       })
-      alert('Success Upload')
     }
   }
 
@@ -56,7 +58,8 @@ export default function page({params}:any) {
       setLoading(false)
     })
   },[])
-  
+
+  data?.module?.sort((a:any,b:any)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   if (loading) return <Spinner className="w-full text-center"/>
   return (
     <section className='w-full max-w-4xl py-4 px-5 flex flex-col gap-5'>
@@ -93,7 +96,7 @@ export default function page({params}:any) {
             <Button color="default" className="max-w-xs" type='reset' onClick={()=>setOpen(false)}>
               Cancel
             </Button>
-            <Button color="primary" className="max-w-xs" type='submit'>
+            <Button color="primary" className="max-w-xs" type='submit' isLoading={loadingUpload}>
               Upload
             </Button>
           </div>
