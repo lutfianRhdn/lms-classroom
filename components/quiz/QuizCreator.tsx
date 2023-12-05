@@ -5,6 +5,7 @@ import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Swal from 'sweetalert2';
 
 interface QuizProps {
   courseId: any;
@@ -65,7 +66,11 @@ export const QuizCreator = ({ courseId,quizName,onSubmit }:QuizProps) => {
 
   const handleSubmit = (e:any) => {
     if (!courseId || !quizName || questions.some(q => !q.title || q.choices.some(c => !c)) || answers.some(a => !a.answer)) {
-      alert('Harap isi semua data sebelum mengirimkan kuis.');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please fill in all the fields!',
+      })
       return;
     }
     const quizData: QuizData = {
@@ -82,45 +87,57 @@ export const QuizCreator = ({ courseId,quizName,onSubmit }:QuizProps) => {
       <div className='space-y-4'>
       {questions.map((q, index) => (
         <Card key={index} className='p-4'>
-          <div className='flex justify-end'>
-            <Button radius='full' color='danger' size='sm' variant="ghost" isIconOnly onClick={(e) => handleRemoveQuestion(e,index)}><FontAwesomeIcon icon={faXmark}/></Button>
-          </div>
-          <CardHeader>
+          <CardHeader className='flex justify-between'>
+            <h1 className='font-bold'>Question No.{index + 1}</h1>
+            <Button 
+              radius='full' 
+              color='danger' 
+              size='sm' 
+              variant="ghost" 
+              isIconOnly 
+              onClick={(e) => handleRemoveQuestion(e,index)}
+            >
+              <FontAwesomeIcon icon={faXmark}/>
+            </Button>
+          </CardHeader>
+          <CardBody>
             <Input
               label={`Question ${index + 1}`}
               type="text"
               value={q.title}
+              className='mb-4'
               required
               onChange={(e) => handleQuestionChange(index, e.target.value, q.choices)}
             />
-          </CardHeader>
-          <CardBody className='space-y-3'>
-            {q.choices.map((choice, choiceIndex) => (
-              <div key={choiceIndex} className='flex gap-4'>
-                <input
-                  type="radio"
-                  id={`choice-${index}-${choiceIndex}`}
-                  name={`choice`}
-                  required
-                  // value={choice}
-                  // checked={answers[index].answer === choice}
-                  onChange={() => handleAnswerChange(index, q.title, choice)}
-                />
-                <Input
-                  key={choiceIndex}
-                  type="text"
-                  required
-                  label={`Choice ${choiceIndex}`}
-                  value={choice}
-                  onChange={(e) => {
-                    const newChoices = [...q.choices];
-                    newChoices[choiceIndex] = e.target.value;
-                    handleQuestionChange(index, q.title, newChoices);
-                  }}
-                />
-              </div>
-              
-            ))}
+            <div className='space-y-3'>
+              {q.choices.map((choice, choiceIndex) => (
+                <div key={choiceIndex} className='flex gap-4'>
+                  <input
+                    type="radio"
+                    id={`choice-${index}-${choiceIndex}`}
+                    name={`choice`}
+                    required
+                    // value={choice}
+                    // checked={answers[index].answer === choice}
+                    onChange={() => handleAnswerChange(index, q.title, choice)}
+                  />
+                  <Input
+                    key={choiceIndex}
+                    type="text"
+                    required
+                    label={`Choice ${choiceIndex}`}
+                    value={choice}
+                    onChange={(e) => {
+                      const newChoices = [...q.choices];
+                      newChoices[choiceIndex] = e.target.value;
+                      handleQuestionChange(index, q.title, newChoices);
+                    }}
+                  />
+                </div>
+                
+              ))}
+            </div>
+            
           </CardBody>
           <div className='hidden'>
             {q.choices.map((choice, choiceIndex) => (

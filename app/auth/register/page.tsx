@@ -71,12 +71,12 @@ const Register = () => {
         </div>
        
         <div className="flex items-center justify-between">
-          <Button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold">
-            Register
-          </Button>
           <Link href="/auth/login" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
             i already have an account
           </Link>
+          <Button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold">
+            Register
+          </Button>
         </div>
       </form>
     </section>
