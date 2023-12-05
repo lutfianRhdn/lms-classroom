@@ -64,7 +64,7 @@ export default  function Users() {
           }
           />
 
-        <Button color="primary" className="mr-2" as={Link} href="/admin/courses/create">Create New Course</Button>
+        <Button color="primary" className="mr-2" as={Link} href="/admin/courses/create">Create</Button>
       </div>
 
       {loading? <Spinner className="w-full text-center"/>:<Table headers={headers} data={search == ''?data:searchData} uniqueKey="id" module="admin/courses" onDelete={handleDelete} />}

@@ -43,7 +43,7 @@ export default function page({params}:any) {
       return `<sup>${number}</sup>`;
     });
 
-    return <div dangerouslySetInnerHTML={{__html:outputText}} />;
+    return <div dangerouslySetInnerHTML={{__html:outputText}}/>;
   };
 
 
@@ -58,16 +58,18 @@ export default function page({params}:any) {
               <Card className={`mb-4 w-fit ${message.role == 'user'?"ms-auto bg-blue-400 text-white":''}`}>
                 <CardBody>
                   <div>{ replacePatternWithSup(message.content)}</div>
-                  { message.catation }
                 </CardBody>
-                <CardFooter className='flex flex-col items-start justify-start'>
-
+                <CardFooter className={`flex flex-wrap gap-3 ${(!parsedMessage  || parsedMessage.length == 0) && 'hidden'}`}>
+                  <h3>Reference :</h3>
                   {(message.role == 'assistant' && parsedMessage) &&
-                    parsedMessage.map((item: any,index:number) => (
-                      <Link href={item.url || ''} className='text-blue-500 hover:underline'>
-                        [{ index+1}] {item.title}
-                      </Link>
-                    ))
+                    parsedMessage.map((item: any,index:number) => {
+                      if (!item.title) return null
+                      return (
+                        <Link href={item.url || ''} className='text-blue-500 hover:underline bg-blue-100 dark:bg-blue-950 px-2 rounded-lg'>
+                          {index+1}. {item.title}
+                        </Link>
+                      )
+                    })
                   }
                 </CardFooter>
               </Card>
