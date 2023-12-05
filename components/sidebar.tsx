@@ -17,7 +17,7 @@ function Sidebar() {
   const { open, toggle } = useContext(MenuContext);
   const { data: session } = useSession() as any;
   const [navMenuItems, setNavMenuItems] = React.useState<menuItems[]>(siteConfig.navMenuItems);
-  const sidebarRef = useRef(null);
+  const sidebarRef:any = useRef(null);
   useEffect(() => {
     if (session?.user?.role === 'ADMIN') setNavMenuItems(siteConfig.navMenuItemsAdmin)
     else setNavMenuItems(siteConfig.navMenuItems)
