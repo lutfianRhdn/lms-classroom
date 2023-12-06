@@ -9,7 +9,7 @@ import {
 	faTableColumns
 } from '@fortawesome/free-solid-svg-icons'
 export const siteConfig = {
-	name: "AI CLASS",
+	name: "Splace Classroom",
 	navItems: [
 		{
 			label: "Home",
