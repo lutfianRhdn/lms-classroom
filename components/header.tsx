@@ -60,13 +60,12 @@ export const Header = () => {
 			</NavbarContent>
 
 			<NavbarContent as="div" justify="end">
-				<ThemeSwitch />
+				{/* <ThemeSwitch /> */}
 				<NavbarItem className="hidden md:flex">{path == '/' && searchInput}</NavbarItem>
 				{session == null ? (
 					<NavbarItem className="flex gap-3">
 						<Button
 							as={Link}
-							className="font-normal text-default-600 bg-default-100"
 							href="/auth/login"
 							variant="flat"
 						>

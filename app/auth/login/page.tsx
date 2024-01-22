@@ -3,10 +3,10 @@
 import React, { useEffect, useState } from "react";
 import {  Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { Link } from "@nextui-org/link";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-
+import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -35,42 +35,56 @@ const Login = () => {
     }
   },[session])
 
+
+
   return (
-    <section className="flex flex-col py-10 items-center">
+    <section className="flex flex-col py-10 items-center bg-white my-5 max-w-md mx-auto">
       <h1 className="text-3xl font-bold">Login</h1>
-      <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-8 w-full">
-        <div className="mb-4">
-          <label htmlFor="username" className="block text-gray-700 text-sm font-bold mb-2">
-            Username
-          </label>
+      <div className="p-4 m-4 bg-dark-blue/10 text-dark-blue space-y-3 text-sm rounded-md">
+        <p>For Students, please log in using your username <b>(NIM)</b> and password.</p>
+        <p>For Lecturers, please log in using an Email account by clicking the Log in Lecturer Using <b>Email</b> button located below the Log in form.</p>
+      </div>
+      <form onSubmit={handleSubmit} className="max-w-sm mx-auto w-full my-5">
+        <div className="space-y-10 mb-10">
           <Input
+            isRequired
             type="text"
             id="username"
             name="username"
             value={username}
+            placeholder="Type something here...."
             onChange={(e) => setUsername(e.target.value)}
-            required
+            label="Username"
+            labelPlacement="outside"
+            startContent={<FontAwesomeIcon icon={faUser} className="mx-2 text-dark-blue"/>}
+            classNames={{
+              label: "font-bold text-md"
+            }}
           />
-        </div>
-        <div className="mb-6">
-          <label htmlFor="password" className="block text-gray-700 text-sm font-bold mb-2">
-            Password
-          </label>
           <Input
+            isRequired
             type="password"
             id="password"
             name="password"
             value={password}
+            placeholder="Type something here...."
             onChange={(e) => setPassword(e.target.value)}
-            required
+            label="Password"
+            labelPlacement="outside"
+            startContent={<FontAwesomeIcon icon={faLock} className="mx-2 text-dark-blue"/>}
+            classNames={{
+              label: "font-bold text-md"
+            }}
           />
-          <p className="my-2">{error}</p>
         </div>
-        <div className="flex items-center justify-between">
-            <Link href="/auth/register" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-              i dont have an account
-            </Link>
-            <Button isLoading={loading} id="buttonLogin" type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold">
+        
+        <p className="my-2">{error}</p>
+        <div className="flex items-center justify-between text-dark-blue">
+            <Button 
+              isLoading={loading} 
+              type="submit" 
+              className="w-full bg-dark-blue text-white font-bold"
+            >
               Login
             </Button>
         </div>
