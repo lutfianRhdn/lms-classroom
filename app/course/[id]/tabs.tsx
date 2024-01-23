@@ -12,7 +12,7 @@ export default function TabsCourse() {
   const pathname = usePathname();
   const { id } = useParams();
   const { data: session } = useSession();
-  const userData = session?.user   as User
+  const userData = session?.user as User
   return (
     <div className="flex w-full flex-col bg-white dark:bg-black px-8">
       <Tabs 
