@@ -16,12 +16,7 @@ export default async function QuizLayout({
   const data = await getQuizDetail(id)
 	return (
     <Layout>
-      <section>
-        <h1 className="text-2xl bg-white p-4">Quiz {data?.name}</h1>
-        <div className="">
-          {children}
-        </div>
-      </section>
+      {children}
     </Layout>
     
 	);

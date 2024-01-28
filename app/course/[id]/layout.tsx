@@ -11,7 +11,7 @@ export default function CourseLayout({
 			<section className="w-full min-h-[90vh]">
 				<div className="max-w-5xl mx-auto mt-5 mb-10">
 					<TabsCourse/>
-					<div className="flex justify-center flex-1 items-stretch">
+					<div className="flex justify-center flex-1 items-stretch mx-2 md:mx-0">
 						{children}
 					</div>
 				</div>

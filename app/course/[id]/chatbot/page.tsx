@@ -74,8 +74,8 @@ export default function page({params}:any) {
             )
           })):(
             <section className=' text-center space-y-2 h-full flex items-center justify-center flex-col'>
-              <h1 className='text-3xl text-dark-blue'>Welcome to ChatBot</h1>
-              <h1 className='text-2xl'>Get Started a task and chat for your question.</h1>
+              <h1 className='text-xl md:text-3xl text-dark-blue'>Welcome to ChatBot</h1>
+              <h1 className='text-sm md:text-2xl'>Get Started a task and chat for your question.</h1>
             </section >
           )}
           {loading && <Card className={`mb-4 w-fit px-5`}>
