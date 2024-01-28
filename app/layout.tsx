@@ -6,7 +6,6 @@ import { Providers } from "./providers";
 import { Link } from "@nextui-org/link";
 import { Header } from "@/components/header";
 import clsx from "clsx";
-
 import Sidebar from "@/components/sidebar";
 import { MenuContextProvider } from "./context/MenuContext";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -46,17 +45,7 @@ export default function RootLayout({
 				)} 
 			>
 				<Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
-					<MenuContextProvider>
-						<Header/>
-						<div className="flex min-h-[90vh]">
-							<div className="flex-shrink">
-								<Sidebar/>
-							</div>
-							<main className="dark:bg-gray-900 bg-gray-200 h-auto flex-grow">
-								{children}
-							</main>
-						</div>
-					</MenuContextProvider>
+					{children}
 				</Providers>
 			</body>
 		</html>

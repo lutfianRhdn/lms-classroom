@@ -1,4 +1,5 @@
 
+import Layout from "@/layouts/layout";
 import fetchApi from "@/utils/fetchApi";
 async function getQuizDetail(id: any) {
   const res = await fetchApi(`/quiz/${id}`, "GET");
@@ -14,11 +15,14 @@ export default async function QuizLayout({
 }) {
   const data = await getQuizDetail(id)
 	return (
-    <section>
-    <h1 className="text-2xl bg-white p-4">Quiz {data?.name}</h1>
-    <div className="">
-			{children}
-    </div>
-  </section>
+    <Layout>
+      <section>
+        <h1 className="text-2xl bg-white p-4">Quiz {data?.name}</h1>
+        <div className="">
+          {children}
+        </div>
+      </section>
+    </Layout>
+    
 	);
 }

@@ -10,31 +10,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 export const siteConfig = {
 	name: "Splace Classroom",
-	navItems: [
-		{
-			label: "Home",
-			href: "/",
-		},
-    {
-      label: "Docs",
-      href: "/docs",
-    },
-    {
-      label: "Pricing",
-      href: "/pricing",
-    },
-    {
-      label: "Blog",
-      href: "/blog",
-    },
-    {
-      label: "About",
-      href: "/about",
-    }
-	],
 	navMenuItems: [
 		{
-			label: "Home",
+			label: "Dashboard",
 			href: "/",
 			icon: faHouse,
 		},

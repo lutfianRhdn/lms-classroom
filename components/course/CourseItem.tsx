@@ -5,7 +5,7 @@ import {Card, CardFooter, CardBody} from "@nextui-org/card";
 import { Image } from "@nextui-org/image";
 
 export const CourseItem = ({course}:any) => {
-  const { name } = course || {}; 
+  const { name, instructor } = course || {}; 
 	return (
 		<Card className="pb-4" radius="md">
       <CardBody className="p-0 overflow-hidden h-36">
@@ -19,7 +19,7 @@ export const CourseItem = ({course}:any) => {
       </CardBody>
       <CardFooter className="pb-0 pt-2 px-4 flex-col items-start">
         <p className="uppercase font-bold text-lg">{name}</p>
-        <small className="text-default-800">Lorem ipsum</small>
+        <small className="text-default-800">{instructor}</small>
       </CardFooter>
     </Card>
 	);

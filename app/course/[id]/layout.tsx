@@ -1,4 +1,5 @@
 import TabsCourse from "@/app/course/[id]/tabs";
+import Layout from "@/layouts/layout";
 
 export default function CourseLayout({
 	children,
@@ -6,11 +7,16 @@ export default function CourseLayout({
 	children: React.ReactNode;
 }) {
 	return (
-		<section className="w-full min-h-[90vh] flex flex-col">
-      <TabsCourse/>
-      <div className="flex justify-center flex-1 items-stretch mx-4">
-			  {children}
-      </div>
-		</section>
+		<Layout>
+			<section className="w-full min-h-[90vh]">
+				<div className="max-w-5xl mx-auto mt-5 mb-10">
+					<TabsCourse/>
+					<div className="flex justify-center flex-1 items-stretch">
+						{children}
+					</div>
+				</div>
+			</section>
+		</Layout>
+		
 	);
 }

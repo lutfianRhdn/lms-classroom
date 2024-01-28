@@ -3,9 +3,7 @@ import React,{ useEffect, useState } from 'react'
 import { Course,Resource } from '@/config/data-dummy'
 import { Image } from '@nextui-org/image';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import ModuleList from '@/components/module/moduleList';
 import fetchApi from '@/utils/fetchApi';
-import EmptyModule from '@/components/module/emptyModule';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus} from '@fortawesome/free-solid-svg-icons';
 import { Input } from '@nextui-org/input';
@@ -13,6 +11,8 @@ import { Button } from '@nextui-org/button';
 import { useSession } from 'next-auth/react';
 import { Spinner } from '@nextui-org/react';
 import { User } from '@/types';
+import ResourceList from '@/components/resource/resourceList';
+import EmptyResource from '@/components/resource/emptyResource';
 
 export default function page({params}:any) {
 
@@ -58,21 +58,21 @@ export default function page({params}:any) {
       setLoading(false)
     })
   },[])
-
+  console.log(data)
   data?.module?.sort((a:any,b:any)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   if (loading) return <Spinner className="w-full text-center"/>
   return (
-    <section className='w-full max-w-4xl py-8 flex flex-col gap-5'>
-      <Card className="w-full h-60 col-span-12 sm:col-span-7">
+    <section className='w-full flex flex-col gap-5'>
+      <Card className="w-full h-60 col-span-12 sm:col-span-7 rounded-t-none">
         <Image
           removeWrapper
           alt="Course banner"
-          className="z-0 h-full object-cover"
+          className="z-0 h-full object-cover rounded-t-none"
           src="/liquid-cheese.svg"
         />
         <CardFooter className="absolute bottom-0 z-10 text-white px-5 flex flex-col items-start">
           <h1 className="text-3xl font-semibold">{data?.name}</h1>
-          <p>Lorem Ipsum</p>
+          <p>{data?.instructor}</p>
         </CardFooter>
       </Card>
       {canUpload && 
@@ -108,7 +108,7 @@ export default function page({params}:any) {
       </div>
       }
       <section>
-        {data?.module?.length > 0 ? <ModuleList userRole={userData?.role}  module={data?.module}/> : <EmptyModule/>}
+        {data?.module?.length > 0 ? <ResourceList userRole={userData?.role}  module={data?.module}/> : <EmptyResource/>}
       </section>
     </section>
   )

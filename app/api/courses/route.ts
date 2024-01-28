@@ -13,9 +13,17 @@ export async function GET(req: Request, response: Response) {
           user_id: session?.id
         }
       }
-    }
+    },
+    include: { 
+      user_course: {
+        select: {
+          users: true
+      },
+    }}
   })
-  
-  return getResponse(coursesUser, 'success get all courses', 200);
-
+  const result = coursesUser.map((item: any) => ({
+    ...item,
+    instructor:item.user_course.filter((user:any)=>user.users.role === 'INSTRUCTOR')[0].users.name,
+  }))
+  return getResponse(result, 'success get all courses', 200);
 }

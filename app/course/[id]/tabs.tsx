@@ -14,7 +14,7 @@ export default function TabsCourse() {
   const { data: session } = useSession();
   const userData = session?.user as User
   return (
-    <div className="flex w-full flex-col bg-white dark:bg-black px-8">
+    <div className="flex w-full flex-col bg-white dark:bg-black px-8 rounded-t-md">
       <Tabs 
         aria-label="Options" 
         color="primary" 
@@ -32,16 +32,7 @@ export default function TabsCourse() {
           href={`/course/${id}`}
           title={
             <div className="flex items-center space-x-2">
-              <span className='font-bold'>Module</span>
-            </div>
-          }
-        />
-        <Tab
-          key={`/course/${id}/chatbot`}
-          href={`/course/${id}/chatbot`}
-          title={
-            <div className="flex items-center space-x-2">
-              <span className='font-bold'>ChatBot</span>
+              <span className='font-bold'>Course</span>
             </div>
           }
         />
@@ -51,6 +42,15 @@ export default function TabsCourse() {
           title={
             <div className="flex items-center space-x-2">
               <span className='font-bold'>People</span>
+            </div>
+          }
+        />
+        <Tab
+          key={`/course/${id}/chatbot`}
+          href={`/course/${id}/chatbot`}
+          title={
+            <div className="flex items-center space-x-2">
+              <span className='font-bold'>ChatBot</span>
             </div>
           }
         />

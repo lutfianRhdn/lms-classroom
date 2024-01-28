@@ -24,32 +24,16 @@ import { useRouter } from "next/navigation";
 import { User } from "@/types";
 export const Header = () => {
 	const router = useRouter()
-	const { toggle , open, setSearch } = useContext(MenuContext);
+	const { toggle  } = useContext(MenuContext);
 	const { data: session } = useSession();
   const userData = session?.user as User
 	const path = usePathname();
 	const handleSignOut = () =>{
 		signOut()
 	}
-	const searchInput = (
-		<Input
-			aria-label="Search"
-			classNames={{
-				inputWrapper: "bg-default-100",
-				input: "text-sm",
-			}}
-			onChange={(e)=>setSearch(e.target.value)}
-			labelPlacement="outside"
-			placeholder="Search..."
-			startContent={
-				<SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-			}
-			type="search"
-		/>
-	);
 
 	return (
-		<NextUINavbar disableAnimation isBordered maxWidth="full" position="sticky" className="h-[10vh]">
+		<NextUINavbar disableAnimation isBordered maxWidth="full" position="sticky" className="h-[10vh] z-30 bg-white">
 			<NavbarContent className="basis-1/5 sm:basis-full" justify="start">
 				<FontAwesomeIcon icon={faBars} onClick={toggle} className="fa-lg"/>
 				<NavbarBrand as="li" className="gap-3 max-w-fit">
@@ -61,7 +45,6 @@ export const Header = () => {
 
 			<NavbarContent as="div" justify="end">
 				{/* <ThemeSwitch /> */}
-				<NavbarItem className="hidden md:flex">{path == '/' && searchInput}</NavbarItem>
 				{session == null ? (
 					<NavbarItem className="flex gap-3">
 						<Button
