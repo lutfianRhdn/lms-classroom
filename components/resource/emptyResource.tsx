@@ -2,7 +2,7 @@ import { Card, CardBody } from '@nextui-org/card'
 import { Image } from '@nextui-org/image'
 import React from 'react'
 
-export default function EmptyModule() {
+export default function EmptyResource() {
   return (
     <Card className='flex  flex-row items-center p-2'>
       <Image className='hidden md:block' src='/creativeTeam.png' alt='ilustration' width={200}/>

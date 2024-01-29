@@ -1,11 +1,12 @@
+import Layout from "@/layouts/layout";
 
-export default function AuthLayout({
+export default function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
 	return (
-		<section className="px-5">
+		<section className="w-screen h-screen">
 			{children}
 		</section>
 	);

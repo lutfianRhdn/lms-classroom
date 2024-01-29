@@ -10,23 +10,29 @@ export async function GET(req: Request, { params }: any) {
   const coursesUser = await prisma.course.findUnique({
     where: {
       id: +id
-    }, include: {
+    }, 
+    include: {
       resource: true,
       quiz: {
         include: {
           user_quiz: true
         }
       },
+      user_course: {
+        select: {
+          users: true
+        }
+      },
     }
   })
-  const { resource, quiz } = coursesUser as any
+  const { resource, quiz, user_course } = coursesUser as any
   if(!session?.id) return getResponse(null, 'user not found', 400)
   const isQuizAnswered = quiz.map((quiz: any) => {
     const { user_quiz } = quiz
     quiz.isAnswered = user_quiz.find((user_quiz: any) => user_quiz.user_id === session.id) ? true : false
     return quiz
   })
-
+  const courseIntructor = user_course.filter((item: any) => item.users.role === 'INSTRUCTOR')[0]
   const result = [...resource, ...isQuizAnswered];
 
   const resultSorted = result.sort((a: any, b: any) => new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf()).map(item => ({
@@ -37,7 +43,6 @@ export async function GET(req: Request, { params }: any) {
     updatedAt: item.updatedAt,
     isAnswered: item.isAnswered
   }))
-
-  return getResponse({name:coursesUser?.name, module:resultSorted}, 'success get all courses', 200);
+  return getResponse({name:coursesUser?.name, instructor:courseIntructor?.users?.name, module:resultSorted}, 'success get all courses', 200);
 
 }

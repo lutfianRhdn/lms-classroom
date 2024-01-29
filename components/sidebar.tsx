@@ -5,7 +5,6 @@ import NextLink from "next/link";
 import { siteConfig } from '@/config/site';
 import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { useSession } from 'next-auth/react';
-import { Tooltip } from '@nextui-org/tooltip';
 
 type menuItems = {
   label: String,
@@ -45,7 +44,7 @@ function Sidebar() {
   return (
     <aside
       ref={sidebarRef}
-      className={`fixed md:relative top-0 left-0 h-full w-fit z-50 md:z-0 bg-white dark:bg-black shadow-lg transition-all ease-in-out duration-300 px-4 py-4 md:py-2 space-y-5 md:translate-x-0 ${open?'translate-x-0':'-translate-x-full'}`}
+      className={`absolute h-full w-fit z-50 bg-white dark:bg-black shadow-lg transition-all ease-in-out duration-300 px-4 py-4 space-y-5 ${open?'translate-x-0':'-translate-x-full'}`}
     >
       {navMenuItems.map((item,index) => (
         <NextLink 
@@ -54,9 +53,7 @@ function Sidebar() {
           key={index} 
           onClick={open?closeSidebarHandler:undefined}
         >
-          <Tooltip content={item.label} placement="right">
-            <FontAwesomeIcon icon={item.icon} className={``} />
-          </Tooltip>
+          <FontAwesomeIcon icon={item.icon} className={``} />
           <span className={`${open?'md:w-fit px-4':'md:w-0'} md:overflow-hidden transition-all`}>{item.label}</span>
         </NextLink>
         ))}

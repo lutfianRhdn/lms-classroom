@@ -60,11 +60,18 @@ export default function page({params: { id }}: {params: { id: any }}) {
   }, []);
 
   return (
-    <section>
-      <div className="flex flex-col md:grid p-5 lg:px-28 gap-3 md:grid-cols-3">
-        <QuizList question={data.question} handleInputChange={handleInputChange} className='space-y-4 container order-2 md:order-1 col-span-2'/>
-        <QuizNavigation handleSubmit={handleSubmit} question={data.question} formData={formData} errorMessage={errorMessage} className='container order-1 md:order-2 h-fit px-5 py-2 md:sticky md:top-20 '/>
-      </div>
-    </section>
+    <>
+      <header className="bg-white p-4 px-10">
+        <h1 className="font-bold text-dark-blue text-xl">{data.name}</h1>
+      </header>
+      <section>
+        <div className="flex flex-col md:grid p-5 lg:px-28 gap-3 md:grid-cols-3">
+          <QuizList question={data.question} handleInputChange={handleInputChange} className='space-y-4 container order-2 md:order-1 col-span-2'/>
+          <QuizNavigation handleSubmit={handleSubmit} question={data.question} formData={formData} errorMessage={errorMessage} className='container order-1 md:order-2 h-fit px-5 py-2 md:sticky md:top-20 '/>
+        </div>
+      </section>
+    </>
+      
+    
   );
 }
