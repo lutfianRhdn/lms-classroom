@@ -3,13 +3,13 @@ import React,{useContext, useEffect, useRef} from 'react'
 import { MenuContext } from '@/app/context/MenuContext';
 import NextLink from "next/link";
 import { siteConfig } from '@/config/site';
-import { FontAwesomeIcon, FontAwesomeIconProps } from '@fortawesome/react-fontawesome';
 import { useSession } from 'next-auth/react';
+import { Icon } from '@iconify/react';
 
 type menuItems = {
   label: String,
   href: any,
-  icon: FontAwesomeIconProps['icon'],
+  icon: String,
 }
 
 function Sidebar() {
@@ -19,6 +19,7 @@ function Sidebar() {
   const sidebarRef:any = useRef(null);
   useEffect(() => {
     if (session?.user?.role === 'ADMIN') setNavMenuItems(siteConfig.navMenuItemsAdmin)
+    else if (session?.user?.role === 'INSTRUCTOR') setNavMenuItems(siteConfig.navMenuItemsInstructor)
     else setNavMenuItems(siteConfig.navMenuItems)
   },[session])
   
@@ -53,7 +54,7 @@ function Sidebar() {
           key={index} 
           onClick={open?closeSidebarHandler:undefined}
         >
-          <FontAwesomeIcon icon={item.icon} className={``} />
+          <Icon icon={`${item.icon}`} className='text-xl'/>
           <span className={`${open?'md:w-fit px-4':'md:w-0'} md:overflow-hidden transition-all`}>{item.label}</span>
         </NextLink>
         ))}
