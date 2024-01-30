@@ -1,25 +1,40 @@
 import React from "react";
-import { Modal as M, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
+import { Modal as M, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Divider, } from "@nextui-org/react";
 
-export default function Modal({ content }:any) {
-  const {  isOpen, onOpen, onOpenChange } = useDisclosure();
+export default function Modal({ children, title, isOpen, onOpenChange, btnActionTitle}:any) {
   return (
     <>
-      <Button onPress={onOpen}>Open Modal</Button>
-      <M isOpen={isOpen} onOpenChange={onOpenChange}>
+      <M 
+        isOpen={isOpen} 
+        onOpenChange={onOpenChange}
+        placement='center'
+        className="m-4"
+      >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 text-xl font-bold text-dark-blue">{title}</ModalHeader>
+              <Divider className="mb-4"/>
               <ModalBody className="whitespace-pre-wrap">
-                {content}
+                {children}
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+              <ModalFooter className="mx-auto">
+                <Button 
+                  variant="ghost" 
+                  className="border-dark-blue text-dark-blue" 
+                  onPress={onClose} 
+                  radius="sm" 
+                  size="sm"
+                >
                   Close
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
+                <Button 
+                  onPress={onClose} 
+                  className="bg-dark-blue text-white" 
+                  radius="sm" 
+                  size="sm"
+                >
+                  {btnActionTitle}
                 </Button>
               </ModalFooter>
             </>

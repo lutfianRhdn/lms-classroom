@@ -200,7 +200,32 @@ export const people = [
     role:'STUDENT'
   },
 ]
-
+export const quiz = [
+  {
+    key: "1",
+    name: "Tony Reichert",
+    count_question: "CEO",
+    type: "Active",
+    name_course:"Course",
+    updateAt:"2024-01-24"
+  },
+  {
+    key: "2",
+    name: "Tony Reichert",
+    count_question: "CEO",
+    type: "Active",
+    name_course:"Course",
+    updateAt:"2024-01-24"
+  },
+  {
+    key: "3",
+    name: "Tony Reichert",
+    count_question: "CEO",
+    type: "Active",
+    name_course:"Course",
+    updateAt:"2024-01-24"
+  },
+]
 export const quizResult = [
   {
     id:1,
