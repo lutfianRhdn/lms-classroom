@@ -89,8 +89,8 @@ export async function GET(req: Request, { params }: any) {
         where: {
           user_id: session?.id
         }
-      }
-    }
+      },
+    },
   })
   return getResponse(quiz, 'success get quiz', 200);
 }

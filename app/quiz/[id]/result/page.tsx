@@ -1,43 +1,79 @@
 'use client';
 import React,{useEffect, useState} from 'react'
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Button} from "@nextui-org/react";
+import {
+  Table, 
+  TableHeader, 
+  TableColumn, 
+  TableBody, 
+  TableRow, 
+  TableCell, 
+  getKeyValue, 
+  Button, 
+  Spinner} from "@nextui-org/react";
 import NextLink from 'next/link';
 import { quizResult } from '@/config/data-dummy'
 import fetchApi from '@/utils/fetchApi';
 import { showFormattedDate } from '@/utils/timeStamp';
+
 export default function page({params: {id}}: {params: {id: string}}) {
-  const [data,setData] = useState([])
+  const [data,setData] = useState([]) as any
+  const [loading,setLoading] = useState(true)  
   async function getQuiz() {
     const res = await fetchApi(`/quiz/${id}`, 'GET')
-    return res.data.user_quiz
+    return res.data
   }
   useEffect(() => {
     getQuiz().then((res) =>{
       setData(res)
+      setLoading(false)
     })
   },[])
-  const columns = ['createdAt','score']
-  const rows = data
+  const columns = [
+    {
+      key: "createdAt",
+      label: "State",
+    },
+    {
+      key: "score",
+      label: "Grade",
+    },
+  ];
+  const rows = data?.user_quiz
+  if (loading) return  <Spinner className="w-full text-center"/>
   return (
-    <section className='m-4 space-y-3'>
-      <h1 className='text-lg'>Summary of your attempts</h1>
-      <Table aria-label='table quiz detail'>
+    <section className='m-4 space-y-4'>
+      <header className='text-dark-blue bg-white shadow-md p-4 px-10'>
+        <h1 className='text-xl font-bold'>Summary {data.name}</h1>
+      </header>
+      <Table aria-label='table quiz detail' className='md:px-10'>
         <TableHeader>
           {columns.map((column) =>
-            <TableColumn key={column}>{column}</TableColumn>
+            <TableColumn key={column.key}>{column.label}</TableColumn>
           )}
         </TableHeader>
         <TableBody>
-          {rows.map((row:any) =>{
+          {rows?.map((row:any) =>{
             if (row.createdAt) row.createdAt = showFormattedDate(row.createdAt)
             return (
             <TableRow key={row.id}>
-              {(columnKey) => <TableCell>{getKeyValue(row, columnKey)}</TableCell>}
+              {(columnKey) => {
+                if(columnKey == 'createdAt'){
+                  return(
+                    <TableCell>
+                      <p>Finised</p>
+                      Submited {getKeyValue(row, columnKey)}
+                    </TableCell>
+                  )
+                }
+                return(
+                  <TableCell>{getKeyValue(row, columnKey)}</TableCell>
+                )
+              }}
             </TableRow>
           )})}
         </TableBody>
       </Table>
-      <NextLink href={`/`} className='flex justify-center'><Button color='primary'>Back Home</Button></NextLink>
+      <NextLink href={`/`} className='flex justify-center'><Button className='bg-dark-blue font-bold text-white'>Back To Your Course</Button></NextLink>
     </section>
   )
 }

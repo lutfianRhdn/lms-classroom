@@ -4,7 +4,6 @@ import {Card, CardBody, Input, Button, CardFooter} from "@nextui-org/react";
 import fetchApi from '@/utils/fetchApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
-import { faComments } from '@fortawesome/free-regular-svg-icons';
 import { chatbot } from '@/config/data-dummy';
 import { Spinner } from '@nextui-org/react';
 import Link from 'next/link';
@@ -48,7 +47,7 @@ export default function page({params}:any) {
 
 
   return (
-    <section className='w-full light:bg-[#E7F1F9] flex justify-center items-center '>
+    <section className='w-full bg-white flex justify-center items-center '>
       <section className='max-w-4xl w-full rounded-lg flex flex-col h-[80vh]'>
         <section className='flex-grow overflow-auto py-2 px-4'>
           {data.length != 0 ? (data.map((message: any,index:number) => {
@@ -74,9 +73,9 @@ export default function page({params}:any) {
               </Card>
             )
           })):(
-            <section className=' text-center space-y-5 h-full flex items-center justify-center flex-col'>
-              <FontAwesomeIcon icon={faComments} className='fa-2xl'/>
-              <h1 className='text-2xl'>How Can I Help You?</h1>
+            <section className=' text-center space-y-2 h-full flex items-center justify-center flex-col'>
+              <h1 className='text-xl md:text-3xl text-dark-blue'>Welcome to ChatBot</h1>
+              <h1 className='text-sm md:text-2xl'>Get Started a task and chat for your question.</h1>
             </section >
           )}
           {loading && <Card className={`mb-4 w-fit px-5`}>
@@ -92,9 +91,9 @@ export default function page({params}:any) {
               type="text"
               name='message'
               value={message}
-              className="shadow py-0"
+              className="shadow py-0 border-2 border-dark-blue/50 rounded-xl"
               onChange={(e: any) => setMessage(e.target.value)}
-              placeholder='Enter your question here...'
+              placeholder='Enter the command here'
               endContent={
                 <Button variant='light' isIconOnly type='submit'>
                   <FontAwesomeIcon icon={faPaperPlane}/>

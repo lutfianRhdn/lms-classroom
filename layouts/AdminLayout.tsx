@@ -3,6 +3,7 @@ import Sidebar from '@/components/sidebar';
 import { faBars, faBookOpenReader, faChalkboardUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { ThemeSwitch } from '@/components/theme-switch';
 import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Image, Table, Tab } from "@nextui-org/react";
+import Layout from './layout';
 
 const AdminLayout = ({
   title,
@@ -15,7 +16,7 @@ const AdminLayout = ({
 }) => {
   
   return (
-    <>
+    <Layout>
       <section className='py-5 my-5'>
         <div className='container mx-auto w-screen md:w-full max-w-7xl mt-10 px-4'>
           <Card className="p-2 w-full">
@@ -32,7 +33,7 @@ const AdminLayout = ({
           </Card>
         </div>
       </section>
-    </>
+    </Layout>
   );
 };
 

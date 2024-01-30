@@ -1,10 +1,20 @@
 export const showFormattedDate = (date: string | number | Date): string => {
-  const options: Intl.DateTimeFormatOptions = {
+  const optionsDate: Intl.DateTimeFormatOptions = {
     weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
   };
 
-  return new Date(date).toLocaleDateString("id-ID", options);
+  const optionsTime: Intl.DateTimeFormatOptions = {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  };
+
+  const formattedDate = new Date(date);
+  const formattedDateString = formattedDate.toLocaleDateString("en-US", optionsDate);
+  const formattedTimeString = formattedDate.toLocaleTimeString("en-US", optionsTime);
+
+  return `${formattedDateString}, ${formattedTimeString}`;
 };
