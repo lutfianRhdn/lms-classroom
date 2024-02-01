@@ -17,7 +17,7 @@ export const siteConfig = {
 		},
 		{
 			label: "Quiz",
-			href: "/quiz/create",
+			href: "/quiz",
 			icon: "carbon:task-tools",
 		},
 		

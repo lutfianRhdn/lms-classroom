@@ -11,7 +11,7 @@ export default function Layout({
 	return (
     <MenuContextProvider>
       <Header/>
-      <div className="flex min-h-[90vh] w-screen">
+      <div className="flex min-h-[90vh]">
         <Sidebar/>
         <main className="dark:bg-gray-900  h-auto flex-grow bg-purple-500">
           {children}

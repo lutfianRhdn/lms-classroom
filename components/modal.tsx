@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal as M, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Divider, } from "@nextui-org/react";
 
-export default function Modal({ children, title, isOpen, onOpenChange, btnActionTitle}:any) {
+export default function Modal({ children, title, isOpen, onOpenChange, btnActionTitle, onSubmit}:any) {
   return (
     <>
       <M 
@@ -29,7 +29,7 @@ export default function Modal({ children, title, isOpen, onOpenChange, btnAction
                   Close
                 </Button>
                 <Button 
-                  onPress={onClose} 
+                  onPress={onSubmit} 
                   className="bg-dark-blue text-white" 
                   radius="sm" 
                   size="sm"
