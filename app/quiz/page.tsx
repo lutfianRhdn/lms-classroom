@@ -101,7 +101,8 @@ export default function page() {
       [e.target.name]: e.target.value
     })
   }
-  function handleSubmitQuizManual() {
+  function handleSubmitQuizManual(e:any) {
+    e.preventDefault()
     const {name, course, type} = quizForm;
     if(!name || !course || !type) return Swal.fire({
       icon: 'error',
@@ -229,9 +230,9 @@ export default function page() {
           isOpen={modal2.isOpen} 
           onOpenChange={modal2.onOpenChange}
           btnActionTitle='Next'
-          onSubmit={handleSubmitQuizManual}
+          submit={handleSubmitQuizManual}
         >
-          <form className='space-y-10'>
+          <div className='space-y-10'>
             <Input
               name='name'
               placeholder='Insert Your Quiz Name Here'
@@ -271,7 +272,7 @@ export default function page() {
                 </SelectItem>
               ))}
             </Select>
-          </form>
+          </div>
         </Modal>
       </section>
     </section>

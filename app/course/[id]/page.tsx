@@ -11,40 +11,43 @@ import { Button } from '@nextui-org/button';
 import { useSession } from 'next-auth/react';
 import { Spinner } from '@nextui-org/react';
 import { User } from '@/types';
+import { useDisclosure } from '@nextui-org/react';
 import ResourceList from '@/components/resource/resourceList';
 import EmptyResource from '@/components/resource/emptyResource';
+import Modal from '@/components/modal';
 
 export default function page({params}:any) {
-
+  const modal = useDisclosure();
   const { data:session } = useSession();
   const userData = session?.user as User
   const [data, setData] = useState([]) as any;
-  const [open, setOpen] = useState(false);
   const [canUpload, setCanUpload] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [name, setName] = useState('');
-  const [file, setFile] = useState(null);
-  const [loadingUpload, setLoadingUpload] = useState(false);
-  const course = Course.find((course) => course.id == params.id);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
+
   async function  getData() {
     const courses = (await fetchApi(`/courses/${params.id}`, 'GET'));
     return courses.data;
   }
-  const handleUpload = async (e: any) => {
-    e.preventDefault();
-    setLoadingUpload(true)
+
+
+  async function handleUpload(e: any){
+    e.preventDefault()
+    setLoadingSubmit(true)
     const formData = new FormData(e.target);
     formData.append('course_id', params.id);
+    console.log(formData)
     const res = await fetch(`/api/resources`, {
       method: 'POST',
       body: formData,
     })
-    setLoadingUpload(false)
     if (res) {
       getData().then((res)=>{
         setData(res)
       })
     }
+    setLoadingSubmit(false)
+    modal.onClose()
   }
 
   useEffect(()=>{
@@ -58,7 +61,6 @@ export default function page({params}:any) {
       setLoading(false)
     })
   },[])
-  console.log(data)
   data?.module?.sort((a:any,b:any)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   if (loading) return <Spinner className="w-full text-center"/>
   return (
@@ -76,36 +78,50 @@ export default function page({params}:any) {
         </CardFooter>
       </Card>
       {canUpload && 
-      <div>
-        <Card className='w-full'>
-          <CardBody className='p-4'>
-            <form onSubmit={handleUpload} className={`flex flex-col`}> 
-              <Input
-                isRequired
-                type="text"
-                name='name'
-                label="File Name"
-                className="shadow"
-                onFocus={()=>setOpen(true)}
-              />
-              <div className={`w-full flex gap-3 ${open?'h-fit mt-4' :'h-0'} flex-wrap overflow-hidden transition-all`}>
-                <input
-                  className="relative m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
-                  type="file"
-                />
-                <div className='flex justify-end w-full gap-3'>
-                  <Button color="default" size='sm' className="max-w-xs" type='reset' onClick={()=>setOpen(false)}>
-                    Cancel
-                  </Button>
-                  <Button color="primary" size='sm' className="max-w-xs" type='submit' isLoading={loadingUpload}>
-                    Upload
-                  </Button>
-                </div>
-              </div>
-            </form>
-          </CardBody>
-        </Card>
-      </div>
+      <>
+        <Button 
+          variant='bordered' 
+          className='flex justify-start bg-white' 
+          radius='none' size='lg' 
+          startContent={<FontAwesomeIcon icon={faPlus}/>}
+          onPress={modal.onOpen}
+        >
+          Add Your Section In Here
+        </Button>
+        <Modal 
+          title='Add Section' 
+          isOpen={modal.isOpen} 
+          onOpenChange={modal.onOpenChange}
+          btnActionTitle='Upload'
+          submit={handleUpload}
+          loading={loadingSubmit}
+        >
+          <Input
+            type="text"
+            name='name'
+            label="Section Name"
+            labelPlacement='outside'
+            radius='none'
+            variant='bordered'
+            placeholder='Insert Your Section Name Here'
+          />
+          <Input
+            type='text'
+            name='description'
+            label="Description"
+            radius='none'
+            variant='bordered'
+            labelPlacement='outside'
+            placeholder='Insert Your Description Here'
+          />
+          <input
+            className="m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+            type="file"
+            name="file"
+          />
+        </Modal>
+      </>
+      
       }
       <section>
         {data?.module?.length > 0 ? <ResourceList userRole={userData?.role}  module={data?.module}/> : <EmptyResource/>}
