@@ -13,6 +13,21 @@ export default function TabsCourse() {
   const { id } = useParams();
   const { data: session } = useSession();
   const userData = session?.user as User
+
+  const tabs = [
+    {
+      title: 'Course',
+      href: `/course/${id}`
+    },
+    {
+      title: 'People',
+      href: `/course/${id}/people`
+    },
+    {
+      title: 'ChatBot',
+      href: `/course/${id}/chatbot`
+    }
+  ]
   return (
     <div className="flex w-full flex-col bg-white dark:bg-black px-8 rounded-t-md">
       <Tabs 
@@ -27,44 +42,17 @@ export default function TabsCourse() {
           tabContent: "group-data-[selected=true]:text-[#06b6d4]",
         }}
       >
-        <Tab
-          key={`/course/${id}`}
-          href={`/course/${id}`}
-          title={
-            <div className="flex items-center space-x-2">
-              <span className='font-bold'>Course</span>
-            </div>
-          }
-        />
-        <Tab
-          key={`/course/${id}/people`}
-          href={`/course/${id}/people`}
-          title={
-            <div className="flex items-center space-x-2">
-              <span className='font-bold'>People</span>
-            </div>
-          }
-        />
-        <Tab
-          key={`/course/${id}/chatbot`}
-          href={`/course/${id}/chatbot`}
-          title={
-            <div className="flex items-center space-x-2">
-              <span className='font-bold'>ChatBot</span>
-            </div>
-          }
-        />
-        { userData?.role === 'INSTRUCTOR' && (
+        {tabs.map((tab) => (
           <Tab
-          key={`/course/${id}/quiz`}
-          href={`/course/${id}/quiz`}
-          title={
-            <div className="flex items-center space-x-2">
-              <span className='font-bold'>Quiz</span>
-            </div>
-          }
-        />
-        )}
+            key={tab.href}
+            href={tab.href}
+            title={
+              <div className="flex items-center space-x-2">
+                <span className='font-bold'>{tab.title}</span>
+              </div>
+            }
+          />
+        ))}
       </Tabs>
     </div>  
   )

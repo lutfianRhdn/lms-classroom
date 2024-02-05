@@ -10,6 +10,7 @@ export async function POST(req: Request) {
   const data = await req.formData();
   const course_id = data.get('course_id') as string;
   const name = data.get('name') as string;
+  const description = data.get('description') as string;
   const file: File | null = data.get('file') as unknown as File;
   const session = await getSessionUser() as User  
   const user_id = 3
@@ -32,6 +33,7 @@ export async function POST(req: Request) {
   const resource = await prisma.resource.create({
     data: {
       name,
+      description:description,
       path: request.url,
       course_id: +course_id,
       user_id: +user_id
