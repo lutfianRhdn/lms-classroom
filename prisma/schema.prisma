@@ -15,6 +15,12 @@ enum Role {
   STUDENT
 }
 
+enum TypeQuiz {
+  Multiple
+  Essay
+  Mixed
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   username  String   @unique
@@ -50,19 +56,21 @@ model Course {
 }
 
 model Resource {
-  id        Int      @id @default(autoincrement())
-  name      String
-  path      String
-  user_id   Int
-  course_id Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  deletedAt DateTime?
-  course   Course @relation(fields: [course_id], references: [id])
+  id                Int      @id @default(autoincrement())
+  name              String
+  description       String
+  path              String
+  user_id           Int
+  course_id         Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  deletedAt         DateTime?
+  course            Course @relation(fields: [course_id], references: [id])
 }
 model Quiz {
   id        Int      @id @default(autoincrement())
   name      String
+  type      TypeQuiz 
   course_id Int
   question  Json @default("[]")
   answer    Json @default("[]")

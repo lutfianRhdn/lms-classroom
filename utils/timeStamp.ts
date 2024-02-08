@@ -1,3 +1,5 @@
+import exp from "constants";
+
 export const showFormattedDate = (date: string | number | Date): string => {
   const optionsDate: Intl.DateTimeFormatOptions = {
     weekday: "long",
@@ -18,3 +20,16 @@ export const showFormattedDate = (date: string | number | Date): string => {
 
   return `${formattedDateString}, ${formattedTimeString}`;
 };
+
+export const showFormattedDateOnly = (date: string | number | Date): string => {
+  const optionsDate: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+
+  const formattedDate = new Date(date);
+  const formattedDateString = formattedDate.toLocaleDateString("en-US", optionsDate);
+
+  return `${formattedDateString}`;
+}

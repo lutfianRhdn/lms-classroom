@@ -12,6 +12,7 @@ interface QuizProps {
   courseId: any;
   quizName: string;
   onSubmit: any;
+  type: string;
 }
 
 interface Question {
@@ -30,9 +31,10 @@ interface QuizData {
   name: string;
   question: Question[];
   answer: Answer[];
+  type: string;
 }
 
-export const QuizCreator = ({ courseId,quizName,onSubmit}:QuizProps) => {
+export const QuizCreator = ({ courseId,quizName,onSubmit, type}:QuizProps) => {
   const [questions, setQuestions] = useState<Question[]>([{ title: '', choices: ['', '', '', ''], isMultiple:false }]);
   const [answers, setAnswers] = useState<Answer[]>([{ title: '', answer: [] }]);
   
@@ -121,9 +123,10 @@ export const QuizCreator = ({ courseId,quizName,onSubmit}:QuizProps) => {
       name: quizName,
       question: questions,
       answer: answers,
+      type:type
     };
     console.log(quizData);
-    // onSubmit(e,quizData);
+    onSubmit(e,quizData);
   };
 
   return (

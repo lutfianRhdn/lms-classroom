@@ -35,9 +35,10 @@ export async function GET(req: Request, { params }: any) {
   const courseIntructor = user_course.filter((item: any) => item.users.role === 'INSTRUCTOR')[0]
   const result = [...resource, ...isQuizAnswered];
 
-  const resultSorted = result.sort((a: any, b: any) => new Date(a.createdAt).valueOf() - new Date(b.createdAt).valueOf()).map(item => ({
+  const resultSorted = result.sort((a:any,b:any)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map(item => ({
     id: item.id,
     name: item.name,
+    description: item.description,
     path: item.path,
     createdAt: item.createdAt,
     updatedAt: item.updatedAt,
