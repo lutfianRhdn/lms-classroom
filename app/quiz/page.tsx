@@ -1,8 +1,8 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { quiz } from '@/config/data-dummy';
 import {
-  Table, 
+  Table as T, 
   TableHeader, 
   TableColumn, 
   TableBody, 
@@ -19,11 +19,19 @@ import { Icon } from '@iconify/react';
 import Modal from '@/components/modal';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
+import FormQuizAI from '@/components/quiz/formQuizAI';
+import fetchApi from '@/utils/fetchApi';
+import FormQuizManual from '@/components/quiz/formQuizManual';
+import { showFormattedDate, showFormattedDateOnly } from '@/utils/timeStamp';
+import { Spinner } from '@nextui-org/react';
 
 export default function page() {
   const modal1 = useDisclosure();
   const modal2 = useDisclosure();
   const router = useRouter();
+  const [courses, setCourses] = useState([]) as any;
+  const [quiz, setQuiz] = useState([]) as any;
+  const [loading, setLoading] = useState(true);
   const [quizForm, setQuizForm] = useState({
     name: '',
     course: '',
@@ -31,24 +39,11 @@ export default function page() {
     type: '',
     numberQuestion: 0
   })
-  const courses = [
-    {
-      id:1,
-      name: 'Course 1'
-    },
-    {
-      id:2,
-      name: 'Course 2'
-    },
-    {
-      id:3,
-      name: 'Course 3'
-    },
-  ]
+
   const questionTypes = [
     {
       id:1,
-      name: 'Multiple Choice'
+      name: 'Multiple'
     },
     {
       id:2,
@@ -59,27 +54,13 @@ export default function page() {
       name: 'Mixed'
     },
   ]
-  const modules = [
-    {
-      id:1,
-      name: 'Data Visualisation'
-    },
-    {
-      id:2,
-      name: 'Data Minig'
-    },
-    {
-      id:3,
-      name: 'Data Warehousing'
-    },
-  ]
   const columns = [
     {
       key: "name",
       label: "Quiz Name",
     },
     {
-      key: "count_question",
+      key: "question",
       label: "Number Of Questions",
     },
     {
@@ -87,14 +68,47 @@ export default function page() {
       label: "Quiz Type",
     },
     {
-      key: "name_course",
+      key: "course_id",
       label: "Course",
     },
     {
-      key: "updateAt",
+      key: "updatedAt",
       label: "Modify",
     },
   ];
+  const modules = [
+    {
+      id: 1,
+      name: 'Module 1'
+    },
+    {
+      id: 2,
+      name: 'Module 2'
+    },
+    {
+      id: 3,
+      name: 'Module 3'
+    },
+  ]
+
+  async function getQuiz() {
+    const quiz = (await fetchApi(`/quiz`, 'GET'));
+    return quiz.data;
+  }
+  async function getCourses() {
+    const courses = (await fetchApi(`/courses`, 'GET'));
+    return courses.data;
+  }
+  useEffect(()=>{
+    getCourses().then((res)=>{
+      setCourses(res)
+    })
+    getQuiz().then((res)=>{
+      setQuiz(res)
+      setLoading(false)
+    })
+  },[])
+
   function handleChange(e:any){
     setQuizForm({
       ...quizForm,
@@ -118,18 +132,25 @@ export default function page() {
         <h1 className='text-xl font-bold text-dark-blue'>Quiz</h1>
       </header>
       <section className="overflow-x-auto w-full">
-        <Table aria-label="Table Quiz" radius='none'>
+        <T 
+          aria-label="Table Quiz" 
+          radius='none' 
+        >
           <TableHeader columns={columns}>
             {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
           </TableHeader>
-          <TableBody items={quiz}>
-            {(item) => (
+          <TableBody items={quiz} isLoading={loading} loadingContent={<Spinner/>}>
+            {(item:any) => {
+              if (item.updatedAt) item.updatedAt = showFormattedDateOnly(item.updatedAt)
+              if (item.question) item.question = item.question.length 
+              if (item.course_id) item.course_id = courses?.find((c:any) => c.id === item.course_id)?.name
+              return(
               <TableRow key={item.key}>
                 {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
               </TableRow>
-            )}
+            )}}
           </TableBody>
-        </Table>
+        </T>
       </section>
       <section className='flex gap-3 items-center'>
         {/* GENERATE QUIZ BY AI */}
@@ -148,73 +169,12 @@ export default function page() {
           onOpenChange={modal1.onOpenChange}
           btnActionTitle='Generate'
         >
-          <form action="" className='space-y-5'>
-            <Input
-              name='name'
-              placeholder='Insert Your Quiz Name Here'
-              label='Quiz Name :'
-              variant='bordered'
-              labelPlacement='outside'
-              radius='sm'
-            />
-            <div className='flex gap-5'>
-              <Select
-                name='course'
-                variant='bordered'
-                label='Course :'
-                labelPlacement='outside' 
-                radius='sm'
-                placeholder='Choose Course'
-              >
-                {courses.map((course) => (
-                  <SelectItem key={course.id} value={course.name}>
-                    {course.name}
-                  </SelectItem>
-                ))}
-              </Select>
-              <Select
-                name='module'
-                variant='bordered'
-                label='Module :'
-                labelPlacement='outside' 
-                radius='sm'
-                placeholder='Choose Module'
-              >
-                {modules.map((module) => (
-                  <SelectItem key={module.id} value={module.name}>
-                    {module.name}
-                  </SelectItem>
-                ))}
-              </Select>
-            </div>
-            <div className='flex gap-5'>
-              <Select
-                name='type'
-                variant='bordered'
-                label='Question Type :'
-                labelPlacement='outside' 
-                radius='sm'
-                placeholder='Choose Type'
-              >
-                {questionTypes.map((type) => (
-                  <SelectItem key={type.name} value={type.name}>
-                    {type.name}
-                  </SelectItem>
-                ))}
-              </Select>
-              <Input
-                name='numberQuestion'
-                placeholder='Insert Your Number Question'
-                label='Number Of Question :'
-                variant='bordered'
-                labelPlacement='outside'
-                radius='sm'
-              />
-            </div>
-            
-          </form>
+          <FormQuizAI 
+            courses={courses} 
+            questionTypes={questionTypes} 
+            modules={modules}
+          />
         </Modal>
-
         {/* CREATE QUIZ MANUAL */}
         <Button 
           size='sm' 
@@ -232,47 +192,11 @@ export default function page() {
           btnActionTitle='Next'
           submit={handleSubmitQuizManual}
         >
-          <div className='space-y-10'>
-            <Input
-              name='name'
-              placeholder='Insert Your Quiz Name Here'
-              label='Quiz Name :'
-              variant='bordered'
-              onChange={handleChange}
-              labelPlacement='outside'
-              radius='sm'
-            />
-            <Select
-              name='course'
-              variant='bordered'
-              label='Course :'
-              labelPlacement='outside' 
-              onChange={handleChange}
-              radius='sm'
-              placeholder='Choose Course'
-            >
-              {courses.map((course) => (
-                <SelectItem key={course.id} value={course.id}>
-                  {course.name}
-                </SelectItem>
-              ))}
-            </Select>
-            <Select
-              name='type'
-              variant='bordered'
-              label='Question Type :'
-              labelPlacement='outside' 
-              onChange={handleChange}
-              radius='sm'
-              placeholder='Choose Type'
-            >
-              {questionTypes.map((type) => (
-                <SelectItem key={type.name} value={type.name}>
-                  {type.name}
-                </SelectItem>
-              ))}
-            </Select>
-          </div>
+          <FormQuizManual 
+            courses={courses} 
+            questionTypes={questionTypes} 
+            handleChange={handleChange}
+          />
         </Modal>
       </section>
     </section>

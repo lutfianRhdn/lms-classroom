@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient()
 export async function POST(req: Request) {
-  const {course_id,name,question,answer} : Quiz = await req.json();
+  const {course_id,name,question,answer,type} : Quiz = await req.json();
   const session = await getSessionUser();
   if (!course_id || !name || !question || !answer) return getResponse(null, 'course_id,name,question,answer is required', 400);
   if (question.length !== answer.length) return getResponse(null, 'question and answer must be same length', 400);
@@ -21,6 +21,7 @@ export async function POST(req: Request) {
       name,
       question,
       answer,
+      type
     }
   })
   return getResponse(quiz, 'success get Create quiz', 200);

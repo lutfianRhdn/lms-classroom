@@ -33,12 +33,15 @@ export default function QuizItem({userRole,module}:any) {
             <p className="text-small text-default-500">{showFormattedDate(createdAt)}</p>
           </div>
         </div>
-        <FontAwesomeIcon icon={isAnswered?faCircleCheck:faCircle } className={`${isAnswered?'text-green-500':'text-gray-300'}`} size='xl'/>
-        {userRole !== 'STUDENT' && (
-          <div className='group-hover:flex hidden'>
-            <Button color='danger' size='sm' onClick={(e)=>handleDeleteQuiz(e,id)}>Delete</Button>
-          </div>
-        )}
+        <div>
+          {userRole !== 'STUDENT' ? (
+            <div className='group-hover:flex hidden'>
+              <Button color='danger' size='sm' onClick={(e)=>handleDeleteQuiz(e,id)}>Delete</Button>
+            </div>
+          ):(
+            <FontAwesomeIcon icon={isAnswered?faCircleCheck:faCircle } className={`${isAnswered?'text-green-500':'text-gray-300'}`} size='xl'/>
+          )}
+        </div>
       </div>
     </NextLink>
   )

@@ -12,17 +12,23 @@ type quizItemProps = {
 
 export default function QuizItem({no,title, choices,handleInputChange}: quizItemProps){
   return (
-    <Card id={no} className='p-4 w-full'>
-      <CardHeader>{no+1}. {title}</CardHeader>
-      <CardBody>
-        <RadioGroup onChange={(e)=>handleInputChange(e,title)}>
-        {choices.map((choice, index) => {
-          return (
-              <Radio key={index} value={choice}>{choice}</Radio>
-          )
-        })}
-        </RadioGroup>
-      </CardBody>
-    </Card>
+    <div className='space-y-1'>
+      <Card id={no} className='p-4 w-full border-gray-300 border-1' radius='none' shadow='none'>
+        <h1>Question {no+1}</h1>
+      </Card>
+      <Card id={no} className='p-2 w-full border-gray-300 border-1' radius='none' shadow='none'>
+        <CardBody className='space-y-2'>
+          <h1>{title}</h1>
+          <RadioGroup onChange={(e)=>handleInputChange(e,title)}>
+          {choices.map((choice, index) => {
+            return (
+                <Radio key={index} value={choice}>{choice}</Radio>
+            )
+          })}
+          </RadioGroup>
+        </CardBody>
+      </Card>
+    </div>
+    
   )
 }

@@ -46,10 +46,8 @@ export default function page({params: {id}}: {params: {id: string}}) {
         <h1 className='text-xl font-bold'>Summary {data.name}</h1>
       </header>
       <Table aria-label='table quiz detail' className='md:px-10'>
-        <TableHeader>
-          {columns.map((column) =>
-            <TableColumn key={column.key}>{column.label}</TableColumn>
-          )}
+        <TableHeader columns={columns}>
+          {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
         </TableHeader>
         <TableBody>
           {rows?.map((row:any) =>{
@@ -73,7 +71,7 @@ export default function page({params: {id}}: {params: {id: string}}) {
           )})}
         </TableBody>
       </Table>
-      <NextLink href={`/`} className='flex justify-center'><Button className='bg-dark-blue font-bold text-white'>Back To Your Course</Button></NextLink>
+      <NextLink href={`/`} className='flex justify-center'><Button className='bg-dark-blue text-white px-10' radius='none'>Back To Your Course</Button></NextLink>
     </section>
   )
 }
