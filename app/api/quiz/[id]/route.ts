@@ -8,27 +8,31 @@ export async function POST(req: Request, { params }: any) {
   const answers : Answer[] = await req.json();
   const { id } = params;
   if (!answers) return getResponse(null, 'answers is required', 400);
-  const isAlreadyAnswered = await prisma.user_quiz.findFirst({
-    where: {
-      user_id:session?.id,
-      quiz_id: +id
-    }
-  })
-  if (isAlreadyAnswered) return getResponse(null, "user already answered this quiz", 400)
+  // const isAlreadyAnswered = await prisma.user_quiz.findFirst({
+  //   where: {
+  //     user_id:session?.id,
+  //     quiz_id: +id
+  //   }
+  // })
+  // if (isAlreadyAnswered) return getResponse(null, "user already answered this quiz", 400)
   const quiz = await prisma.quiz.findUnique({
     where: {
       id: +id
     }
   }) ;
+  // [{"title":"test","choices":["1","2","3","4"],"isMultiple":false}]
+  // [{"title":"test","answer":["4"]}]
+  // [{"title":"test","answer":"1"},{"title":"tess2","answer":"2"},{"title":"test3","answer":"3"},{"title":"test4","answer":"4"},{"title":"test6","answer":"2"}]
   if (!quiz) return getResponse(null, 'quiz not found', 400);
   const answerKeys: Array<any> | any = quiz.answer;
   const question = quiz?.question as [] || []
   const questionLength :number =question.length
   let countTrueAnswer = 0;
   answerKeys.forEach((answerKey: Answer,index:number) => {
-    if (answerKey.title === answers[index].title) {
-      countTrueAnswer = answerKey.answer === answers[index].answer ? 1 : 0
-    }
+    // if (answerKey.title === answers[index].title) {
+    //   countTrueAnswer = answerKey.answer === answers[index].answer ? 1 : 0
+    // }
+    console.log(answerKey.title,answers[index].title)
   });
   const score = countTrueAnswer / questionLength * 100
 
@@ -43,6 +47,7 @@ export async function POST(req: Request, { params }: any) {
 
   return getResponse(quizResult,"success answered a quiz",200)
 }
+
 export async function PUT(req: Request, { params }: any) {
   const { id } = params;
   const { course_id, name, question, answer }: Quiz = await req.json();

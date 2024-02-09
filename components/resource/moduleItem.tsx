@@ -8,7 +8,7 @@ import { Button } from '@nextui-org/button';
 import fetchApi from '@/utils/fetchApi';
 
 export default function ModuleItem({userRole,module}:any) {
-  const { id,name,createdAt, path } = module || {};
+  const { id,name, description, path } = module || {};
   const handleDeleteModule = async(e:any,id:any) => {
     e.preventDefault();
     await fetchApi(`/resources/${id}`, 'DELETE');
@@ -23,7 +23,7 @@ export default function ModuleItem({userRole,module}:any) {
           </div>
           <div className="flex flex-col">
             <p className="text-md">{name}</p>
-            <p className="text-small text-default-500">{showFormattedDate(createdAt)}</p>
+            <p className="text-small text-default-500">{description}</p>
           </div>
         </NextLink>
         {userRole !== 'STUDENT' && (

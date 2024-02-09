@@ -47,7 +47,7 @@ export default function page() {
       </Card>
       <section className='space-y-5 my-5'>
         <div className='space-y-3'>
-          <h1 className={`lg:text-xl text-blue-600 border-b-1 border-blue-600 border-solid`}>Instructor</h1>
+          <h1 className={`lg:text-xl text-blue-600 border-b-1 border-blue-600 border-solid`}>Teacher</h1>
           {loading ? <Spinner className='text-center w-full'/>:<PeopleList data={instructor}/>}
         </div>
         <div className='space-y-3'>

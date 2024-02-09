@@ -1,12 +1,14 @@
 "use client";
 import React, { useEffect, useState } from 'react'
-import {Card, CardBody, Input, Button, CardFooter} from "@nextui-org/react";
+import {Card, CardBody, Input, Button, CardFooter, CardHeader} from "@nextui-org/react";
 import fetchApi from '@/utils/fetchApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { chatbot } from '@/config/data-dummy';
 import { Spinner } from '@nextui-org/react';
+import { Icon } from '@iconify/react';
 import Link from 'next/link';
+
 export default function page({params}:any) {
   const [message, setMessage] = useState('');
   const [data, setData] = useState<any[]>([]);
@@ -53,7 +55,7 @@ export default function page({params}:any) {
           {data.length != 0 ? (data.map((message: any,index:number) => {
             const parsedMessage = JSON.parse(message.context?.messages[0]?.content || '{}')?.citations
             return (
-              <Card key={index} className={`mb-4 w-fit ${message.role == 'user'?"ms-auto bg-blue-400 text-white":''}`}>
+              <Card key={index} shadow='sm' className={`mb-4 w-fit ${message.role == 'user'?"ms-auto bg-blue-400 text-white":''}`}>
                 <CardBody>
                   <div>{ replacePatternWithSup(message.content)}</div>
                 </CardBody>
@@ -73,9 +75,47 @@ export default function page({params}:any) {
               </Card>
             )
           })):(
-            <section className=' text-center space-y-2 h-full flex items-center justify-center flex-col'>
-              <h1 className='text-xl md:text-3xl text-dark-blue'>Welcome to ChatBot</h1>
-              <h1 className='text-sm md:text-2xl'>Get Started a task and chat for your question.</h1>
+            <section className=' text-center space-y-8 h-full flex items-center justify-center flex-col'>
+              <div>
+                <h1 className='text-xl md:text-3xl text-dark-blue'>Welcome to ChatBot</h1>
+                <h1 className='text-sm md:text-2xl'>Get Started a task and chat for your question.</h1>
+              </div>
+              <div className='md:grid hidden md:grid-cols-[300px_300px] gap-2'>
+                <Card shadow='sm' className='border-gray-200 border-1 px-4 py-2'>
+                  <CardHeader className='my-1'>
+                    <Icon icon='quill:chat' className='text-dark-blue text-3xl'/>
+                    <h1 className='mx-2 text-xl'>Example</h1>
+                  </CardHeader>
+                  <CardBody className='space-y-3 text-sm'>
+                    <p className='border-gray-200 border-1 p-2 rounded-md'>
+                      “Tell me about the history of the Taj Mahal”
+                    </p>
+                    <p className='border-gray-200 border-1 p-2 rounded-md'>
+                      “Calculate the derivate of the function y=3x^2+2x”
+                    </p>
+                    <p className='border-gray-200 border-1 p-2 rounded-md'>
+                      “What news happened in the world today?”
+                    </p>
+                  </CardBody>
+                </Card>
+                <Card shadow='sm' className='border-gray-200 border-1 px-4 py-2'>
+                  <CardHeader>
+                    <Icon icon='ph:warning-light' className='text-dark-blue text-3xl'/>
+                    <h1 className='mx-2 text-xl'>Limitations</h1>
+                  </CardHeader>
+                  <CardBody className='space-y-3 text-sm'>
+                    <p className='border-gray-200 border-1 p-2 rounded-md '>
+                      May sometimes produce inaccurate or erroneous data
+                    </p>
+                    <p className='border-gray-200 border-1 p-2 rounded-md'>
+                      Might create harmful or biased content at times
+                    </p>
+                    <p className='border-gray-200 border-1 p-2 rounded-md'>
+                      Limited awareness of post-2021 world events
+                    </p>
+                  </CardBody>
+                </Card>
+              </div>
             </section >
           )}
           {loading && <Card className={`mb-4 w-fit px-5`}>
@@ -101,6 +141,7 @@ export default function page({params}:any) {
               }
             />
           </form>
+          <p className='my-2 text-center text-gray-400'>ChatBot can make mistakes. Consider checking important information.</p>
         </section>
       </section>
       
