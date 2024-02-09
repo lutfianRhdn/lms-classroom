@@ -7,8 +7,8 @@ interface ModalProps {
     isOpen: boolean;
     onOpenChange: any;
     btnActionTitle: string;
-    submit: any;
-    loading: boolean;
+    submit?: any;
+    loading?: boolean;
     noAction?: boolean;
 }
 export default function Modal({ children, title, isOpen, onOpenChange, btnActionTitle, submit, loading, noAction}:ModalProps) {

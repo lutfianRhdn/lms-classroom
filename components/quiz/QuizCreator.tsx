@@ -37,7 +37,7 @@ interface QuizData {
 }
 
 export const QuizCreator = ({ courseId,quizName,onSubmit,loadingSubmit, type}:QuizProps) => {
-  const [questions, setQuestions] = useState<Question[]>([{ title: '', choices: ['', '', '', ''], isMultipleAnswer:true, isEssay:false }]);
+  const [questions, setQuestions] = useState<any>([{ title: '', choices: ['', '', '', ''], isMultipleAnswer:true, isEssay:false }]);
   const [answers, setAnswers] = useState<Answer[]>([{ title: '', answer: [] }]);
   const [loadingComponent, setLoadingComponent] = useState(true);
 
@@ -156,7 +156,7 @@ export const QuizCreator = ({ courseId,quizName,onSubmit,loadingSubmit, type}:Qu
   };
 
   const handleSubmit = (e:any) => {
-    if (!courseId || !quizName || questions.some(q => !q.title || q.choices?.some(c => !c)) || answers.some(a => !a.answer)) {
+    if (!courseId || !quizName || questions.some((q:any) => !q.title || q.choices?.some((c:any) => !c)) || answers.some(a => !a.answer)) {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -178,7 +178,7 @@ export const QuizCreator = ({ courseId,quizName,onSubmit,loadingSubmit, type}:Qu
   return (
     <section>
       <div className='space-y-4 px-4'>
-        {questions?.map((q, index) => {
+        {questions?.map((q:any, index:any) => {
           if (q.isEssay){
             return (
               <QuestionEssay 
