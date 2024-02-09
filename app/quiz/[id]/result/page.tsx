@@ -71,7 +71,7 @@ export default function page({params: {id}}: {params: {id: string}}) {
           )})}
         </TableBody>
       </Table>
-      <NextLink href={`/`} className='flex justify-center'><Button className='bg-dark-blue text-white px-10' radius='none'>Back To Your Course</Button></NextLink>
+      <NextLink href={`/course/${id}`} className='flex justify-center'><Button className='bg-dark-blue text-white px-10' radius='none'>Back To Your Course</Button></NextLink>
     </section>
   )
 }

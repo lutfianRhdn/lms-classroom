@@ -19,7 +19,7 @@ function Sidebar() {
   const sidebarRef:any = useRef(null);
   useEffect(() => {
     if (session?.user?.role === 'ADMIN') setNavMenuItems(siteConfig.navMenuItemsAdmin)
-    else if (session?.user?.role === 'INSTRUCTOR') setNavMenuItems(siteConfig.navMenuItemsInstructor)
+    else if (session?.user?.role === 'TEACHER') setNavMenuItems(siteConfig.navMenuItemsInstructor)
     else setNavMenuItems(siteConfig.navMenuItems)
   },[session])
   
