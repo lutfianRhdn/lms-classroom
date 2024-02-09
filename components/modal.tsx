@@ -1,8 +1,17 @@
 "use client"
 import React from "react";
 import { Modal as M, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Divider, } from "@nextui-org/react";
-
-export default function Modal({ children, title, isOpen, onOpenChange, btnActionTitle, submit, loading}:any) {
+interface ModalProps {
+    children: any;
+    title: string;
+    isOpen: boolean;
+    onOpenChange: any;
+    btnActionTitle: string;
+    submit: any;
+    loading: boolean;
+    noAction?: boolean;
+}
+export default function Modal({ children, title, isOpen, onOpenChange, btnActionTitle, submit, loading, noAction}:ModalProps) {
   return (
     <>
       <M 
@@ -20,7 +29,7 @@ export default function Modal({ children, title, isOpen, onOpenChange, btnAction
                 <ModalBody className="whitespace-pre-wrap">
                   {children}
                 </ModalBody>
-                <ModalFooter className="mx-auto flex justify-center">
+                <ModalFooter className={`${noAction ? "hidden":"flex"} mx-auto justify-center`}>
                   <Button 
                     variant="ghost" 
                     className="border-dark-blue text-dark-blue" 

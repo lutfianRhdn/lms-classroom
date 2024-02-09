@@ -21,8 +21,10 @@ export default function Page({
   const router = useRouter();
   const [changeQuizName, setChangeQuizName] = useState(false);
   const [quizName, setQuizName] = useState(qname);
+  const [loading, setLoading] = useState(false);
   async function handleSubmit(e: any, data: any) {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await fetchApi('/quiz','POST', data)
       if(res) return router.push(`/quiz`)
@@ -34,7 +36,9 @@ export default function Page({
       })
       console.log(error)
     }
+    setLoading(false);
   }
+
   useEffect(()=>{
     if ( course_id === undefined ) return router.push('/quiz');
   },[])
@@ -57,7 +61,7 @@ export default function Page({
         )}
       </header>
       <section>
-        <QuizCreator courseId={course_id} quizName={quizName} onSubmit={handleSubmit} type={type}/>
+        <QuizCreator courseId={course_id} quizName={quizName} onSubmit={handleSubmit} type={type} loadingSubmit={loading}/>
       </section>
     </section>
   )

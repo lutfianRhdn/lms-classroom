@@ -1,12 +1,18 @@
 "use client";
 import React from 'react'
-import QuizItem from './quizItem'
+import QuizItemMultiple from './quizItemMultiple'
+import QuizItemEssay from './quizItemEssay';
 export default function QuizList({question, handleInputChange,...props}:any) {
   return (
     <div {...props}>
       {question.map((item: any, index: number) => {
+        if (item.isEssay){
+          return (
+            <QuizItemEssay key={index} no={index}  question={item} handleInputChange={handleInputChange} />
+          )
+        }
         return (
-          <QuizItem key={index} no={index} title={item.title} choices={item.choices} handleInputChange={handleInputChange}/>
+          <QuizItemMultiple key={index} no={index} question={item} handleInputChange={handleInputChange}/>
         )
       })}
     </div>

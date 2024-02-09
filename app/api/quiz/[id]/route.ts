@@ -20,19 +20,15 @@ export async function POST(req: Request, { params }: any) {
       id: +id
     }
   }) ;
-  // [{"title":"test","choices":["1","2","3","4"],"isMultiple":false}]
-  // [{"title":"test","answer":["4"]}]
-  // [{"title":"test","answer":"1"},{"title":"tess2","answer":"2"},{"title":"test3","answer":"3"},{"title":"test4","answer":"4"},{"title":"test6","answer":"2"}]
   if (!quiz) return getResponse(null, 'quiz not found', 400);
   const answerKeys: Array<any> | any = quiz.answer;
   const question = quiz?.question as [] || []
   const questionLength :number =question.length
   let countTrueAnswer = 0;
   answerKeys.forEach((answerKey: Answer,index:number) => {
-    // if (answerKey.title === answers[index].title) {
-    //   countTrueAnswer = answerKey.answer === answers[index].answer ? 1 : 0
-    // }
-    console.log(answerKey.title,answers[index].title)
+    const answer = answers.find((answer: Answer) => answer.title === answerKey.title)
+    if (answer?.answer.sort().toString() === answerKey.answer.sort().toString()) countTrueAnswer++
+    console.log(answer?.answer.sort().toString())
   });
   const score = countTrueAnswer / questionLength * 100
 
