@@ -31,7 +31,7 @@ export default  function Users() {
       setClasses(res.data);
     });
     fetchApi('/admin/users', 'GET').then(res => {
-      setUsers(res.data.filter((user: any) => user.role == 'INSTRUCTOR'));
+      setUsers(res.data.filter((user: any) => user.role == 'TEACHER'));
     });
 
   }, []);
@@ -40,16 +40,16 @@ export default  function Users() {
     <AdminLayout title="Course Management" subtitle="Create your course">
       <h1 className="text-xl font-bold mb-5 text-center">Create Course   </h1>
       <form onSubmit={handleSubmit} className="w-full max-w-2xl flex flex-col gap-5 md:mx-auto">
-        <Input type="text" label="Name" placeholder="Enter  name" onChange={(e: any) => setName(e.target.value)} />
+        <Input type="text" label="Name" placeholder="Enter Name" onChange={(e: any) => setName(e.target.value)} />
         <div className="flex gap-5 ">
           
-          <Select label="Class" placeholder="Select class" selectionMode="multiple" onChange={(e: any) => setClassId(e.target.value)} >
+          <Select label="Class" placeholder="Select Class" selectionMode="multiple" onChange={(e: any) => setClassId(e.target.value)} >
           {classes.map((classs : any ,index:number) => (
             <SelectItem value={classs?.id } key={classs.id}>{classs?.name}</SelectItem>
             ))}
           </Select>
 
-          <Select label="Instructor" placeholder="Select Instructor" onChange={(e: any) =>setInstructorId(e.target.value)} >
+          <Select label="Teacher" placeholder="Select Teacher" onChange={(e: any) =>setInstructorId(e.target.value)} >
             {users.map((user : any, index) => (
               <SelectItem value={user.id} key={user.id}>{user.username}</SelectItem>
             ))}

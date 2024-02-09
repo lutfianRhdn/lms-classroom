@@ -32,7 +32,7 @@ export async function GET(req: Request, { params }: any) {
     quiz.isAnswered = user_quiz.find((user_quiz: any) => user_quiz.user_id === session.id) ? true : false
     return quiz
   })
-  const courseIntructor = user_course.filter((item: any) => item.users.role === 'INSTRUCTOR')[0]
+  const courseIntructor = user_course.filter((item: any) => item.users.role === 'TEACHER')[0]
   const result = [...resource, ...isQuizAnswered];
 
   const resultSorted = result.sort((a:any,b:any)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map(item => ({
