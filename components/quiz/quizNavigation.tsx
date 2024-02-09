@@ -24,7 +24,6 @@ export default function QuizNavigation({handleSubmit,errorMessage,question,formD
       </CardBody>
       <CardFooter>
         <Button onClick={handleSubmit} className='w-full bg-white' radius='sm'>Finish Attempt</Button>
-        <p className='text-center mb-4'>{errorMessage}</p>
       </CardFooter>
     </Card>
   )
