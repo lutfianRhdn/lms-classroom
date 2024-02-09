@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { siteConfig } from "@/config/site";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -15,7 +16,6 @@ const Login = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false)
-  const [error,setError] = useState('')
 
   const handleSubmit = (e:any) => {
     e.preventDefault();
@@ -25,7 +25,14 @@ const Login = () => {
       password,
       redirect:false
     }).then(({ok,error}:any) => {
-      setError(error)
+      if (error) {
+        Swal.fire({
+          title: 'Oops!',
+          text: error,
+          icon: 'error',
+          confirmButtonText: 'Try Again'
+        })
+      }
       setLoading(false)
     })
     
@@ -85,7 +92,6 @@ const Login = () => {
                   }}
                 />
               </div>
-              <p className="my-2">{error}</p>
               <div className="flex items-center justify-between text-dark-blue">
                   <Button 
                     isLoading={loading} 
