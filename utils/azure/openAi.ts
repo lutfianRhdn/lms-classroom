@@ -10,11 +10,9 @@ export const getChatCompletions = async (indexName: string, message: string) => 
       extensions: [
         {
           type: "AzureCognitiveSearch",
-          parameters: {
-            endpoint: searchEndpoint,
-            key: searchKey,
-            indexName: indexName,
-          },
+          endpoint: searchEndpoint,
+          key: searchKey,
+          indexName: indexName,
         },
       ],
     },
