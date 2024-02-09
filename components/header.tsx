@@ -51,6 +51,8 @@ export const Header = () => {
 							as={Link}
 							href="/auth/login"
 							variant="flat"
+							radius="sm"
+							className="bg-dark-blue text-white font-bold"
 						>
 							Login
 						</Button>

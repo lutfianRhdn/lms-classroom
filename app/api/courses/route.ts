@@ -23,7 +23,7 @@ export async function GET(req: Request, response: Response) {
   })
   const result = coursesUser.map((item: any) => ({
     ...item,
-    instructor:item.user_course.filter((user:any)=>user.users.role === 'INSTRUCTOR')[0].users.name,
+    instructor:item.user_course.filter((user:any)=>user.users.role === 'TEACHER')[0].users.name,
   }))
   return getResponse(result, 'success get all courses', 200);
 }

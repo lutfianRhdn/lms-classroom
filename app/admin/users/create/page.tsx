@@ -11,7 +11,7 @@ export default  function Users() {
   const [role, setRole] = useState();
   const [class_id, setClassId] = useState('');
   const [classes, setClasses] = useState([]);
-  const roles = ['STUDENT', 'INSTRUCTOR', 'ADMIN'];
+  const roles = ['STUDENT', 'TEACHER', 'ADMIN'];
   const router = useRouter();
   const [loading,setLoading] = useState(false)
   async function handleSubmit(e:any) {

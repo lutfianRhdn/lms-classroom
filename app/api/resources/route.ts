@@ -13,8 +13,8 @@ export async function POST(req: Request) {
   const description = data.get('description') as string;
   const file: File | null = data.get('file') as unknown as File;
   const session = await getSessionUser() as User  
-  const user_id = 3
-  if (!user_id || !course_id || !file || !name) return getResponse(null, ' please fill all data!', 400);
+  // const user_id = 3
+  if (!session || !course_id || !file || !name) return getResponse(null, ' please fill all data!', 400);
   if (file.size > 10000000) return getResponse(null, 'file size limit 10mb', 400);
   const date = new Date()
   
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
       description:description,
       path: request.url,
       course_id: +course_id,
-      user_id: +user_id
+      user_id: session?.id as number   
     }
   })
 
