@@ -213,23 +213,15 @@ export const QuizCreator = ({ courseId,quizName,onSubmit,loadingSubmit, type}:Qu
           size='md' 
           variant='bordered' 
           radius='none' 
-          className='border-dark-blue text-dark-blue'
+          className='border-dark-blue text-dark-blue hidden'
         >
-          Save As Draft
-        </Button>
-        <Button 
-          size='md' 
-          variant='bordered' 
-          radius='none' 
-          className='border-dark-blue text-dark-blue'
-        >
-          Preview
+          Cancel
         </Button>
         <Button 
           size='md'  
           variant='bordered' 
           radius='none' 
-          className='border-dark-blue text-dark-blue' 
+          className={`border-dark-blue text-dark-blue ${type === 'Multiple' || type === 'Mixed' ? '' : 'hidden'}`} 
           onClick={handleAddQuestionMultiple}
         >
           Add Question Multiple
@@ -238,7 +230,7 @@ export const QuizCreator = ({ courseId,quizName,onSubmit,loadingSubmit, type}:Qu
           size='md'  
           variant='bordered' 
           radius='none' 
-          className='border-dark-blue text-dark-blue' 
+          className={`border-dark-blue text-dark-blue ${type === 'Essay'|| type === 'Mixed' ? '' : 'hidden'}`} 
           onClick={handleAddQuestionEssay}
         >
           Add Question Essay
