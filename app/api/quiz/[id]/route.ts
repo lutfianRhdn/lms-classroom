@@ -8,13 +8,13 @@ export async function POST(req: Request, { params }: any) {
   const answers : Answer[] = await req.json();
   const { id } = params;
   if (!answers) return getResponse(null, 'answers is required', 400);
-  // const isAlreadyAnswered = await prisma.user_quiz.findFirst({
-  //   where: {
-  //     user_id:session?.id,
-  //     quiz_id: +id
-  //   }
-  // })
-  // if (isAlreadyAnswered) return getResponse(null, "user already answered this quiz", 400)
+  const isAlreadyAnswered = await prisma.user_quiz.findFirst({
+    where: {
+      user_id:session?.id,
+      quiz_id: +id
+    }
+  })
+  if (isAlreadyAnswered) return getResponse(null, "user already answered this quiz", 400)
   const quiz = await prisma.quiz.findUnique({
     where: {
       id: +id
